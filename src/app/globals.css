@@ -2,16 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
-  --blueprint-primary: #0066FF;
-  --blueprint-secondary: #1A1A2E;
-  --blueprint-accent: #FFD700;
-  --blueprint-dark: #0A0F1C;
-  --blueprint-light: #E8F4FD;
-  --blueprint-grid: rgba(0, 102, 255, 0.08);
-  --blueprint-line: rgba(0, 102, 255, 0.25);
+  --blueprint-dark: #080808;
+  --blueprint-charcoal: #0D0D0D;
+  --blueprint-primary: #1A3A5F;
+  --blueprint-accent: #FFBF00;
+  --blueprint-cyan: #00D4FF;
+  --blueprint-grid: rgba(26, 58, 95, 0.15);
+  --blueprint-line: rgba(26, 58, 95, 0.4);
 }
 
 * {
@@ -26,7 +26,7 @@ html {
 
 body {
   background-color: var(--blueprint-dark);
-  color: #FFFFFF;
+  color: #E5E5E5;
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -36,16 +36,21 @@ body {
 /* Blueprint Grid Background */
 .blueprint-grid-bg {
   background-image: 
-    linear-gradient(to right, rgba(0, 102, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 102, 255, 0.08) 1px, transparent 1px);
+    linear-gradient(to right, rgba(26, 58, 95, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 58, 95, 0.15) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
 .blueprint-grid-dense {
   background-image: 
-    linear-gradient(to right, rgba(0, 102, 255, 0.12) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 102, 255, 0.12) 1px, transparent 1px);
+    linear-gradient(to right, rgba(26, 58, 95, 0.25) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(26, 58, 95, 0.25) 1px, transparent 1px);
   background-size: 20px 20px;
+}
+
+/* Radial Glow */
+.radial-glow {
+  background: radial-gradient(circle at center, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
 }
 
 /* Custom Scrollbar */
@@ -59,67 +64,71 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--blueprint-secondary);
+  background: var(--blueprint-primary);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--blueprint-primary);
+  background: var(--blueprint-cyan);
 }
 
 /* Selection Color */
 ::selection {
-  background: var(--blueprint-primary);
+  background: var(--blueprint-cyan);
   color: var(--blueprint-dark);
 }
 
 /* Blueprint Components */
 @layer components {
   .blueprint-card {
-    @apply bg-[#0D1421] border border-[rgba(0,102,255,0.25)] rounded-xl p-6 relative overflow-hidden;
+    @apply bg-[#0D0D0D] border border-[rgba(26,58,95,0.4)] rounded-lg p-6 relative overflow-hidden;
   }
 
   .blueprint-card::before {
     content: '';
-    @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#0066FF] via-[#FFD700] to-[#0066FF];
+    @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#1A3A5F] via-[#00D4FF] to-[#1A3A5F];
   }
 
   .blueprint-card-hover {
-    @apply blueprint-card hover:border-[#0066FF] hover:shadow-lg hover:shadow-[#0066FF]/10 transition-all duration-300;
+    @apply blueprint-card hover:border-[#00D4FF] hover:shadow-lg hover:shadow-[#00D4FF]/10 transition-all duration-300;
   }
 
   .blueprint-border {
-    @apply border border-[rgba(0,102,255,0.25)];
+    @apply border border-[rgba(26,58,95,0.4)];
   }
 
   .blueprint-border-light {
-    @apply border border-[rgba(0,102,255,0.1)];
+    @apply border border-[rgba(26,58,95,0.2)];
   }
 
-  .text-gradient-blueprint {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#0066FF] via-[#E8F4FD] to-[#0066FF];
+  .blueprint-border-accent {
+    @apply border border-[rgba(255,191,0,0.4)];
+  }
+
+  .text-gradient-cyan {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#00D4FF] via-[#E5E5E5] to-[#00D4FF];
   }
 
   .text-gradient-accent {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-[#FFF] to-[#FFD700];
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#FFBF00] via-[#FFF] to-[#FFBF00];
   }
 
-  .btn-blueprint-primary {
+  .btn-primary {
     @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-mono text-sm font-semibold text-white 
-           bg-[#0066FF] hover:bg-[#0052CC] border border-[#0066FF] 
-           transition-all duration-300 shadow-lg shadow-[#0066FF]/20;
+           bg-[#1A3A5F] hover:bg-[#2A4A6F] border border-[#1A3A5F] 
+           transition-all duration-300 shadow-lg shadow-[#1A3A5F]/20;
   }
 
-  .btn-blueprint-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-mono text-sm font-semibold text-[#0066FF]
-           border border-[#0066FF] bg-transparent hover:bg-[#0066FF]/10 
-           transition-all duration-300;
-  }
-
-  .btn-blueprint-accent {
+  .btn-accent {
     @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-mono text-sm font-semibold text-black
-           bg-[#FFD700] hover:bg-[#E6C200] border border-[#FFD700]
-           transition-all duration-300 shadow-lg shadow-[#FFD700]/20;
+           bg-[#FFBF00] hover:bg-[#E6A800] border border-[#FFBF00]
+           transition-all duration-300 shadow-lg shadow-[#FFBF00]/20;
+  }
+
+  .btn-cyber {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-mono text-sm font-semibold text-[#00D4FF]
+           border border-[#00D4FF] bg-transparent hover:bg-[#00D4FF]/10 
+           transition-all duration-300;
   }
 
   .blueprint-heading {
@@ -142,7 +151,7 @@ body {
   .corner-bracket::before,
   .corner-bracket::after {
     content: '';
-    @apply absolute w-3 h-3 border-[#0066FF] border-r-2 border-b-2;
+    @apply absolute w-4 h-4 border-[#00D4FF] border-r-2 border-b-2;
   }
 
   .corner-bracket::before {
@@ -155,7 +164,7 @@ body {
 
   /* Wireframe effect */
   .wireframe {
-    @apply border border-dashed border-[rgba(0,102,255,0.3)] bg-[rgba(0,102,255,0.02)];
+    @apply border border-dashed border-[rgba(26,58,95,0.4)] bg-[rgba(26,58,95,0.02)];
   }
 
   /* Scan line animation */
@@ -165,7 +174,7 @@ body {
 
   .scan-line::after {
     content: '';
-    @apply absolute left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#0066FF] to-transparent;
+    @apply absolute left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#00D4FF] to-transparent;
     animation: scan 3s linear infinite;
   }
 
@@ -183,52 +192,90 @@ body {
 
   .dimension-line::before {
     content: '';
-    @apply absolute left-0 top-1/2 w-full h-px bg-[rgba(0,102,255,0.4)];
-  }
-
-  .dimension-line::after {
-    content: '';
-    @apply absolute left-0 top-1/2 w-2 h-2 border-l-2 border-t-2 border-[#0066FF] -translate-y-1/2;
+    @apply absolute left-0 top-1/2 w-full h-px bg-[rgba(26,58,95,0.4)];
   }
 
   /* Blueprint annotation */
   .annotation {
-    @apply font-mono text-xs text-[#FFD700] bg-[rgba(255,215,0,0.1)] border border-[rgba(255,215,0,0.3)] px-2 py-1 rounded;
+    @apply font-mono text-xs text-[#FFBF00] bg-[rgba(255,191,0,0.1)] border border-[rgba(255,191,0,0.3)] px-2 py-1 rounded;
   }
 
-  /* Node connections */
-  .node {
-    @apply w-3 h-3 rounded-full bg-[#0066FF] border-2 border-[#0A0F1C] shadow-lg shadow-[#0066FF]/50;
+  .annotation-cyan {
+    @apply font-mono text-xs text-[#00D4FF] bg-[rgba(0,212,255,0.1)] border border-[rgba(0,212,255,0.3)] px-2 py-1 rounded;
   }
 
-  .node-line {
-    @apply absolute bg-[rgba(0,102,255,0.3)] w-px h-full;
+  /* Technical specs styling */
+  .tech-spec {
+    @apply font-mono text-xs text-[#64748B] uppercase tracking-wider;
+  }
+
+  /* Collection card */
+  .collection-card {
+    @apply bg-[#0D0D0D] border border-[rgba(26,58,95,0.3)] rounded-lg p-4 relative overflow-hidden
+           hover:border-[#00D4FF] transition-all duration-300 cursor-pointer;
+  }
+
+  .collection-card::before {
+    content: '';
+    @apply absolute top-0 right-0 w-0 h-0 border-l-[20px] border-l-transparent border-t-[20px] border-t-[#1A3A5F];
+  }
+
+  .collection-card.active {
+    @apply border-[#00D4FF] bg-[rgba(0,212,255,0.05)];
+  }
+
+  /* Video overlay styles */
+  .video-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-[#080808]/50;
+  }
+
+  .video-data-overlay {
+    @apply font-mono text-xs text-[#00D4FF] bg-[rgba(0,0,0,0.7)] px-2 py-1 rounded;
+  }
+
+  /* Resonance metric bar */
+  .resonance-bar {
+    @apply h-2 bg-[#1A3A5F] rounded-full overflow-hidden;
+  }
+
+  .resonance-fill {
+    @apply h-full bg-gradient-to-r from-[#1A3A5F] to-[#00D4FF] rounded-full;
+  }
+
+  /* Terminal style */
+  .terminal {
+    @apply bg-[#0D0D0D] border border-[rgba(26,58,95,0.4)] rounded-lg p-4 font-mono text-sm;
+  }
+
+  .terminal-line {
+    @apply text-[#00D4FF] mb-1;
+  }
+
+  .terminal-line::before {
+    content: '> ';
+    @apply text-[#FFBF00];
+  }
+
+  /* Navigation */
+  .nav-item {
+    @apply font-mono text-xs uppercase tracking-wider text-[#64748B] hover:text-[#00D4FF] 
+           transition-colors duration-200 py-2 px-3 border-l-2 border-transparent;
+  }
+
+  .nav-item.active {
+    @apply text-[#00D4FF] border-[#00D4FF] bg-[rgba(0,212,255,0.05)];
   }
 }
 
 /* Glow effects */
-.glow-blueprint {
-  box-shadow: 0 0 20px rgba(0, 102, 255, 0.3),
-              0 0 40px rgba(0, 102, 255, 0.1);
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3),
+              0 0 40px rgba(0, 212, 255, 0.1);
 }
 
 .glow-accent {
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3),
-              0 0 40px rgba(255, 215, 0, 0.1);
-}
-
-/* Technical grid overlay */
-.technical-grid {
-  position: relative;
-}
-
-.technical-grid::before {
-  content: '';
-  @apply absolute inset-0 pointer-events-none;
-  background-image: 
-    linear-gradient(rgba(0, 102, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 102, 255, 0.03) 1px, transparent 1px);
-  background-size: 100px 100px;
+  box-shadow: 0 0 20px rgba(255, 191, 0, 0.3),
+              0 0 40px rgba(255, 191, 0, 0.1);
 }
 
 /* Animated drawing effect */
@@ -244,20 +291,20 @@ body {
   animation: drawLine 2s ease-out forwards;
 }
 
-/* Pulse animation for blueprint elements */
-@keyframes blueprintPulse {
+/* Pulse animation */
+@keyframes cyanPulse {
   0%, 100% {
     opacity: 1;
-    box-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
   }
   50% {
     opacity: 0.7;
-    box-shadow: 0 0 20px rgba(0, 102, 255, 0.5);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
   }
 }
 
-.animate-blueprint-pulse {
-  animation: blueprintPulse 2s ease-in-out infinite;
+.animate-cyan-pulse {
+  animation: cyanPulse 2s ease-in-out infinite;
 }
 
 /* Fade in animation */
@@ -268,4 +315,17 @@ body {
 
 .animate-fade-in {
   animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Glitch effect */
+@keyframes glitch {
+  0%, 90%, 100% { transform: translate(0); }
+  92% { transform: translate(-2px, 2px); }
+  94% { transform: translate(2px, -2px); }
+  96% { transform: translate(-2px, -2px); }
+  98% { transform: translate(2px, 2px); }
+}
+
+.animate-glitch {
+  animation: glitch 1s infinite;
 }

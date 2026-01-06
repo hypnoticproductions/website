@@ -1,18 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter, Space_Mono, JetBrains_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
-import Navigation from '@/components/layout/Navigation';
-import Footer from '@/components/layout/Footer';
+import BlueprintShell from '@/components/layout/BlueprintShell';
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
-});
-
-const spaceMono = Space_Mono({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-  variable: '--font-space-mono',
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -21,13 +14,13 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Richard D. Fortune | Architect of Cognitive Frameworks',
-  description: 'Technical founder and AI architect. Building the cognitive infrastructure for tomorrow. Two production-ready platforms. One mission: decode the complex.',
-  keywords: ['founder', 'ai', 'cognitive architecture', 'blueprint', 'developer', 'saas', 'legal tech', 'travel safety'],
+  title: 'The Cognitive Architect\'s Repository | Richard D. Fortune',
+  description: 'A proprietary 7-Collection Cognitive Intelligence Engine. Mapping the invisible architectures of human potential through pattern recognition, emotional-somatic bridging, and evolutionary frameworks.',
+  keywords: ['cognitive architecture', 'pattern recognition', 'emotional intelligence', 'somatic awareness', 'evolutionary frameworks', 'cognitive intelligence', 'Richard Fortune'],
   authors: [{ name: 'Richard D. Fortune' }],
   openGraph: {
-    title: 'Richard D. Fortune | Architect of Cognitive Frameworks',
-    description: 'Technical founder and AI architect. Building the cognitive infrastructure for tomorrow.',
+    title: 'The Cognitive Architect\'s Repository',
+    description: 'A proprietary 7-Collection Cognitive Intelligence Engine',
     type: 'website',
   },
 };
@@ -40,11 +33,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.variable} ${spaceMono.variable} ${jetbrainsMono.variable} font-sans antialiased bg-[#0A0F1C] text-white min-h-screen flex flex-col`}
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background text-text-primary min-h-screen`}
       >
-        <Navigation />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <BlueprintShell>
+          {children}
+        </BlueprintShell>
       </body>
     </html>
   );
