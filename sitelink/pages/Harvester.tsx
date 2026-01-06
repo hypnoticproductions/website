@@ -109,6 +109,22 @@ const Harvester: React.FC = () => {
           </div>
         </div>
 
+        {/* Product Screenshot */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-32 max-w-6xl mx-auto"
+        >
+          <div className="rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl">
+            <img
+              src="/harvester-ui.png"
+              alt="Harvester - AI Legal Case Preparation Interface"
+              className="w-full h-auto"
+            />
+          </div>
+        </motion.div>
+
         <SectionHeading 
           title="The Solution For Modern Law" 
           subtitle="Engineered for accuracy and speed in high-stakes environments." 

@@ -123,6 +123,22 @@ const SafeTravel: React.FC = () => {
            </div>
         </div>
 
+        {/* Product Screenshot */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-32 max-w-6xl mx-auto"
+        >
+          <div className="rounded-[2rem] overflow-hidden border border-slate-200 shadow-xl">
+            <img
+              src="/safetravel-ui.png"
+              alt="SafeTravel - Travel Risk Intelligence Interface"
+              className="w-full h-auto"
+            />
+          </div>
+        </motion.div>
+
         {/* Testimonials on Light Background */}
         <div className="bg-[#EDF8F9] -mx-6 px-6 py-32 rounded-[4rem] mb-32">
           <div className="max-w-6xl mx-auto">

@@ -200,7 +200,7 @@ const Home: React.FC = () => {
             >
               <div className="aspect-[4/5] rounded-[4rem] overflow-hidden bg-brand-card border border-white/10 group">
                 <img 
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2000" 
+                  src="/founder.png" 
                   alt="Richard D. Fortune" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
                 />

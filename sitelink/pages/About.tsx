@@ -71,7 +71,7 @@ const About: React.FC = () => {
               className="w-full max-w-2xl aspect-[4/5] md:aspect-square rounded-[4rem] overflow-hidden border border-white/10 shadow-2xl relative"
             >
               <img 
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2000" 
+                src="/founder.png"
                 alt="Richard D. Fortune - Founder" 
                 className="w-full h-full object-cover filter brightness-90 contrast-110"
               />
