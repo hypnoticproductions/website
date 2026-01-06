@@ -1,12 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, ChevronDown, Cpu, Network, Brain, Code, Database, Cloud, Terminal, Mail, Linkedin, Twitter, MapPin } from 'lucide-react';
+import { ArrowRight, ChevronDown, Cloud, Terminal, Mail, Linkedin, Twitter, MapPin } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Button from '@/components/ui/Button';
 import CognitiveBurstCanvas from '@/components/ui/CognitiveBurstCanvas';
+import EnhancedCognitiveCanvas from '@/components/ui/EnhancedCognitiveCanvas';
 import { siteConfig, philosophy, projects, architecture, techStack, credentials, contact, stats } from '@/lib/data';
 
 export default function HomePage() {
@@ -206,66 +207,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Blueprint Canvas Section */}
+      {/* Interactive Blueprint Canvas Section */}
       <section className="py-20 lg:py-32 bg-[#0D1421] relative overflow-hidden">
         <div className="absolute inset-0 blueprint-grid-dense opacity-30" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <SectionHeading annotation="SYSTEM_OVERVIEW" centered subtitle="A visual representation of my cognitive framework and how I approach complex problem-solving.">
+          <SectionHeading annotation="SYSTEM_OVERVIEW" centered subtitle="Interactive neural network simulation. Drag nodes, create shockwaves, and explore the cognitive architecture.">
             Interactive Blueprint Canvas
           </SectionHeading>
 
-          {/* Interactive Canvas Visualization */}
+          {/* Enhanced Interactive Canvas */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative mt-16 wireframe rounded-2xl p-8 lg:p-12"
+            transition={{ duration: 0.8 }}
+            className="relative mt-16 wireframe rounded-2xl overflow-hidden"
+            style={{ height: '600px' }}
           >
-            {/* Central Node */}
-            <div className="flex justify-center mb-12">
-              <div className="relative">
-                <div className="w-24 h-24 rounded-full bg-[#0066FF] border-4 border-[#0A0F1C] flex items-center justify-center glow-blueprint">
-                  <Brain size={40} className="text-white" />
-                </div>
-                <motion.div
-                  className="absolute inset-0 rounded-full border-2 border-[#0066FF]"
-                  animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0, 0.5] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-              </div>
-            </div>
-
-            {/* Connected Nodes */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {[
-                { icon: Cpu, label: 'Cognition', color: '#0066FF' },
-                { icon: Network, label: 'Logic', color: '#00D4FF' },
-                { icon: Code, label: 'Implementation', color: '#8B5CF6' },
-                { icon: Database, label: 'Optimization', color: '#FFD700' },
-              ].map((node, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="text-center"
-                >
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-[#0A0F1C] border border-[rgba(0,102,255,0.3)] flex items-center justify-center">
-                    <node.icon size={28} style={{ color: node.color }} />
-                  </div>
-                  <span className="font-mono text-sm text-white">{node.label}</span>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Connection Lines Decoration */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity: 0.1 }}>
-              <line x1="50%" y1="50%" x2="25%" y2="25%" stroke="#0066FF" strokeWidth="2" />
-              <line x1="50%" y1="50%" x2="75%" y2="25%" stroke="#0066FF" strokeWidth="2" />
-              <line x1="50%" y1="50%" x2="25%" y2="75%" stroke="#0066FF" strokeWidth="2" />
-              <line x1="50%" y1="50%" x2="75%" y2="75%" stroke="#0066FF" strokeWidth="2" />
-            </svg>
+            <EnhancedCognitiveCanvas />
           </motion.div>
         </div>
       </section>
@@ -421,9 +380,9 @@ export default function HomePage() {
                 className="blueprint-card"
               >
                 <div className="flex items-center gap-3 mb-6">
-                  {category.name === 'Frontend' && <Code className="text-[#0066FF]" size={24} />}
+                  {category.name === 'Frontend' && <Terminal className="text-[#0066FF]" size={24} />}
                   {category.name === 'Backend' && <Terminal className="text-[#00D4FF]" size={24} />}
-                  {category.name === 'AI & ML' && <Brain className="text-[#8B5CF6]" size={24} />}
+                  {category.name === 'AI & ML' && <Terminal className="text-[#8B5CF6]" size={24} />}
                   {category.name === 'DevOps' && <Cloud className="text-[#FFD700]" size={24} />}
                   <h3 className="text-lg font-mono font-bold text-white">{category.name}</h3>
                 </div>
