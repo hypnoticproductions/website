@@ -2,9 +2,8 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Play, MessageSquare, TrendingUp, Target, Eye, DollarSign, Heart, Award, ExternalLink } from 'lucide-react';
+import { Play, MessageSquare, TrendingUp, Target, Eye, DollarSign, Heart, Award, ExternalLink, ArrowRight, Globe, Zap, Hash } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { bigWardCase } from '@/lib/data';
 
 export default function BigWardPage() {
@@ -115,6 +114,87 @@ export default function BigWardPage() {
         </div>
       </section>
 
+      {/* Strategic Framework Section */}
+      <section className="py-16 bg-[#0A0A0A]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="annotation font-mono text-xs mb-4 inline-block">
+              // STRATEGIC FRAMEWORK
+            </span>
+            <h2 className="blueprint-heading">RESONANCE-TO-REVENUE MODEL</h2>
+            <p className="text-[#64748B] mt-4 max-w-2xl mx-auto">
+              {bigWardCase.strategicFramework.description}
+            </p>
+          </motion.div>
+
+          {/* Framework Phases */}
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            {bigWardCase.strategicFramework.phases.map((phase, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="blueprint-card"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="font-mono text-sm font-bold text-[#00D4FF]">
+                    PHASE {phase.phase}
+                  </span>
+                </div>
+                <h3 className="font-mono font-bold text-white mb-2">{phase.name}</h3>
+                <p className="text-sm text-[#94A3B8] mb-4">{phase.description}</p>
+                <div className="bg-[#080808] rounded-lg p-3 border border-[rgba(26,58,95,0.3)]">
+                  <span className="text-xs font-mono text-[#FFBF00]">→ {phase.outcome}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Framework Metrics */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="blueprint-card"
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <span className="font-mono text-xs text-[#8B5CF6] bg-[rgba(139,92,246,0.1)] px-3 py-1 rounded border border-[rgba(139,92,246,0.3)]">
+                // FRAMEWORK EFFICIENCY METRICS
+              </span>
+              <h3 className="font-mono font-bold text-white">Core Conversion Indicators</h3>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+              {bigWardCase.frameworkMetrics.map((metric, idx) => (
+                <div 
+                  key={idx}
+                  className="bg-[#080808] rounded-lg p-4 border border-[rgba(26,58,95,0.3)] hover:border-[#00D4FF]/50 transition-colors"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs font-mono text-[#64748B] uppercase">{metric.category}</span>
+                    <div className="w-8 h-8 rounded-full bg-[#00D4FF]/20 flex items-center justify-center">
+                      {metric.icon === 'conversion' && <Zap size={14} className="text-[#00D4FF]" />}
+                      {metric.icon === 'velocity' && <TrendingUp size={14} className="text-[#00D4FF]" />}
+                      {metric.icon === 'symbol' && <Hash size={14} className="text-[#00D4FF]" />}
+                      {metric.icon === 'activation' && <Target size={14} className="text-[#00D4FF]" />}
+                    </div>
+                  </div>
+                  <span className="text-2xl font-mono font-bold text-[#00D4FF]">{metric.score}%</span>
+                  <p className="text-xs text-[#64748B] mt-2">{metric.description}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* BDA - Battle Damage Assessment */}
       <section className="py-16 bg-[#0D0D0D]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -217,8 +297,70 @@ export default function BigWardPage() {
         </div>
       </section>
 
-      {/* Comment Section Mapping */}
+      {/* Corridor Diffusion Section */}
       <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="annotation-cyan font-mono text-xs mb-4 inline-block">
+              // CORRIDOR DIFFUSION MODEL
+            </span>
+            <h2 className="blueprint-heading">EXPANSION CORRIDORS</h2>
+            <p className="text-[#64748B] mt-4">
+              Predictable concept adoption patterns across demographic and geographic segments
+            </p>
+          </motion.div>
+
+          {/* Corridor Cards */}
+          <div className="grid md:grid-cols-3 gap-6">
+            {bigWardCase.expansionCorridors.map((corridor, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="blueprint-card"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <Globe size={20} className="text-[#00D4FF]" />
+                  <span className="font-mono font-bold text-white">{corridor.corridor}</span>
+                </div>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {corridor.cities.map((city, idx) => (
+                    <span 
+                      key={idx}
+                      className="text-xs px-2 py-1 rounded bg-[rgba(0,212,255,0.1)] text-[#00D4FF] border border-[rgba(0,212,255,0.3)]"
+                    >
+                      {city}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-sm text-[#94A3B8] mb-3">{corridor.role}</p>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono text-[#64748B]">VELOCITY:</span>
+                  <span className={`text-xs font-mono px-2 py-0.5 rounded ${
+                    corridor.velocity === 'High' 
+                      ? 'bg-[#10B981]/20 text-[#10B981]' 
+                      : corridor.velocity === 'Medium'
+                      ? 'bg-[#FFBF00]/20 text-[#FFBF00]'
+                      : 'bg-[#64748B]/20 text-[#64748B]'
+                  }`}>
+                    {corridor.velocity}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Comment Section Mapping */}
+      <section className="py-16 bg-[#0D0D0D]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
