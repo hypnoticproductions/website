@@ -34,6 +34,12 @@ const navItems: NavItem[] = [
     description: 'Entry point & architecture',
   },
   {
+    label: 'THE BRIDGE',
+    href: '/bridge',
+    icon: <Activity className="w-5 h-5" />,
+    description: 'Engine Two v2.0',
+  },
+  {
     label: "BUILDER'S FEED",
     href: '/feed',
     icon: <Activity className="w-5 h-5" />,
@@ -307,7 +313,7 @@ const BlueprintShell: React.FC<BlueprintShellProps> = ({ children }) => {
                      safe-area-pb"
         >
           <div className="flex items-center justify-around">
-            {navItems.slice(0, 5).map((item) => (
+            {navItems.map((item) => (
               <NavLink
                 key={item.href}
                 item={item}
