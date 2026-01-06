@@ -1,0 +1,8 @@
+{
+  "name": "Richard D. Fortune - Technical Founder Portfolio",
+  "description": "Premium personal portfolio for Richard D. Fortune, technical founder of Harvester and SafeTravel. Built with React, Tailwind CSS, and Framer Motion.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
