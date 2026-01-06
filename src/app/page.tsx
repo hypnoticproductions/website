@@ -101,7 +101,7 @@ export default function HomePage() {
             {/* Annotation */}
             <motion.div variants={itemVariants} className="text-center mb-6">
               <span className="annotation font-mono text-xs">
-                // OPERATOR: RICHARD D. FORTUNE // STATUS: ONLINE
+                // Richard . d fortune- Operator- Vo'rthalis
               </span>
             </motion.div>
 
