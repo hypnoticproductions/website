@@ -1,20 +1,18 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Play, MessageSquare, TrendingUp, Target, Eye, DollarSign, Heart, Award } from 'lucide-react';
+import { Play, MessageSquare, TrendingUp, Target, Eye, DollarSign, Heart, Award, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { bigWardCase } from '@/lib/data';
 
 export default function BigWardPage() {
-  const getMetricIcon = (icon: string) => {
-    const icons: Record<string, React.ReactNode> = {
-      eye: <Eye size={20} />,
-      dollar: <DollarSign size={20} />,
-      growth: <TrendingUp size={20} />,
-    };
-    return icons[icon] || <Target size={20} />;
-  };
+  const [showAllComments, setShowAllComments] = useState(false);
+
+  const displayedComments = showAllComments 
+    ? bigWardCase.comments 
+    : bigWardCase.comments.slice(0, 8);
 
   return (
     <div className="min-h-screen bg-[#080808]">
@@ -54,7 +52,7 @@ export default function BigWardPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="max-w-4xl mx-auto"
+            className="max-w-4xl mx-auto mb-8"
           >
             <div className="blueprint-card text-center">
               <div className="mb-4">
@@ -69,6 +67,48 @@ export default function BigWardPage() {
                 <div className="w-8 h-px bg-[#00D4FF]" />
                 <span className="font-mono text-sm text-[#64748B]">{bigWardCase.testimonial.author}</span>
                 <span className="font-mono text-xs text-[#64748B]">// {bigWardCase.testimonial.context}</span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Big Ward Video Endorsement */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="blueprint-card">
+              <div className="flex items-center gap-4 mb-6">
+                <span className="font-mono text-xs text-[#00D4FF] bg-[rgba(0,212,255,0.1)] px-3 py-1 rounded border border-[rgba(0,212,255,0.3)]">
+                  // ENDORSEMENT VERIFICATION
+                </span>
+                <h3 className="font-mono font-bold text-white">Big Ward Speaks on Richard Fortune</h3>
+              </div>
+              
+              <div className="grid lg:grid-cols-2 gap-6">
+                <div className="relative aspect-video rounded-lg overflow-hidden bg-[#0D0D0D]">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${bigWardCase.bigWardVideo.youtubeId}?autoplay=0&rel=0`}
+                    title={bigWardCase.bigWardVideo.title}
+                    className="w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+                <div className="flex flex-col justify-center">
+                  <h4 className="font-mono font-bold text-white mb-3">{bigWardCase.bigWardVideo.title}</h4>
+                  <p className="text-[#94A3B8] mb-4">{bigWardCase.bigWardVideo.description}</p>
+                  <a 
+                    href={`https://youtube.com/shorts/${bigWardCase.bigWardVideo.youtubeId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-[#00D4FF] hover:text-[#00D4FF]/80 transition-colors"
+                  >
+                    <ExternalLink size={14} />
+                    <span className="font-mono text-sm">WATCH ON YOUTUBE</span>
+                  </a>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -90,7 +130,7 @@ export default function BigWardPage() {
             <h2 className="blueprint-heading">PERFORMANCE METRICS</h2>
           </motion.div>
 
-          {/* Metrics Grid */}
+          {/* Top Metrics */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
             {bigWardCase.metrics.map((metric, index) => (
               <motion.div
@@ -108,7 +148,7 @@ export default function BigWardPage() {
                   }}
                 >
                   <span 
-                    className="font-mono font-bold"
+                    className="font-mono font-bold text-lg"
                     style={{ color: index === 3 ? '#FFBF00' : '#00D4FF' }}
                   >
                     {metric.value}
@@ -119,7 +159,7 @@ export default function BigWardPage() {
             ))}
           </div>
 
-          {/* YouTube Page Evidence */}
+          {/* All 8 Videos Grid */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -128,62 +168,49 @@ export default function BigWardPage() {
           >
             <div className="flex items-center gap-4 mb-6">
               <span className="font-mono text-xs text-[#FFBF00] bg-[rgba(255,191,0,0.1)] px-3 py-1 rounded border border-[rgba(255,191,0,0.3)]">
-                // SOURCE VERIFICATION
+                // VIDEO PERFORMANCE BREAKDOWN
               </span>
-              <h3 className="font-mono font-bold text-white">YouTube Analytics Export</h3>
+              <h3 className="font-mono font-bold text-white">All 8 Videos Analysis</h3>
             </div>
-            
-            <div className="grid lg:grid-cols-2 gap-8">
-              {/* Channel Stats */}
-              <div className="space-y-4">
-                <div className="bg-[#080808] rounded-lg p-4 border border-[rgba(26,58,95,0.4)]">
-                  <Image
-                    src="/bigwardyoutubepage.png"
-                    alt="Big Ward YouTube Channel"
-                    width={600}
-                    height={200}
-                    className="w-full rounded"
-                  />
-                </div>
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="bg-[#080808] rounded p-3 text-center border border-[rgba(26,58,95,0.3)]">
-                    <div className="text-lg font-mono font-bold text-[#00D4FF]">11K+</div>
-                    <div className="text-xs font-mono text-[#64748B]">Video 1 Views</div>
-                  </div>
-                  <div className="bg-[#080808] rounded p-3 text-center border border-[rgba(26,58,95,0.3)]">
-                    <div className="text-lg font-mono font-bold text-[#00D4FF]">7.8K</div>
-                    <div className="text-xs font-mono text-[#64748B]">Video 2 Views</div>
-                  </div>
-                  <div className="bg-[#080808] rounded p-3 text-center border border-[rgba(26,58,95,0.3)]">
-                    <div className="text-lg font-mono font-bold text-[#00D4FF]">4.5K</div>
-                    <div className="text-xs font-mono text-[#64748B]">Video 3 Views</div>
-                  </div>
-                </div>
-              </div>
 
-              {/* Resonance Metrics */}
-              <div>
-                <h4 className="font-mono text-sm text-[#64748B] mb-4">// RESONANCE METRICS</h4>
-                <div className="space-y-4">
-                  {bigWardCase.resonanceMetrics.map((metric, idx) => (
-                    <div key={idx}>
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-sm font-mono text-[#94A3B8]">{metric.category}</span>
-                        <span className="text-sm font-mono text-[#00D4FF]">{metric.score}%</span>
-                      </div>
-                      <div className="resonance-bar">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${metric.score}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1, delay: idx * 0.1 }}
-                          className="resonance-fill"
-                        />
-                      </div>
-                      <p className="text-xs text-[#64748B] mt-1">{metric.description}</p>
-                    </div>
-                  ))}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+              {bigWardCase.videos.map((video, index) => (
+                <div 
+                  key={index}
+                  className="bg-[#080808] rounded-lg p-4 border border-[rgba(26,58,95,0.3)] hover:border-[#00D4FF]/50 transition-colors"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-mono text-[#64748B]">#{index + 1}</span>
+                    <span className="text-xs font-mono text-[#00D4FF]">{video.views}</span>
+                  </div>
+                  <h4 className="text-sm font-mono text-white mb-1 line-clamp-2">{video.title}</h4>
+                  <span className="text-xs text-[#64748B]">{video.duration}</span>
                 </div>
+              ))}
+            </div>
+
+            {/* Resonance Metrics */}
+            <div>
+              <h4 className="font-mono text-sm text-[#64748B] mb-4">// RESONANCE METRICS</h4>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {bigWardCase.resonanceMetrics.map((metric, idx) => (
+                  <div key={idx}>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-sm font-mono text-[#94A3B8]">{metric.category}</span>
+                      <span className="text-sm font-mono text-[#00D4FF]">{metric.score}%</span>
+                    </div>
+                    <div className="resonance-bar">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${metric.score}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, delay: idx * 0.1 }}
+                        className="resonance-fill"
+                      />
+                    </div>
+                    <p className="text-xs text-[#64748B] mt-1">{metric.description}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </motion.div>
@@ -204,75 +231,50 @@ export default function BigWardPage() {
             </span>
             <h2 className="blueprint-heading">COMMENT RESONANCE</h2>
             <p className="text-[#64748B] mt-4">
-              Proof that the framework predicted audience response
+              Proof that the framework predicted audience response across {bigWardCase.comments.length} verified comments
             </p>
           </motion.div>
 
           {/* Comments Grid */}
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="blueprint-card"
-            >
-              <div className="flex items-center gap-4 mb-4">
-                <Image
-                  src="/firstbigwardsong.png"
-                  alt="First Big Ward Song"
-                  width={120}
-                  height={120}
-                  className="rounded"
-                />
-                <div>
-                  <h4 className="font-mono font-bold text-white">Video 1</h4>
-                  <span className="text-xs text-[#64748B]">11,000+ views</span>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="bg-[#080808] rounded p-3 border border-[rgba(26,58,95,0.3)]">
-                  <div className="flex items-center gap-2 mb-2">
+          <div className="grid md:grid-cols-2 gap-4 mb-8">
+            {displayedComments.map((comment, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                className="blueprint-card"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#00D4FF]/20 flex items-center justify-center">
                     <MessageSquare size={14} className="text-[#00D4FF]" />
-                    <span className="text-xs font-mono text-[#FFBF00]">USER_01</span>
-                    <span className="text-xs text-[#64748B]">// Somatic Response</span>
                   </div>
-                  <p className="text-sm text-[#94A3B8]">"I need this every morning for my diesel engine"</p>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="blueprint-card"
-            >
-              <div className="flex items-center gap-4 mb-4">
-                <Image
-                  src="/secondbigwardsong.png"
-                  alt="Second Big Ward Song"
-                  width={120}
-                  height={120}
-                  className="rounded"
-                />
-                <div>
-                  <h4 className="font-mono font-bold text-white">Video 2</h4>
-                  <span className="text-xs text-[#64748B]">7,800 views</span>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="bg-[#080808] rounded p-3 border border-[rgba(26,58,95,0.3)]">
-                  <div className="flex items-center gap-2 mb-2">
-                    <MessageSquare size={14} className="text-[#00D4FF]" />
-                    <span className="text-xs font-mono text-[#FFBF00]">USER_02</span>
-                    <span className="text-xs text-[#64748B]">// Emotional Validation</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-xs font-mono text-[#FFBF00]">{comment.user}</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-[rgba(26,58,95,0.3)] text-[#64748B]">
+                        {comment.sentiment}
+                      </span>
+                    </div>
+                    <p className="text-sm text-[#94A3B8]">"{comment.comment}"</p>
                   </div>
-                  <p className="text-sm text-[#94A3B8]">"This hits different man"</p>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            ))}
           </div>
+
+          {/* Show More Button */}
+          {bigWardCase.comments.length > 8 && (
+            <div className="text-center mb-12">
+              <button
+                onClick={() => setShowAllComments(!showAllComments)}
+                className="px-6 py-3 rounded-lg border border-[rgba(26,58,95,0.4)] text-[#00D4FF] hover:bg-[#00D4FF]/10 transition-colors font-mono text-sm"
+              >
+                {showAllComments ? 'SHOW LESS' : `SHOW ALL ${bigWardCase.comments.length} COMMENTS`}
+              </button>
+            </div>
+          )}
 
           {/* Framework Explanation */}
           <motion.div
@@ -292,8 +294,8 @@ export default function BigWardPage() {
               <div>
                 <h4 className="font-mono text-sm text-[#FFBF00] mb-3">COLLECTION 02: EMOTIONAL-SOMATIC</h4>
                 <p className="text-[#94A3B8] text-sm mb-4">
-                  Decoded the audience's gut-level response patterns. Identified that the target demographic 
-                  responds to "diesel energy" Somatic Markers—rough, authentic, unpolished power.
+                  Decoded the audience&apos;s gut-level response patterns. Identified that the target demographic 
+                  responds to &quot;diesel energy&quot; Somatic Markers—rough, authentic, unpolished power.
                 </p>
                 <div className="bg-[#080808] rounded-lg p-4 border border-[rgba(26,58,95,0.4)]">
                   <div className="flex items-center gap-2 mb-2">
@@ -301,7 +303,7 @@ export default function BigWardPage() {
                     <span className="text-xs font-mono text-[#64748B]">PREDICTION</span>
                   </div>
                   <p className="text-sm text-white">
-                    Comments would reference "engine," "vibes," "energy"—somatic, physical language.
+                    Comments would reference &quot;engine,&quot; &quot;vibes,&quot; &quot;energy&quot; — somatic, physical language.
                   </p>
                 </div>
               </div>
@@ -318,7 +320,7 @@ export default function BigWardPage() {
                     <span className="text-xs font-mono text-[#64748B]">RESULT</span>
                   </div>
                   <p className="text-sm text-white">
-                    100% organic growth. $50 production budget. Zero paid promotion.
+                    72.7K total views. $50 production budget. 100% organic growth.
                   </p>
                 </div>
               </div>
@@ -332,7 +334,7 @@ export default function BigWardPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/feed" className="nav-item">
-              ← BUILDER'S FEED
+              ← BUILDER&apos;S FEED
             </Link>
             <Link href="/palenque" className="nav-item">
               PALENQUE CASE →
