@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 
 interface ButtonProps extends Omit<HTMLMotionProps<"button">, 'children' | 'disabled'> {
-  variant?: 'primary' | 'secondary' | 'accent' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'accent' | 'ghost' | 'blueprint';
   size?: 'sm' | 'md' | 'lg';
   loading?: boolean;
   children: ReactNode;
@@ -27,19 +27,20 @@ export default function Button({
   disabled,
   ...props
 }: ButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseStyles = 'inline-flex items-center justify-center font-mono font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed';
 
   const variants = {
-    primary: 'bg-gradient-to-r from-[#00D4FF] to-[#0066FF] text-white hover:from-[#00E5FF] hover:to-[#0077FF] shadow-lg shadow-[#00D4FF]/25 hover:shadow-[#00D4FF]/40',
-    secondary: 'border border-[#00D4FF]/50 text-white hover:border-[#00D4FF] hover:bg-[#00D4FF]/10',
-    accent: 'bg-gradient-to-r from-[#FFB800] to-[#FF9500] text-black hover:from-[#FFCC00] hover:to-[#FFA500] shadow-lg shadow-[#FFB800]/25 hover:shadow-[#FFB800]/40',
-    ghost: 'text-[#94A3B8] hover:text-white hover:bg-white/5',
+    primary: 'bg-[#0066FF] text-white hover:bg-[#0052CC] border border-[#0066FF] shadow-lg shadow-[#0066FF]/20',
+    secondary: 'border border-[rgba(0,102,255,0.4)] text-[#0066FF] hover:bg-[#0066FF]/10',
+    accent: 'bg-[#FFD700] text-black hover:bg-[#E6C200] border border-[#FFD700] shadow-lg shadow-[#FFD700]/20',
+    ghost: 'text-[#64748B] hover:text-white hover:bg-[rgba(0,102,255,0.1)]',
+    blueprint: 'bg-[#0D1421] text-[#0066FF] border border-[rgba(0,102,255,0.3)] hover:border-[#0066FF] hover:bg-[rgba(0,102,255,0.05)]',
   };
 
   const sizes = {
-    sm: 'px-4 py-2 text-sm gap-1.5',
-    md: 'px-6 py-3 text-base gap-2',
-    lg: 'px-8 py-4 text-lg gap-2.5',
+    sm: 'px-4 py-2 text-xs gap-1.5',
+    md: 'px-6 py-3 text-sm gap-2',
+    lg: 'px-8 py-4 text-base gap-2.5',
   };
 
   const Icon = icon ? (
@@ -48,7 +49,7 @@ export default function Button({
 
   const Content = (
     <>
-      {loading && <Loader2 className="animate-spin" size={size === 'sm' ? 16 : 20} />}
+      {loading && <Loader2 className="animate-spin" size={size === 'sm' ? 14 : 18} />}
       {!loading && iconPosition === 'left' && Icon}
       <span className={cn(iconPosition === 'right' && 'order-1')}>{children}</span>
       {!loading && iconPosition === 'right' && Icon}

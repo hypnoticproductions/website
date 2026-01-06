@@ -61,7 +61,7 @@ export default function ParticleCanvas({ className }: ParticleCanvasProps) {
       particles.forEach((particle) => {
         ctx!.beginPath();
         ctx!.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(0, 212, 255, ${particle.alpha})`;
+        ctx!.fillStyle = `rgba(0, 102, 255, ${particle.alpha})`;
         ctx!.fill();
       });
 
@@ -77,7 +77,7 @@ export default function ParticleCanvas({ className }: ParticleCanvasProps) {
             ctx!.beginPath();
             ctx!.moveTo(particle.x, particle.y);
             ctx!.lineTo(otherParticle.x, otherParticle.y);
-            ctx!.strokeStyle = `rgba(0, 212, 255, ${alpha})`;
+            ctx!.strokeStyle = `rgba(0, 102, 255, ${alpha})`;
             ctx!.lineWidth = 0.5;
             ctx!.stroke();
           }

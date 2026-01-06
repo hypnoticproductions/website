@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
+import { Inter, Space_Mono, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import Navigation from '@/components/layout/Navigation';
 import Footer from '@/components/layout/Footer';
@@ -9,24 +9,25 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
-const spaceGrotesk = Space_Grotesk({
+const spaceMono = Space_Mono({
+  weight: ['400', '700'],
   subsets: ['latin'],
-  variable: '--font-space',
+  variable: '--font-space-mono',
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  variable: '--font-mono',
+  variable: '--font-jetbrains-mono',
 });
 
 export const metadata: Metadata = {
-  title: 'Richard D. Fortune | Technical Founder & AI Architect',
-  description: 'Technical founder who has shipped two production-ready SaaS platforms. Building things that work from St. Lucia.',
-  keywords: ['founder', 'saas', 'ai', 'legal tech', 'travel safety', 'developer'],
+  title: 'Richard D. Fortune | Architect of Cognitive Frameworks',
+  description: 'Technical founder and AI architect. Building the cognitive infrastructure for tomorrow. Two production-ready platforms. One mission: decode the complex.',
+  keywords: ['founder', 'ai', 'cognitive architecture', 'blueprint', 'developer', 'saas', 'legal tech', 'travel safety'],
   authors: [{ name: 'Richard D. Fortune' }],
   openGraph: {
-    title: 'Richard D. Fortune | Technical Founder & AI Architect',
-    description: 'Technical founder who has shipped two production-ready SaaS platforms.',
+    title: 'Richard D. Fortune | Architect of Cognitive Frameworks',
+    description: 'Technical founder and AI architect. Building the cognitive infrastructure for tomorrow.',
     type: 'website',
   },
 };
@@ -39,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans antialiased bg-[#0A1628] text-white min-h-screen flex flex-col`}
+        className={`${inter.variable} ${spaceMono.variable} ${jetbrainsMono.variable} font-sans antialiased bg-[#0A0F1C] text-white min-h-screen flex flex-col`}
       >
         <Navigation />
         <main className="flex-1">{children}</main>

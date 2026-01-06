@@ -2,16 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  --background: #0A1628;
-  --foreground: #ffffff;
-  --primary: #00D4FF;
-  --accent: #FFB800;
-  --secondary: #8B5CF6;
-  --muted: #1A1A2E;
-  --card-bg: rgba(13, 13, 13, 0.7);
+  --blueprint-primary: #0066FF;
+  --blueprint-secondary: #1A1A2E;
+  --blueprint-accent: #FFD700;
+  --blueprint-dark: #0A0F1C;
+  --blueprint-light: #E8F4FD;
+  --blueprint-grid: rgba(0, 102, 255, 0.08);
+  --blueprint-line: rgba(0, 102, 255, 0.25);
 }
 
 * {
@@ -25,12 +25,27 @@ html {
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: var(--blueprint-dark);
+  color: #FFFFFF;
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+/* Blueprint Grid Background */
+.blueprint-grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(0, 102, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 102, 255, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.blueprint-grid-dense {
+  background-image: 
+    linear-gradient(to right, rgba(0, 102, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 102, 255, 0.12) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 /* Custom Scrollbar */
@@ -40,135 +55,217 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: var(--blueprint-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--muted);
+  background: var(--blueprint-secondary);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
+  background: var(--blueprint-primary);
 }
 
 /* Selection Color */
 ::selection {
-  background: var(--primary);
-  color: var(--background);
+  background: var(--blueprint-primary);
+  color: var(--blueprint-dark);
 }
 
-/* Glassmorphism Base */
+/* Blueprint Components */
 @layer components {
-  .glass {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  .blueprint-card {
+    @apply bg-[#0D1421] border border-[rgba(0,102,255,0.25)] rounded-xl p-6 relative overflow-hidden;
   }
 
-  .glass-hover {
-    @apply glass hover:bg-white/10 hover:border-white/20 transition-all duration-300;
+  .blueprint-card::before {
+    content: '';
+    @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#0066FF] via-[#FFD700] to-[#0066FF];
   }
 
-  .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#00D4FF] via-[#8B5CF6] to-[#FFB800];
+  .blueprint-card-hover {
+    @apply blueprint-card hover:border-[#0066FF] hover:shadow-lg hover:shadow-[#0066FF]/10 transition-all duration-300;
   }
 
-  .gradient-border {
+  .blueprint-border {
+    @apply border border-[rgba(0,102,255,0.25)];
+  }
+
+  .blueprint-border-light {
+    @apply border border-[rgba(0,102,255,0.1)];
+  }
+
+  .text-gradient-blueprint {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#0066FF] via-[#E8F4FD] to-[#0066FF];
+  }
+
+  .text-gradient-accent {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] via-[#FFF] to-[#FFD700];
+  }
+
+  .btn-blueprint-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-mono text-sm font-semibold text-white 
+           bg-[#0066FF] hover:bg-[#0052CC] border border-[#0066FF] 
+           transition-all duration-300 shadow-lg shadow-[#0066FF]/20;
+  }
+
+  .btn-blueprint-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-mono text-sm font-semibold text-[#0066FF]
+           border border-[#0066FF] bg-transparent hover:bg-[#0066FF]/10 
+           transition-all duration-300;
+  }
+
+  .btn-blueprint-accent {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-mono text-sm font-semibold text-black
+           bg-[#FFD700] hover:bg-[#E6C200] border border-[#FFD700]
+           transition-all duration-300 shadow-lg shadow-[#FFD700]/20;
+  }
+
+  .blueprint-heading {
+    @apply font-mono text-3xl md:text-4xl font-bold text-white;
+  }
+
+  .blueprint-subheading {
+    @apply font-mono text-lg text-[#64748B];
+  }
+
+  .blueprint-text {
+    @apply font-sans text-[#94A3B8] leading-relaxed;
+  }
+
+  /* Technical decorations */
+  .corner-bracket {
     @apply relative;
   }
 
-  .gradient-border::before {
+  .corner-bracket::before,
+  .corner-bracket::after {
     content: '';
-    @apply absolute inset-0 rounded-[inherit] p-[1px];
-    background: linear-gradient(135deg, #00D4FF, #8B5CF6, #FFB800);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
+    @apply absolute w-3 h-3 border-[#0066FF] border-r-2 border-b-2;
   }
 
-  .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-[#00D4FF] to-[#0066FF] hover:from-[#00E5FF] hover:to-[#0077FF] transition-all duration-300 shadow-lg shadow-[#00D4FF]/25 hover:shadow-[#00D4FF]/40;
+  .corner-bracket::before {
+    @apply top-0 left-0;
   }
 
-  .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold text-white border border-[#00D4FF]/50 hover:border-[#00D4FF] hover:bg-[#00D4FF]/10 transition-all duration-300;
+  .corner-bracket::after {
+    @apply bottom-0 right-0 border-r-0 border-b-0 border-l-2 border-t-2;
   }
 
-  .btn-accent {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold text-black bg-gradient-to-r from-[#FFB800] to-[#FF9500] hover:from-[#FFCC00] hover:to-[#FFA500] transition-all duration-300 shadow-lg shadow-[#FFB800]/25 hover:shadow-[#FFB800]/40;
+  /* Wireframe effect */
+  .wireframe {
+    @apply border border-dashed border-[rgba(0,102,255,0.3)] bg-[rgba(0,102,255,0.02)];
   }
 
-  .card {
-    @apply glass rounded-2xl p-6 hover:border-white/20 transition-all duration-300;
+  /* Scan line animation */
+  .scan-line {
+    @apply relative overflow-hidden;
   }
 
-  .card-hover {
-    @apply card hover:transform hover:-translate-y-1 hover:shadow-xl hover:shadow-[#00D4FF]/10;
+  .scan-line::after {
+    content: '';
+    @apply absolute left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[#0066FF] to-transparent;
+    animation: scan 3s linear infinite;
   }
 
-  .section-heading {
-    @apply text-4xl md:text-5xl font-bold tracking-tight;
+  @keyframes scan {
+    0% { top: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
   }
 
-  .section-subheading {
-    @apply text-lg text-[#94A3B8] max-w-2xl;
+  /* Dimension lines */
+  .dimension-line {
+    @apply relative py-2;
   }
-}
 
-/* Particle Canvas */
-#particle-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-/* Smooth fade in animation */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+  .dimension-line::before {
+    content: '';
+    @apply absolute left-0 top-1/2 w-full h-px bg-[rgba(0,102,255,0.4)];
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
+  .dimension-line::after {
+    content: '';
+    @apply absolute left-0 top-1/2 w-2 h-2 border-l-2 border-t-2 border-[#0066FF] -translate-y-1/2;
+  }
+
+  /* Blueprint annotation */
+  .annotation {
+    @apply font-mono text-xs text-[#FFD700] bg-[rgba(255,215,0,0.1)] border border-[rgba(255,215,0,0.3)] px-2 py-1 rounded;
+  }
+
+  /* Node connections */
+  .node {
+    @apply w-3 h-3 rounded-full bg-[#0066FF] border-2 border-[#0A0F1C] shadow-lg shadow-[#0066FF]/50;
+  }
+
+  .node-line {
+    @apply absolute bg-[rgba(0,102,255,0.3)] w-px h-full;
+  }
 }
 
 /* Glow effects */
-.glow-primary {
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3),
-              0 0 40px rgba(0, 212, 255, 0.1);
+.glow-blueprint {
+  box-shadow: 0 0 20px rgba(0, 102, 255, 0.3),
+              0 0 40px rgba(0, 102, 255, 0.1);
 }
 
 .glow-accent {
-  box-shadow: 0 0 20px rgba(255, 184, 0, 0.3),
-              0 0 40px rgba(255, 184, 0, 0.1);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3),
+              0 0 40px rgba(255, 215, 0, 0.1);
 }
 
-/* Shimmer effect for loading states */
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
+/* Technical grid overlay */
+.technical-grid {
+  position: relative;
+}
+
+.technical-grid::before {
+  content: '';
+  @apply absolute inset-0 pointer-events-none;
+  background-image: 
+    linear-gradient(rgba(0, 102, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 102, 255, 0.03) 1px, transparent 1px);
+  background-size: 100px 100px;
+}
+
+/* Animated drawing effect */
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
   }
 }
 
-.shimmer {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
+.draw-animation {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 2s ease-out forwards;
+}
+
+/* Pulse animation for blueprint elements */
+@keyframes blueprintPulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 20px rgba(0, 102, 255, 0.5);
+  }
+}
+
+.animate-blueprint-pulse {
+  animation: blueprintPulse 2s ease-in-out infinite;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
 }
