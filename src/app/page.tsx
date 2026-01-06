@@ -3,8 +3,10 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronDown, Cpu, Network, Brain, Code, Database, Cloud, Terminal, Mail, Linkedin, Twitter, MapPin } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Button from '@/components/ui/Button';
+import CognitiveBurstCanvas from '@/components/ui/CognitiveBurstCanvas';
 import { siteConfig, philosophy, projects, architecture, techStack, credentials, contact, stats } from '@/lib/data';
 
 export default function HomePage() {
@@ -32,9 +34,14 @@ export default function HomePage() {
     <div className="min-h-screen blueprint-grid-bg">
       {/* Blueprint Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        {/* Cognitive Burst Particle Animation */}
+        <div className="absolute inset-0 z-0">
+          <CognitiveBurstCanvas className="w-full h-full" />
+        </div>
+
         {/* Animated Grid Background */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 blueprint-grid-dense opacity-50" />
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute inset-0 blueprint-grid-dense opacity-30" />
           {/* Scanning line effect */}
           <motion.div
             className="absolute left-0 w-full h-px bg-gradient-to-r from-transparent via-[#0066FF] to-transparent"
@@ -42,10 +49,10 @@ export default function HomePage() {
             transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
           />
           {/* Corner brackets decoration */}
-          <div className="absolute top-20 left-8 w-16 h-16 border-l-2 border-t-2 border-[rgba(0,102,255,0.3)]" />
-          <div className="absolute top-20 right-8 w-16 h-16 border-r-2 border-t-2 border-[rgba(0,102,255,0.3)]" />
-          <div className="absolute bottom-20 left-8 w-16 h-16 border-l-2 border-b-2 border-[rgba(0,102,255,0.3)]" />
-          <div className="absolute bottom-20 right-8 w-16 h-16 border-r-2 border-b-2 border-[rgba(0,102,255,0.3)]" />
+          <div className="absolute top-20 left-8 w-16 h-16 border-l-2 border-t-2 border-[rgba(0,102,255,0.3)] hidden lg:block" />
+          <div className="absolute top-20 right-8 w-16 h-16 border-r-2 border-t-2 border-[rgba(0,102,255,0.3)] hidden lg:block" />
+          <div className="absolute bottom-20 left-8 w-16 h-16 border-l-2 border-b-2 border-[rgba(0,102,255,0.3)] hidden lg:block" />
+          <div className="absolute bottom-20 right-8 w-16 h-16 border-r-2 border-b-2 border-[rgba(0,102,255,0.3)] hidden lg:block" />
         </div>
 
         {/* Content */}
@@ -55,10 +62,46 @@ export default function HomePage() {
             initial="hidden"
             animate="visible"
           >
+            {/* Profile Image with Dual-Ring Frame */}
+            <motion.div variants={itemVariants} className="flex justify-center mb-8">
+              <div className="relative group cursor-pointer">
+                {/* Outer rotating ring */}
+                <motion.div
+                  className="absolute inset-0 rounded-full border-2 border-[#0066FF]"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                  style={{ width: '200px', height: '200px' }}
+                />
+                {/* Inner counter-rotating ring */}
+                <motion.div
+                  className="absolute inset-0 rounded-full border border-dashed border-[#FFD700]"
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+                  style={{ width: '180px', height: '180px', top: '10px', left: '10px' }}
+                />
+                {/* Inner glow */}
+                <div className="absolute inset-0 rounded-full bg-[#0066FF] blur-xl opacity-20 group-hover:opacity-30 transition-opacity" style={{ width: '200px', height: '200px' }} />
+                {/* Profile image container */}
+                <div className="relative w-[180px] h-[180px] rounded-full overflow-hidden border-2 border-[#0A0F1C]">
+                  <Image
+                    src="/profile.png"
+                    alt="Richard D. Fortune - Architect of Cognitive Frameworks"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+                {/* Center crosshair */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30">
+                  <div className="w-2 h-2 bg-[#0066FF] rounded-full" />
+                </div>
+              </div>
+            </motion.div>
+
             {/* Annotation */}
-            <motion.div variants={itemVariants} className="text-center mb-8">
+            <motion.div variants={itemVariants} className="text-center mb-6">
               <span className="annotation font-mono text-xs">
-                // SYSTEM_INITIALIZATION
+                // OPERATOR: RICHARD D. FORTUNE // STATUS: ONLINE
               </span>
             </motion.div>
 
