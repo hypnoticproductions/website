@@ -81,7 +81,7 @@ export default function SafeTravelPage() {
         </div>
       </section>
 
-      {/* Product Demo Placeholder */}
+      {/* Product Demo - SafeTravel Screenshot */}
       <section className="py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -90,15 +90,11 @@ export default function SafeTravelPage() {
             viewport={{ once: true }}
             className="relative rounded-2xl overflow-hidden"
           >
-            <div className="aspect-video bg-gradient-to-br from-[#0D0D0D] to-[#151B26] border border-white/10 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-[#8B5CF6]/20 flex items-center justify-center">
-                  <Globe size={40} className="text-[#8B5CF6]" />
-                </div>
-                <p className="text-[#94A3B8]">Product Screenshot Placeholder</p>
-                <p className="text-sm text-[#64748B]">SafeTravel Interface</p>
-              </div>
-            </div>
+            <img
+              src="/safetravel-screenshot.png"
+              alt="SafeTravel - Travel Risk Intelligence Interface"
+              className="w-full h-auto rounded-2xl border border-white/10"
+            />
           </motion.div>
         </div>
       </section>

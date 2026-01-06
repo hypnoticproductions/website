@@ -146,7 +146,7 @@ export default function HomePage() {
       <section className="py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Image placeholder */}
+            {/* Image - Richard's Photo */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -154,12 +154,12 @@ export default function HomePage() {
               className="relative"
             >
               <div className="relative w-full max-w-md mx-auto aspect-square rounded-2xl overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#00D4FF]/20 to-[#8B5CF6]/20" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#00D4FF] to-[#8B5CF6] flex items-center justify-center">
-                    <span className="text-4xl font-bold text-white">RF</span>
-                  </div>
-                </div>
+                <img
+                  src="/profile.jpg"
+                  alt="Richard D. Fortune - Technical Founder"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/80 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
                   <span className="px-4 py-2 rounded-full glass text-sm text-white">
                     {stats[3].value} {stats[3].label.split(' ').slice(1).join(' ')}

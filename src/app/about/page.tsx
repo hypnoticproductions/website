@@ -101,7 +101,7 @@ export default function AboutPage() {
 
           {/* Profile Section */}
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            {/* Profile Image */}
+            {/* Profile Image - Richard's Photo */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -109,12 +109,12 @@ export default function AboutPage() {
               className="relative"
             >
               <div className="relative rounded-2xl overflow-hidden aspect-[4/5] max-w-md mx-auto">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#00D4FF]/20 to-[#8B5CF6]/20" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-48 h-48 rounded-full bg-gradient-to-br from-[#00D4FF] to-[#8B5CF6] flex items-center justify-center">
-                    <span className="text-6xl font-bold text-white">RF</span>
-                  </div>
-                </div>
+                <img
+                  src="/profile.jpg"
+                  alt="Richard D. Fortune - Technical Founder"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628]/60 via-transparent to-transparent" />
               </div>
 
               {/* Location Badge */}
