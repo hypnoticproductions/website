@@ -257,37 +257,98 @@ function ScrollIndicator() {
 export default function RepositoryPage() {
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative z-10 min-h-[60vh] flex items-center justify-center p-6 lg:p-12">
-        <div className="max-w-5xl mx-auto w-full text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/30 mb-8">
-            <Compass className="w-4 h-4 text-accent" />
-            <span className="text-xs font-mono text-accent tracking-widest uppercase">About & The Architecture</span>
-          </div>
-
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6">
-            <span className="block text-text-muted font-light">THE</span>
-            <span className="block text-text-primary">REPOSITORY</span>
-          </h1>
-
-          <p className="text-xl md:text-2xl text-text-secondary max-w-3xl mx-auto leading-relaxed">
-            This is not an app. This is not a website. This is the digital extension of a twelve-year practice in human optimization, born from clinical health work and refined through professional retreats.
-          </p>
+      {/* Section 1: Richard's Picture and Note - AT THE TOP */}
+      <section className="relative z-10 py-20 px-6 lg:px-12">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="grid lg:grid-cols-2 gap-12 items-start"
+          >
+            {/* Richard's Photo */}
+            <div className="relative order-2 lg:order-1">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="aspect-[4/5] rounded-2xl bg-primary/10 border border-primary/30 overflow-hidden shadow-2xl"
+              >
+                <img 
+                  src="/richard-photo-new.jpeg" 
+                  alt="Richard D. Fortune"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background via-background/80 to-transparent">
+                  <p className="text-sm font-mono text-text-muted">Operator - Vo rthalis</p>
+                </div>
+              </motion.div>
+              
+              {/* Decorative Elements */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                className="absolute -top-4 -right-4 w-24 h-24 border border-accent/30 rounded-full"
+              />
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+                className="absolute -bottom-4 -left-4 w-16 h-16 border border-primary/50 rounded-full"
+              />
+            </div>
+            
+            {/* Richard's Note */}
+            <div className="order-1 lg:order-2">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <Brain className="w-6 h-6 text-accent" />
+                  <span className="text-sm font-mono text-accent uppercase tracking-widest">The Architect</span>
+                </div>
+                
+                <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">Richard D. Fortune</h1>
+                
+                <div className="space-y-6 text-text-secondary leading-relaxed text-lg font-mono">
+                  <p>I built the <strong className="text-accent">Healing Cloud</strong> from a clinical health science background. We ran retreats for professionals. We did not talk about optimization. We practiced it.</p>
+                  
+                  <p>Nutrition. Meditation. Physical exercise. Ergonomics. Social work arrays. Somatic resolution. Family systems. These were not separate departments. They were one organism, and we treated it as such.</p>
+                  
+                  <p>When GPTs emerged, I did not see a toy. I saw an interface for the protocol I had already built. I began integrating LLMs into the morning activation, the evening recalibration, the mid-day maintenance. The system did not change. It accelerated.</p>
+                  
+                  <div className="border-l-2 border-accent/50 pl-6 py-2 my-6">
+                    <p className="text-xl text-text-primary font-mono italic">
+                      "This is how we decode the complex. Not through screens alone. Through breath patterns synchronized to visual matrices. Through EFT tapping sequences that rewire field coherence."
+                    </p>
+                  </div>
+                  
+                  <p className="text-text-secondary leading-relaxed">
+                    This is the <strong className="text-accent">digital extension</strong> of a twelve-year practice in human optimization, born from clinical health work and refined through professional retreats. The technology accelerated the delivery. It did not replace the substance.
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Kiosk Section - The Mission Dashboard */}
+      {/* Section 2: Kiosk Dashboard */}
       <section className="relative z-10 py-12 px-6 lg:px-12">
         <div className="max-w-6xl mx-auto">
           {/* Kiosk Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
             className="text-center mb-12"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 mb-6">
               <Target className="w-4 h-4 text-accent" />
-              <span className="text-xs font-mono text-accent tracking-widest uppercase">The Mission</span>
+              <span className="text-xs font-mono text-accent tracking-widest uppercase">The Architecture</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
               Decoding the Complex Through Pluralistic Integration
@@ -312,44 +373,32 @@ export default function RepositoryPage() {
         </div>
       </section>
 
-      {/* Detailed Content Section */}
+      {/* Section 3: Detailed Content Sections */}
       <section className="relative z-10 py-24 px-6 lg:px-12">
         <div className="max-w-5xl mx-auto space-y-32">
-          {/* The Architect Section */}
-          <div className="grid lg:grid-cols-2 gap-12 items-start" id="architect">
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <Brain className="w-6 h-6 text-accent" />
-                <span className="text-sm font-mono text-accent uppercase tracking-widest">The Architect</span>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-6">Richard D. Fortune</h2>
-              <div className="space-y-6 text-text-secondary leading-relaxed text-lg font-mono">
-                <p>I built the <strong className="text-accent">Healing Cloud</strong> from a clinical health science background. We ran retreats for professionals. We did not talk about optimization. We practiced it.</p>
-                
-                <p>Nutrition. Meditation. Physical exercise. Ergonomics. Social work arrays. Somatic resolution. Family systems. These were not separate departments. They were one organism, and we treated it as such.</p>
-                
-                <p>When GPTs emerged, I did not see a toy. I saw an interface for the protocol I had already built. I began integrating LLMs into the morning activation, the evening recalibration, the mid-day maintenance. The system did not change. It accelerated.</p>
-                
-                <p><strong className="text-highlight">This is how we decode the complex.</strong> Not through screens alone. Through breath patterns synchronized to visual matrices. Through EFT tapping sequences that rewire field coherence. Through a lifestyle architecture that treats the human being as the operating system itself.</p>
-              </div>
+          {/* Introduction Statement */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="p-8 rounded-xl bg-accent/5 border border-accent/30"
+          >
+            <h3 className="text-xl font-bold text-text-primary mb-4 flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-accent" />
+              The Pluralistic Reality — This Is The Different Way
+            </h3>
+            <p className="text-text-secondary leading-relaxed font-mono text-lg mb-4">
+              What you have just read is not a product feature list. It is the operational architecture of a complete human optimization system. Every node connects to every other node. Nutrition does not exist separately from ergonomics. Somatic resolution does not exist separately from business performance. Family systems do not exist separately from personal power.
+            </p>
+            <p className="text-text-secondary leading-relaxed font-mono text-lg mb-4">
+              The human being is <strong className="text-accent">one graph</strong>, one network, one living system. When you adjust one node, every other node adjusts in response. This is why the Healing Cloud worked. This is why the retreats transformed people. This is why the system now exists in digital form.
+            </p>
+            <div className="mt-6 p-6 bg-primary/20 border border-accent/30 rounded-xl">
+              <p className="text-xl text-accent font-mono italic text-center">
+                "The others, that is their way. This is ours."
+              </p>
             </div>
-            
-            <div className="relative">
-              <div className="aspect-[4/5] rounded-2xl bg-primary/10 border border-primary/30 overflow-hidden">
-                <img 
-                  src="/richard-photo.jpeg" 
-                  alt="Richard D. Fortune"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background via-background/80 to-transparent">
-                  <p className="text-sm font-mono text-text-muted">Operator - Vo rthalis</p>
-                </div>
-              </div>
-              
-              <div className="absolute -top-4 -right-4 w-24 h-24 border border-accent/30 rounded-full" />
-              <div className="absolute -bottom-4 -left-4 w-16 h-16 border border-primary/50 rounded-full" />
-            </div>
-          </div>
+          </motion.div>
 
           {/* Node 1: The Daily Architecture */}
           <div id="node-01-detail" className="scroll-mt-24">
@@ -848,28 +897,6 @@ export default function RepositoryPage() {
             <div className="p-4 rounded-lg bg-accent/5 border border-accent/30">
               <p className="text-sm text-text-secondary font-mono">
                 <strong className="text-accent">Compliance:</strong> GDPR and HIPAA compliance are enforced at the infrastructure level. Personal data retention is configurable. Usage logs are retained for 12 months. System logs for 24 months. Access logs are immutable and retained for 7 years.
-              </p>
-            </div>
-          </div>
-
-          {/* The Integration Statement */}
-          <div className="p-8 rounded-xl bg-accent/5 border border-accent/30">
-            <h3 className="text-xl font-bold text-text-primary mb-4 flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-accent" />
-              The Pluralistic Reality — This Is The Different Way
-            </h3>
-            <p className="text-text-secondary leading-relaxed font-mono text-lg mb-4">
-              What you have just read is not a product feature list. It is the operational architecture of a complete human optimization system. Every node connects to every other node. Nutrition does not exist separately from ergonomics. Somatic resolution does not exist separately from business performance. Family systems do not exist separately from personal power.
-            </p>
-            <p className="text-text-secondary leading-relaxed font-mono text-lg mb-4">
-              The human being is <strong className="text-accent">one graph</strong>, one network, one living system. When you adjust one node, every other node adjusts in response. This is why the Healing Cloud worked. This is why the retreats transformed people. This is why the system now exists in digital form.
-            </p>
-            <p className="text-text-secondary leading-relaxed font-mono text-lg mb-4">
-              The Repository is simply the <strong className="text-accent">digital interface</strong> for a twelve-year practice that began with real bodies, real breath, and real hands doing EFT tapping in clinical settings. The technology accelerated the delivery. It did not replace the substance.
-            </p>
-            <div className="mt-6 p-6 bg-primary/20 border border-accent/30 rounded-xl">
-              <p className="text-xl text-accent font-mono italic text-center">
-                "The others, that is their way. This is ours."
               </p>
             </div>
           </div>
