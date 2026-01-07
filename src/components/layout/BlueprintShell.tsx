@@ -12,7 +12,8 @@ import {
   FileText, 
   ChevronUp,
   Menu,
-  X
+  X,
+  Server
 } from 'lucide-react';
 
 interface BlueprintShellProps {
@@ -56,6 +57,12 @@ const navItems: NavItem[] = [
     href: '/palenque',
     icon: <Layers className="w-5 h-5" />,
     description: 'Case study: Deep mapping',
+  },
+  {
+    label: 'LIVE SYSTEMS',
+    href: '/live-systems',
+    icon: <Server className="w-5 h-5" />,
+    description: 'Products & The Ask',
   },
   {
     label: 'THE REPOSITORY',
