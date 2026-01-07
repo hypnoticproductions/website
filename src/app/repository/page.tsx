@@ -42,11 +42,11 @@ export default function RepositoryPage() {
             
             <div className="relative">
               <div className="aspect-[4/5] rounded-2xl bg-primary/10 border border-primary/30 overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-32 h-32 rounded-full bg-primary/20 flex items-center justify-center">
-                    <User className="w-16 h-16 text-primary/40" />
-                  </div>
-                </div>
+                <img 
+                  src="/richard-photo.jpeg" 
+                  alt="Richard D. Fortune"
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background via-background/80 to-transparent">
                   <p className="text-sm font-mono text-text-muted">Operator - Vo rthalis</p>
                 </div>
