@@ -1,0 +1,229 @@
+Good site. The "Cognitive Architect's Repository" positioning is strong — it establishes you as a systems thinker, not just a developer. Here's my analysis:
+
+SITE ANALYSIS
+What's Working
+ElementStrengthPositioning"Cognitive Architect" differentiates from generic "developer" or "founder"Narrative structureChronological evolution (01-06) shows progression, not randomnessProof points"13M impressions / $0 spend" is concrete and memorableAestheticTerminal/system interface design matches the "architect" brandCase studiesBig Ward and Palenque demonstrate real applicationLanguageTechnical but accessible — "engines of intuition" is sticky
+What Needs Refinement
+IssueRecommendationNo clear CTA for investorsRepository page needs explicit "The Ask" with investment termsProducts not visibleHarvester and SafeTravel should be showcased as outputs of the frameworkContact buriedNeed persistent contact method (floating button or footer)Social proof missingNo testimonials, user counts, or third-party validationMobile experienceVerify the terminal aesthetic works on small screens
+
+RECOMMENDATION: ADD "BETA ACCESS" TAB
+Yes — add a dedicated tab. Here's the structure:
+Tab Name Options:
+
+"LIVE SYSTEMS" (fits the technical aesthetic)
+"THE OUTPUT" (implies these are products of the framework)
+"BETA ACCESS" (direct, clear intent)
+"DEPLOYMENTS" (military/system language)
+
+I'd recommend "LIVE SYSTEMS" — it maintains your aesthetic while signaling these are real, working products.
+Page Structure:
+// LIVE SYSTEMS
+
+# FRAMEWORK → PRODUCT
+
+The 7-Collection Engine isn't theory. These are live deployments, 
+currently in beta. Request access below.
+
+---
+
+## SYSTEM 01: HARVESTER
+### AI Legal Case Preparation
+
+Collection Application: Pattern Recognition (C1) + Decision Architecture (C3)
+
+[Screenshot/Mockup of Harvester UI]
+
+THE PROBLEM:
+Lawyers spend 60% of billable time on case preparation—reviewing 
+evidence, extracting facts, building timelines. It's pattern 
+recognition at scale. Humans are slow at this. Systems aren't.
+
+THE ENGINE:
+- Upload any evidence (PDF, photo, audio, document)
+- AI extracts facts, dates, parties
+- Generates interactive timelines
+- Flags contradictions across sources
+- Drafts case briefs
+
+TARGET: Solo practitioners, small law firms
+PRICING: $79-129/month
+STATUS: Beta — Accepting 50 users
+
+[REQUEST BETA ACCESS] → Opens form or Calendly
+
+---
+
+## SYSTEM 02: SAFETRAVEL
+### Personalized Travel Risk Intelligence
+
+Collection Application: Emotional-Somatic (C2) + Ethnographic (C4) + 
+Psychographic (C5)
+
+[Screenshot/Mockup of SafeTravel UI]
+
+THE PROBLEM:
+Travel advisories are generic. They don't know if you're a 
+backpacker or a Fortune 500 executive. They don't adapt to your 
+risk tolerance. They're one-size-fits-none.
+
+THE ENGINE:
+- Voice AI agent (ask any destination anything)
+- Cognitive profiling adapts intel to your psychology
+- 4 intelligence tiers (Surface → Elite)
+- Real-time alerts, destination comparison
+
+TARGET: Digital nomads, corporate travelers, diaspora visitors
+PRICING: Free – $49.99/month
+STATUS: Live — Pro tier in beta
+
+[TRY FREE] [REQUEST PRO ACCESS]
+
+---
+
+## THE ASK
+
+Looking for:
+- Beta users with feedback (both products)
+- Co-founder (sales/marketing) for Harvester
+- Pre-seed investment ($150K, SAFE @ $1.5M cap)
+
+[SCHEDULE CALL] → Calendly link
+
+VEO 3.1 VIDEO PROMPTS — FRAMEWORK USE CASES
+Here are prompts for short (15-30 sec) cinematic clips that visualize your frameworks in action. These work for social, pitch decks, and the site itself.
+VIDEO SET 1: THE 7-COLLECTION FRAMEWORK (Abstract/Conceptual)
+Video 1: "Pattern Recognition Awakening"
+Prompt: Cinematic close-up of a human eye reflecting streams of data 
+and documents flowing past. The iris pulses with soft cyan light as 
+patterns emerge from chaos. Documents transform into glowing connection 
+lines forming a neural network. Dark environment, moody lighting, 
+shallow depth of field. No text. 15 seconds. Slow motion.
+Video 2: "The Signal Emerges"
+Prompt: Aerial view of a dark city at night. Random lights flicker 
+across buildings. Slowly, certain lights begin pulsing in sync, 
+forming a pattern—a signal emerging from noise. Camera pulls back 
+to reveal the pattern forms a constellation or circuit diagram. 
+Cyberpunk aesthetic, teal and gold accent colors. 20 seconds.
+Video 3: "Framework Architecture"
+Prompt: Abstract visualization of seven translucent spheres orbiting 
+a central core. Each sphere contains different imagery—one shows 
+human emotions (faces), one shows maps and geography, one shows 
+financial charts, one shows cultural symbols. The spheres pulse and 
+exchange energy beams. Dark space background with subtle particle 
+effects. Smooth, meditative camera movement. 25 seconds.
+
+VIDEO SET 2: HARVESTER USE CASES
+Video 4: "Evidence to Insight" (Harvester Hero)
+Prompt: A lawyer's desk covered in chaotic stacks of paper documents, 
+photos, and files. Camera slowly pushes in. The papers begin to glow 
+and lift off the desk, swirling into a vortex of light. They transform 
+into clean, organized digital cards that arrange themselves into a 
+perfect timeline floating in space. The chaos becomes order. Dramatic 
+lighting, shallow depth of field. 20 seconds.
+Video 5: "Contradiction Detection"
+Prompt: Two documents floating in dark space, side by side. 
+Key phrases on each document illuminate and highlight themselves. 
+A red connection line appears between contradicting statements, 
+pulsing with warning energy. Camera zooms into the connection point 
+which expands into a detailed comparison view. Forensic, analytical 
+aesthetic. Teal and red accent colors. 15 seconds.
+Video 6: "The Solo Practitioner"
+Prompt: Cinematic shot of a solo attorney working late in a small 
+office. Stacks of files surround them. They're exhausted. They open 
+a laptop—the screen glows. Cut to their face illuminated by the 
+screen, expression shifting from tired to focused to confident. 
+Final shot: empty desk, organized, attorney leaving office while 
+it's still light outside. Warm lighting progression. 25 seconds.
+
+VIDEO SET 3: SAFETRAVEL USE CASES
+Video 7: "The Voice in Your Pocket" (SafeTravel Hero)
+Prompt: A traveler standing at a busy intersection in a foreign city 
+at night. They look uncertain. They pull out their phone and speak 
+into it. Sound waves visualize around the phone. The city around them 
+transforms—dangerous areas fade to muted colors, safe paths illuminate 
+in gold. They smile and walk confidently down the illuminated path. 
+Cyberpunk meets travel aesthetic. 25 seconds.
+Video 8: "Psychology-Aware Intel"
+Prompt: Split screen showing two different travelers receiving 
+information about the same destination. On the left: a cautious 
+family traveler sees detailed safety protocols and family-friendly 
+zones highlighted. On the right: an adventure seeker sees off-beaten 
+paths and local experiences highlighted. Same data, different 
+presentation. The screens merge showing the adaptive AI brain 
+connecting them. Clean, modern UI aesthetic. 20 seconds.
+Video 9: "Real-Time Alert"
+Prompt: A digital nomad working in a café. Their phone lights up 
+with an alert. Cut to a visualization of the city—a ripple expands 
+from a location marking a new safety concern. The alert shows 
+alternative routes glowing on a map. The nomad calmly packs up 
+and relocates before anything happens. Tension to resolution arc. 
+20 seconds.
+
+VIDEO SET 4: THE FOUNDER NARRATIVE
+Video 10: "Built in Isolation"
+Prompt: Aerial shot of a small Caribbean island at dawn. Camera 
+slowly descends toward a single lit window in a modest building. 
+Through the window, we see a figure working at a computer, screens 
+glowing with code and interfaces. Cut to close-up of hands typing. 
+Cut to the products being built on screen. Final shot: sunrise 
+over the island, the lit window now showing completed software 
+interfaces. Solitary, determined, beautiful. 30 seconds.
+Video 11: "Zero to One"
+Prompt: Start with complete darkness. A single cursor blinks. 
+Code begins to type itself, slowly at first, then accelerating. 
+The code transforms into UI elements, which transform into full 
+product interfaces. Camera pulls back to reveal multiple products 
+orbiting around a central figure (silhouette). Text fades in: 
+"Built alone. Ready to scale." Minimalist, powerful. 20 seconds.
+
+VIDEO SET 5: FRAMEWORK SCENARIOS (Specific Use Cases)
+Video 12: "Collection 2 — Emotional-Somatic in Action"
+Prompt: A person watching content on a screen. We see their 
+physiological response—pupil dilation, micro-expressions, posture 
+shifts. These responses visualize as data streams flowing into an 
+analytical system. The system outputs "RESONANCE DETECTED" with a 
+confidence score. Shows how emotional response becomes measurable 
+signal. Medical/analytical aesthetic with warm human elements. 
+20 seconds.
+Video 13: "Collection 4 — Ethnographic Mapping"
+Prompt: A map of a city or region. Cultural zones begin to 
+illuminate—different colors representing different community 
+characteristics. Data points appear showing gathering spots, 
+influence nodes, information flow patterns. The map becomes a 
+living, breathing visualization of human cultural geography. 
+Anthropological meets data visualization aesthetic. 25 seconds.
+Video 14: "The Complete Stack"
+Prompt: Seven distinct visual elements (representing 7 collections) 
+floating separately in space. They begin to move toward each other, 
+connecting and interlocking like a complex mechanism. When complete, 
+the assembled system pulses with energy and outputs a clear signal 
+beam. Camera follows the beam to its target—a clear decision or 
+action. Mechanical precision meets organic flow. 30 seconds.
+
+IMPLEMENTATION PLAN
+For the Site:
+
+Add "LIVE SYSTEMS" tab between "THE PALENQUE" and "THE REPOSITORY"
+Update navigation to include the new tab
+Create beta signup form (Tally.so or Typeform, free tier)
+Add video embeds once Veo generates them (hero section + each product)
+
+For Videos:
+
+Generate with Veo 3.1 using prompts above
+Edit to 15-30 seconds each
+Add minimal text overlays (product names, taglines)
+No voiceover initially — let visuals speak
+Use for:
+
+Site hero backgrounds (muted, looping)
+Social media (Twitter, LinkedIn, TikTok)
+Pitch deck embedded videos
+Product Hunt launch assets
+
+
+
+Suggested Video Production Order:
+PriorityVideoUse Case1"Evidence to Insight" (#4)Harvester hero, pitch deck2"The Voice in Your Pocket" (#7)SafeTravel hero, social3"Built in Isolation" (#10)Personal brand, founder story4"Framework Architecture" (#3)Site hero background5"Zero to One" (#11)Pitch deck opener
+
+Want me to create a full document with all the video prompts formatted for direct Veo 3.1 input, plus the complete "LIVE SYSTEMS" page code for your site?Claude is AI and can make mistakes. Please double-check responses.You're out of extra usage

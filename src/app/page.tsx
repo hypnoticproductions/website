@@ -1,41 +1,89 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ExternalLink, Activity, Target, Map, Eye, Shield, Building, Cpu, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ChevronRight, Activity, Music, Zap, Globe, Cpu, Link as LinkIcon, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import StickyMeshCanvas from '@/components/ui/StickyMeshCanvas';
-import { siteConfig, collections, proofBar } from '@/lib/data';
+import { siteConfig } from '@/lib/data';
 
-type CollectionId = string;
+const timelineEvents = [
+  {
+    phase: '01',
+    title: 'PATHWORKING',
+    subtitle: 'Building the Frameworks',
+    description: 'Initial foundational work on the 7-Collection framework. Establishing the cognitive architecture principles that would power all future development.',
+    icon: <Cpu size={20} />,
+    color: '#00D4FF',
+    details: ['7-Collection Framework Development', 'Cognitive Architecture Principles', 'Pattern Recognition Systems'],
+  },
+  {
+    phase: '02',
+    title: 'EXPERIMENTATION',
+    subtitle: 'Sound Development (Suno v2)',
+    description: 'Applying frameworks to audio and music generation. Early experiments with AI-generated content using Suno version 2.',
+    icon: <Music size={20} />,
+    color: '#FFBF00',
+    details: ['Framework-to-Audio Translation', 'Early AI Music Experiments', 'Suno v2 Integration'],
+  },
+  {
+    phase: '03',
+    title: 'SOUND DEVELOPMENT',
+    subtitle: 'Suno v5, Big Ward Case',
+    description: 'Advanced sound development meeting the Big Ward Resonance case study. Proving Collection 2 (Emotional-Somatic) and Collection 4 (Ethnographic).',
+    icon: <Activity size={20} />,
+    color: '#10B981',
+    details: ['Big Ward Resonance Proof', 'Collection 2 + 4 Validation', '13M+ Impressions Generated'],
+    link: '/bigward',
+    linkText: 'VIEW BIG WARD CASE',
+  },
+  {
+    phase: '04',
+    title: 'DEVELOPMENT',
+    subtitle: 'Suno + NanoBanana, Palenque Protocol',
+    description: 'Combining AI tools including Suno and NanoBanana. Developing the Palenque Protocol for cultural mapping and ethnographic framework application.',
+    icon: <Globe size={20} />,
+    color: '#8B5CF6',
+    details: ['AI Tool Synthesis', 'Palenque Protocol Creation', 'Cultural Mapping Framework'],
+    link: '/palenque',
+    linkText: 'VIEW PALENQUE CASE',
+  },
+  {
+    phase: '05',
+    title: 'AGENTIC APP BUILDERS',
+    subtitle: 'Base 44',
+    description: 'Building agentic applications with Base 44. The next evolution of the stack, moving from content generation to autonomous agent systems.',
+    icon: <Zap size={20} />,
+    color: '#F97316',
+    details: ['Agentic Architecture', 'Base 44 Implementation', 'Autonomous Systems'],
+  },
+  {
+    phase: '06',
+    title: 'THE BRIDGE',
+    subtitle: 'Engine Two v2.0',
+    description: 'The complete stack: Signal-First architecture. Live demonstration achieving 13M impressions with zero marketing spend. The culmination of everything.',
+    icon: <LinkIcon size={20} />,
+    color: '#FF3333',
+    details: ['Signal-First Pipeline', '13M Impressions / $0 Spend', 'Full Stack Integration'],
+    link: '/bridge',
+    linkText: 'ACCESS THE ENGINE',
+    isFinal: true,
+  },
+];
 
 export default function CorePage() {
-  const [activeCollection, setActiveCollection] = useState<CollectionId | null>(null);
-  
-  const getCollectionIcon = (id: string) => {
-    const icons: Record<string, React.ReactNode> = {
-      '01': <Cpu size={24} />,
-      '02': <Activity size={24} />,
-      '03': <Map size={24} />,
-      '04': <Eye size={24} />,
-      '05': <Shield size={24} />,
-      '06': <Building size={24} />,
-      '07': <Target size={24} />,
-    };
-    return icons[id] || <Target size={24} />;
-  };
-
-  const activeCollectionData = collections.items.find(c => c.id === activeCollection);
-
   return (
     <div className="min-h-screen bg-[#080808]">
-      {/* Hero Section with Sticky Mesh */}
+      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        {/* Sticky Mesh Background */}
-        <div className="absolute inset-0 z-0">
-          <StickyMeshCanvas className="w-full h-full" interactive />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/30 via-transparent to-[#080808]" />
-        </div>
+        {/* Grid Background */}
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `linear-gradient(rgba(0,212,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.3) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/50 via-transparent to-[#080808]" />
 
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -79,8 +127,8 @@ export default function CorePage() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
           >
-            <Link href="/feed" className="btn-accent text-sm py-3 px-8 font-mono">
-              VIEW BUILDER'S FEED
+            <Link href="/bridge" className="btn-accent text-sm py-3 px-8 font-mono">
+              EXPLORE THE JOURNEY
             </Link>
             <Link href="/repository" className="btn-cyber text-sm py-3 px-8 font-mono">
               ACCESS REPOSITORY
@@ -106,9 +154,9 @@ export default function CorePage() {
         </div>
       </section>
 
-      {/* The 7 Collections Grid */}
-      <section className="py-20 lg:py-32 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Chronological Timeline Section */}
+      <section className="py-24 lg:py-32 relative">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -117,185 +165,152 @@ export default function CorePage() {
             className="text-center mb-16"
           >
             <span className="annotation font-mono text-xs mb-4 inline-block">
-              // THE OPERATING SYSTEM
+              // CHRONOLOGICAL SERIES
             </span>
-            <h2 className="blueprint-heading mb-4">{collections.title}</h2>
-            <p className="blueprint-subheading">{collections.subtitle}</p>
+            <h2 className="blueprint-heading mb-4">THE EVOLUTION</h2>
+            <p className="text-[#64748B] max-w-2xl mx-auto">
+              From theoretical frameworks to practical application. Each phase builds on the last, compounding the system's capabilities.
+            </p>
           </motion.div>
 
-          {/* Collections Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            {collections.items.map((collection, index) => (
-              <motion.div
-                key={collection.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                onClick={() => setActiveCollection(activeCollection === collection.id ? null : collection.id)}
-                className={`collection-card ${activeCollection === collection.id ? 'active' : ''}`}
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <span 
-                    className="font-mono text-xs px-2 py-1 rounded"
-                    style={{ 
-                      backgroundColor: `${collection.color}20`,
-                      color: collection.color,
-                      borderColor: `${collection.color}40`,
-                      border: '1px solid'
-                    }}
-                  >
-                    {collection.id}
-                  </span>
-                  <div style={{ color: collection.color }}>
-                    {getCollectionIcon(collection.id)}
-                  </div>
-                </div>
-                <h3 className="font-mono font-bold text-white text-sm mb-1">{collection.name}</h3>
-                <p className="text-xs text-[#64748B] font-mono">{collection.subtitle}</p>
-              </motion.div>
-            ))}
-          </div>
+          {/* Timeline */}
+          <div className="relative">
+            {/* Vertical Line */}
+            <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-[#00D4FF] via-[#FFBF00] via-[#10B981] via-[#8B5CF6] via-[#F97316] to-[#FF3333]" />
 
-          {/* Active Collection Detail */}
-          <AnimatePresence>
-            {activeCollection && activeCollectionData && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="blueprint-card"
-              >
-                <div className="flex flex-col lg:flex-row gap-8">
-                  <div className="lg:w-2/3">
-                    <div className="flex items-center gap-4 mb-4">
-                      <span 
-                        className="font-mono text-lg font-bold px-3 py-2 rounded"
-                        style={{ 
-                          backgroundColor: `${activeCollectionData.color}20`,
-                          color: activeCollectionData.color,
-                        }}
-                      >
-                        {activeCollectionData.code}
-                      </span>
-                      <div>
-                        <h3 className="font-mono font-bold text-white text-xl">{activeCollectionData.name}</h3>
-                        <p className="font-mono text-sm" style={{ color: activeCollectionData.color }}>
-                          {activeCollectionData.subtitle}
+            {/* Timeline Events */}
+            <div className="space-y-8">
+              {timelineEvents.map((event, index) => (
+                <motion.div
+                  key={event.phase}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="relative flex gap-6"
+                >
+                  {/* Phase Number Badge */}
+                  <div 
+                    className={`relative z-10 flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center font-mono font-bold text-sm
+                      ${event.isFinal 
+                        ? 'bg-[#FF3333]/20 border-2 border-[#FF3333] text-[#FF3333]' 
+                        : 'bg-[#080808]/80 border border-[rgba(26,58,95,0.4)] text-[#00D4FF]'
+                      }`}
+                    style={{ borderColor: event.isFinal ? '#FF3333' : `${event.color}40` }}
+                  >
+                    <span style={{ color: event.isFinal ? '#FF3333' : event.color }}>
+                      {event.phase}
+                    </span>
+                  </div>
+
+                  {/* Content Card */}
+                  <div className="flex-1 pb-8">
+                    <div 
+                      className={`blueprint-card relative overflow-hidden
+                        ${event.isFinal ? 'border-[#FF3333]/30 bg-gradient-to-br from-[#FF3333]/5 to-[#080808]' : ''}
+                      `}
+                    >
+                      {/* Glow effect for final item */}
+                      {event.isFinal && (
+                        <div className="absolute inset-0 bg-[#FF3333]/5 opacity-50" />
+                      )}
+
+                      <div className="relative z-10">
+                        {/* Header */}
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-3">
+                          <div 
+                            className="flex items-center gap-2"
+                            style={{ color: event.color }}
+                          >
+                            {event.icon}
+                            <h3 className="font-mono font-bold text-lg">{event.title}</h3>
+                          </div>
+                          <span 
+                            className="text-xs font-mono px-2 py-1 rounded bg-[rgba(26,58,95,0.3)]"
+                            style={{ color: event.color }}
+                          >
+                            {event.subtitle}
+                          </span>
+                        </div>
+
+                        {/* Description */}
+                        <p className="text-[#94A3B8] text-sm mb-4 leading-relaxed">
+                          {event.description}
                         </p>
-                      </div>
-                    </div>
-                    <p className="text-[#94A3B8] leading-relaxed mb-6">
-                      {activeCollectionData.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {activeCollectionData.applications.map((app, idx) => (
-                        <span 
-                          key={idx}
-                          className="text-xs font-mono px-3 py-1 rounded-full bg-[rgba(26,58,95,0.3)] text-[#00D4FF] border border-[rgba(0,212,255,0.2)]"
-                        >
-                          {app}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="lg:w-1/3">
-                    <div className="bg-[#080808] rounded-lg p-4 border border-[rgba(26,58,95,0.4)]">
-                      <h4 className="font-mono text-xs text-[#64748B] mb-3">// TECHNICAL SPECS</h4>
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span className="text-[#64748B]">Status</span>
-                          <span className="text-[#00D4FF] font-mono">ACTIVE</span>
+
+                        {/* Details List */}
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {event.details.map((detail, idx) => (
+                            <span 
+                              key={idx}
+                              className="text-xs font-mono px-2 py-1 rounded bg-[rgba(26,58,95,0.2)] text-[#64748B]"
+                            >
+                              {detail}
+                            </span>
+                          ))}
                         </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-[#64748B]">Integration</span>
-                          <span className="text-[#FFBF00] font-mono">CORE v2.0</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-[#64748B]">API Access</span>
-                          <span className="text-[#10B981] font-mono">ENABLED</span>
-                        </div>
+
+                        {/* Link if available */}
+                        {event.link && (
+                          <Link
+                            href={event.link}
+                            className={`inline-flex items-center gap-2 text-xs font-mono transition-colors
+                              ${event.isFinal 
+                                ? 'text-[#FF3333] hover:text-[#FF6666]' 
+                                : 'text-[#00D4FF] hover:text-[#00D4FF]/80'
+                              }`}
+                          >
+                            {event.linkText}
+                            <ArrowRight size={12} />
+                          </Link>
+                        )}
                       </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Vertical Proof Bar */}
-      <section className="py-20 lg:py-32 bg-[#0D0D0D]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Current State - The Bridge */}
+      <section className="py-24 bg-[#0D0D0D]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
           >
             <span className="annotation-cyan font-mono text-xs mb-4 inline-block">
-              // VERTICAL PROOF BAR
+              // CURRENT STATE
             </span>
-            <h2 className="blueprint-heading">PROOF OF CONCEPT</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+              THE BRIDGE IS <span className="text-[#FF3333]">COMPLETE</span>
+            </h2>
+            <p className="text-[#64748B] mb-8 max-w-2xl mx-auto">
+              Theory has become software. The frameworks have been battle-tested. 
+              Engine Two v2.0 represents the complete stack, ready for scale.
+            </p>
+            
+            <Link 
+              href="/bridge"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-[#FF3333] text-[#080808] font-mono font-bold rounded-lg hover:bg-[#FF3333]/90 transition-colors"
+            >
+              <LinkIcon size={20} />
+              ACCESS ENGINE TWO v2.0
+            </Link>
           </motion.div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {proofBar.items.map((item, index) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="blueprint-card-hover text-center"
-              >
-                <div 
-                  className="w-12 h-12 mx-auto mb-4 rounded-full flex items-center justify-center"
-                  style={{ 
-                    backgroundColor: `${item.id === 'legal' ? '#1A3A5F' : item.id === 'travel' ? '#FFBF00' : item.id === 'music' ? '#00D4FF' : '#8B5CF6'}20`
-                  }}
-                >
-                  <span 
-                    className="font-mono font-bold text-lg"
-                    style={{ 
-                      color: item.id === 'legal' ? '#1A3A5F' : item.id === 'travel' ? '#FFBF00' : item.id === 'music' ? '#00D4FF' : '#8B5CF6'
-                    }}
-                  >
-                    {item.name.charAt(0)}
-                  </span>
-                </div>
-                <h3 className="font-mono font-bold text-white mb-1">{item.name}</h3>
-                <p className="text-sm text-[#00D4FF] mb-2">{item.project}</p>
-                <p className="text-xs text-[#64748B] mb-4">{item.tagline}</p>
-                <div className="space-y-1">
-                  {item.metrics.map((metric, idx) => (
-                    <div key={idx} className="flex items-center justify-center gap-2">
-                      <div className="w-1 h-1 rounded-full bg-[#00D4FF]" />
-                      <span className="text-xs font-mono text-[#94A3B8]">{metric}</span>
-                    </div>
-                  ))}
-                </div>
-                {item.id === 'music' && (
-                  <Link href="/bigward" className="mt-4 inline-flex items-center gap-1 text-xs font-mono text-[#FFBF00] hover:text-[#FFD700]">
-                    VIEW CASE <ChevronRight size={12} />
-                  </Link>
-                )}
-                {item.id === 'culture' && (
-                  <Link href="/palenque" className="mt-4 inline-flex items-center gap-1 text-xs font-mono text-[#FFBF00] hover:text-[#FFD700]">
-                    VIEW CASE <ChevronRight size={12} />
-                  </Link>
-                )}
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* Footer Navigation Preview */}
+      {/* Footer Navigation */}
       <section className="py-12 border-t border-[rgba(26,58,95,0.3)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-4">
+            <Link href="/bridge" className="nav-item">
+              THE BRIDGE →
+            </Link>
             <Link href="/feed" className="nav-item">
               Builder's Feed
             </Link>
