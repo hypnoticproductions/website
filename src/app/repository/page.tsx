@@ -1,15 +1,130 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { User, Target, MessageCircle, ArrowRight, Mail, Linkedin, Github, Heart, Sparkles, Brain, Lightbulb, Users, Sun, Moon, Activity, Shield, Zap, Globe, Compass, Cpu, Network, Fingerprint, RefreshCw, Lock, Eye, TrendingUp, BookOpen, Code, Database, Server, Layers, Radio, Timer, Thermometer, Wind, Zap as Zap2, AlertTriangle, CheckCircle, ChevronDown, Scan, Hexagon, Box, Circle, Square, Triangle, Diamond } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { 
+  Target, MessageCircle, ArrowRight, Mail, Linkedin, Github, 
+  Brain, Users, Sun, Moon, Activity, Shield, Zap, Globe, 
+  Compass, Cpu, Network, Fingerprint, RefreshCw, Lock, Eye, 
+  TrendingUp, BookOpen, Code, Database, Server, Layers, Radio, 
+  Timer, Wind, Zap as Zap2, AlertTriangle, CheckCircle, 
+  ChevronDown, Hexagon, Menu, X, Check, Zap as Zap3
+} from 'lucide-react';
 
-// Animated Icon Components for the Kiosk
+// ============================================
+// PARTICLE SYSTEM FOR HERO ANIMATION
+// ============================================
+function ParticleNetwork() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouseRef = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let particles: Array<{
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      size: number;
+    }> = [];
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    const createParticles = () => {
+      particles = [];
+      const count = Math.floor((canvas.width * canvas.height) / 15000);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          size: Math.random() * 2 + 1,
+        });
+      }
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw particles
+      particles.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+        // Draw particle
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 212, 255, 0.6)';
+        ctx.fill();
+
+        // Draw connections
+        particles.slice(i + 1).forEach((p2) => {
+          const dx = p.x - p2.x;
+          const dy = p.y - p2.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 150) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(0, 212, 255, ${0.3 * (1 - distance / 150)})`;
+            ctx.stroke();
+          }
+        });
+      });
+
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY };
+    };
+
+    resize();
+    createParticles();
+    draw();
+
+    window.addEventListener('resize', () => {
+      resize();
+      createParticles();
+    });
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('resize', resize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{ background: 'linear-gradient(135deg, #0A1628 0%, #0D0D0D 100%)' }}
+    />
+  );
+}
+
+// ============================================
+// ANIMATED ICONS FOR KIOSK
+// ============================================
 const AnimatedClock = () => (
   <motion.div
     animate={{ rotate: 360 }}
     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-    className="w-16 h-16 flex items-center justify-center"
+    className="w-12 h-12 flex items-center justify-center"
   >
     <Timer className="w-8 h-8 text-amber-400" />
   </motion.div>
@@ -19,9 +134,9 @@ const AnimatedBreath = () => (
   <motion.div
     animate={{ scale: [1, 1.2, 1], opacity: [0.8, 1, 0.8] }}
     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-    className="w-16 h-16 flex items-center justify-center"
+    className="w-12 h-12 flex items-center justify-center"
   >
-    <Wind className="w-8 h-8 text-emerald-400" />
+    <Wind className="w-8 h-8 text-amber-400" />
   </motion.div>
 );
 
@@ -32,9 +147,9 @@ const AnimatedEye = () => (
       filter: ["blur(0px)", "blur(2px)", "blur(0px)"]
     }}
     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-    className="w-16 h-16 flex items-center justify-center"
+    className="w-12 h-12 flex items-center justify-center"
   >
-    <Eye className="w-8 h-8 text-cyan-400" />
+    <Eye className="w-8 h-8 text-amber-400" />
   </motion.div>
 );
 
@@ -45,9 +160,9 @@ const AnimatedFingerprint = () => (
       y: [0, -3, 0]
     }}
     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-    className="w-16 h-16 flex items-center justify-center"
+    className="w-12 h-12 flex items-center justify-center"
   >
-    <Fingerprint className="w-8 h-8 text-green-400" />
+    <Fingerprint className="w-8 h-8 text-amber-400" />
   </motion.div>
 );
 
@@ -58,9 +173,9 @@ const AnimatedShield = () => (
       filter: ["brightness(1)", "brightness(1.3)", "brightness(1)"]
     }}
     transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-    className="w-16 h-16 flex items-center justify-center"
+    className="w-12 h-12 flex items-center justify-center"
   >
-    <Shield className="w-8 h-8 text-red-400" />
+    <Shield className="w-8 h-8 text-amber-400" />
   </motion.div>
 );
 
@@ -71,9 +186,9 @@ const AnimatedCode = () => (
       y: [0, -3, 0, 3, 0]
     }}
     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-    className="w-16 h-16 flex items-center justify-center"
+    className="w-12 h-12 flex items-center justify-center"
   >
-    <Code className="w-8 h-8 text-blue-400" />
+    <Code className="w-8 h-8 text-amber-400" />
   </motion.div>
 );
 
@@ -84,149 +199,176 @@ const AnimatedLock = () => (
       scale: [1, 1.02, 1]
     }}
     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-    className="w-16 h-16 flex items-center justify-center"
+    className="w-12 h-12 flex items-center justify-center"
   >
-    <Lock className="w-8 h-8 text-purple-400" />
+    <Lock className="w-8 h-8 text-amber-400" />
   </motion.div>
 );
 
-// Kiosk Node Data
+// ============================================
+// KIOSK NODE DATA
+// ============================================
 const kioskNodes = [
   {
     id: "node-01",
     title: "Daily Architecture",
-    description: "Timed sequences matching biological rhythms across morning, midday, and evening",
+    description: "Timed sequences matching biological rhythms",
     icon: AnimatedClock,
-    color: "amber",
     href: "#node-01-detail"
   },
   {
     id: "node-02", 
     title: "Breath-Matrix",
-    description: "Primary calibration interface between visual patterns and neural restoration",
+    description: "Primary calibration interface",
     icon: AnimatedBreath,
-    color: "emerald",
     href: "#node-02-detail"
   },
   {
     id: "node-03",
-    title: "Visual Pattern System",
-    description: "Structured information carriers designed to entrain neural activity",
+    title: "Visual Patterns",
+    description: "Structured neural entrainment",
     icon: AnimatedEye,
-    color: "cyan",
     href: "#node-03-detail"
   },
   {
     id: "node-04",
     title: "User Classification",
-    description: "Profile-based routing to appropriate intervention pathways",
+    description: "Profile-based routing",
     icon: AnimatedFingerprint,
-    color: "green",
     href: "#node-04-detail"
   },
   {
     id: "node-05",
     title: "KREE Framework",
-    description: "Quantum-level trauma dissolution and timeline reconstruction",
+    description: "Quantum trauma dissolution",
     icon: AnimatedShield,
-    color: "red",
     href: "#node-05-detail"
   },
   {
     id: "node-06",
     title: "Cross-Platform",
-    description: "State preservation and protocol integrity across all access points",
+    description: "State preservation across devices",
     icon: AnimatedCode,
-    color: "blue",
     href: "#node-06-detail"
   },
   {
     id: "node-07",
-    title: "Security Architecture",
-    description: "Military-grade encryption and comprehensive access controls",
+    title: "Security",
+    description: "Military-grade encryption",
     icon: AnimatedLock,
-    color: "purple",
     href: "#node-07-detail"
   }
 ];
 
-// Kiosk Card Component
-function KioskCard({ node, index }: { node: typeof kioskNodes[0], index: number }) {
+// ============================================
+// ANIMATION VARIANTS
+// ============================================
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+// ============================================
+// SCROLL REVEAL COMPONENT
+// ============================================
+function ScrollReveal({ children, delay = 0, id }: { children: React.ReactNode; delay?: number; id?: string }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      id={id}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={fadeInUp}
+      transition={{ delay }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// ============================================
+// KIOSK CARD COMPONENT
+// ============================================
+function KioskCard({ node, index }: { node: typeof kioskNodes[0]; index: number }) {
   const IconComponent = node.icon;
   
   return (
     <motion.a
       href={node.href}
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
-      whileHover={{ scale: 1.02, y: -5 }}
-      className="group relative p-6 rounded-2xl bg-primary/10 border border-primary/30 hover:border-accent/50 transition-all duration-300 overflow-hidden cursor-pointer block"
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      whileHover={{ scale: 1.02, y: -8 }}
+      transition={{ delay: index * 0.1, duration: 0.3 }}
+      className="group relative p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 
+                 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)]
+                 transition-all duration-300 cursor-pointer block overflow-hidden"
     >
-      {/* Animated Background Gradient */}
+      {/* Animated gradient background */}
       <motion.div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         style={{
-          background: `radial-gradient(circle at center, ${getColor(node.color, 0.15)} 0%, transparent 70%)`
+          background: 'radial-gradient(circle at center, rgba(0,212,255,0.15) 0%, transparent 70%)'
         }}
       />
       
-      {/* Number Badge */}
-      <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-primary/30 flex items-center justify-center">
-        <span className={`text-xs font-mono font-bold text-${node.color}-400`}>
+      {/* Number badge */}
+      <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+        <span className="text-sm font-mono font-bold text-amber-400">
           {String(index + 1).padStart(2, '0')}
         </span>
       </div>
       
-      {/* Animated Icon */}
+      {/* Animated icon */}
       <div className="flex justify-center mb-4">
         <IconComponent />
       </div>
       
       {/* Content */}
-      <h3 className={`text-lg font-bold text-${node.color}-400 text-center mb-2 group-hover:text-${node.color}-300 transition-colors`}>
+      <h3 className="text-lg font-bold text-white text-center mb-2 group-hover:text-amber-400 transition-colors">
         {node.title}
       </h3>
-      <p className="text-sm text-text-secondary text-center font-mono leading-relaxed">
+      <p className="text-sm text-gray-400 text-center font-mono leading-relaxed">
         {node.description}
       </p>
       
-      {/* Hover Indicator */}
+      {/* Hover arrow */}
       <motion.div
         className="absolute bottom-3 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
       >
-        <ChevronDown className={`w-5 h-5 text-${node.color}-400`} />
+        <ChevronDown className="w-5 h-5 text-amber-400" />
       </motion.div>
     </motion.a>
   );
 }
 
-function getColor(color: string, opacity: number): string {
-  const colors: Record<string, string> = {
-    amber: "rgb(251, 191, 36)",
-    emerald: "16, 185, 129",
-    cyan: "6, 182, 212",
-    green: "34, 197, 94",
-    red: "239, 68, 68",
-    blue: "59, 130, 246",
-    purple: "168, 85, 247"
-  };
-  return colors[color] || colors.amber;
-}
-
-// Scroll Indicator Component
+// ============================================
+// SCROLL INDICATOR
+// ============================================
 function ScrollIndicator() {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
+      setIsVisible(window.scrollY < 100);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -240,13 +382,13 @@ function ScrollIndicator() {
           exit={{ opacity: 0, y: -20 }}
           className="flex flex-col items-center gap-2"
         >
-          <span className="text-xs font-mono text-text-muted uppercase tracking-widest">Peruse Lower Down</span>
+          <span className="text-sm font-mono text-gray-500 uppercase tracking-widest">Peruse Lower Down</span>
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="w-8 h-8 rounded-full border border-accent/30 flex items-center justify-center"
+            className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center"
           >
-            <ChevronDown className="w-4 h-4 text-accent" />
+            <ChevronDown className="w-5 h-5 text-amber-400" />
           </motion.div>
         </motion.div>
       )}
@@ -254,769 +396,563 @@ function ScrollIndicator() {
   );
 }
 
+// ============================================
+// MAIN PAGE COMPONENT
+// ============================================
 export default function RepositoryPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Section 1: Richard's Picture and Note - AT THE TOP */}
-      <section className="relative z-10 py-20 px-6 lg:px-12">
-        <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen bg-[#0A1628] text-white overflow-hidden">
+      {/* PARTICLE NETWORK HERO */}
+      <ParticleNetwork />
+
+      {/* NAVIGATION */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0A1628]/80 backdrop-blur-xl border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <a href="/" className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+                <Hexagon className="w-6 h-6 text-amber-400" />
+              </div>
+              <div>
+                <span className="font-mono font-bold text-lg">COGNITIVE</span>
+                <span className="font-mono text-xs text-gray-500 block">ARCHITECT</span>
+              </div>
+            </a>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-8">
+              <a href="/repository" className="text-sm font-mono text-white hover:text-amber-400 transition-colors">REPOSITORY</a>
+              <a href="/feed" className="text-sm font-mono text-gray-400 hover:text-amber-400 transition-colors">BUILDER'S FEED</a>
+              <a href="/bigward" className="text-sm font-mono text-gray-400 hover:text-amber-400 transition-colors">THE BIG WARD</a>
+              <a href="/live-systems" className="text-sm font-mono text-gray-400 hover:text-amber-400 transition-colors">LIVE SYSTEMS</a>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-white"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+
+          {/* Mobile Navigation */}
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="md:hidden pt-4 pb-2 border-t border-white/10 mt-4"
+              >
+                <div className="flex flex-col gap-3">
+                  <a href="/" className="text-sm font-mono text-gray-400 hover:text-amber-400 py-2">THE CORE</a>
+                  <a href="/repository" className="text-sm font-mono text-white py-2">REPOSITORY</a>
+                  <a href="/feed" className="text-sm font-mono text-gray-400 hover:text-amber-400 py-2">BUILDER'S FEED</a>
+                  <a href="/bigward" className="text-sm font-mono text-gray-400 hover:text-amber-400 py-2">THE BIG WARD</a>
+                  <a href="/live-systems" className="text-sm font-mono text-gray-400 hover:text-amber-400 py-2">LIVE SYSTEMS</a>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </nav>
+
+      {/* HERO SECTION */}
+      <section className="relative z-10 pt-32 pb-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="grid lg:grid-cols-2 gap-12 items-start"
           >
-            {/* Richard's Photo */}
-            <div className="relative order-2 lg:order-1">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                className="aspect-[4/5] rounded-2xl bg-primary/10 border border-primary/30 overflow-hidden shadow-2xl"
-              >
-                <img 
-                  src="/richard-photo-new.jpeg" 
-                  alt="Richard D. Fortune"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background via-background/80 to-transparent">
-                  <p className="text-sm font-mono text-text-muted">Operator - Vo rthalis</p>
-                </div>
-              </motion.div>
-              
-              {/* Decorative Elements */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="absolute -top-4 -right-4 w-24 h-24 border border-accent/30 rounded-full"
-              />
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.8 }}
-                className="absolute -bottom-4 -left-4 w-16 h-16 border border-primary/50 rounded-full"
-              />
-            </div>
-            
-            {/* Richard's Note */}
-            <div className="order-1 lg:order-2">
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-              >
-                <div className="flex items-center gap-3 mb-6">
-                  <Brain className="w-6 h-6 text-accent" />
-                  <span className="text-sm font-mono text-accent uppercase tracking-widest">The Architect</span>
-                </div>
-                
-                <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">Richard D. Fortune</h1>
-                
-                <div className="space-y-6 text-text-secondary leading-relaxed text-lg font-mono">
-                  <p>I built the <strong className="text-accent">Healing Cloud</strong> from a clinical health science background. We ran retreats for professionals. We did not talk about optimization. We practiced it.</p>
-                  
-                  <p>Nutrition. Meditation. Physical exercise. Ergonomics. Social work arrays. Somatic resolution. Family systems. These were not separate departments. They were one organism, and we treated it as such.</p>
-                  
-                  <p>When GPTs emerged, I did not see a toy. I saw an interface for the protocol I had already built. I began integrating LLMs into the morning activation, the evening recalibration, the mid-day maintenance. The system did not change. It accelerated.</p>
-                  
-                  <div className="border-l-2 border-accent/50 pl-6 py-2 my-6">
-                    <p className="text-xl text-text-primary font-mono italic">
-                      "This is how we decode the complex. Not through screens alone. Through breath patterns synchronized to visual matrices. Through EFT tapping sequences that rewire field coherence."
-                    </p>
-                  </div>
-                  
-                  <p className="text-text-secondary leading-relaxed">
-                    This is the <strong className="text-accent">digital extension</strong> of a twelve-year practice in human optimization, born from clinical health work and refined through professional retreats. The technology accelerated the delivery. It did not replace the substance.
-                  </p>
-                </div>
-              </motion.div>
-            </div>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              <span className="block text-white">I Build Things</span>
+              <span className="block text-amber-400">That Work</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-400 font-mono max-w-2xl mx-auto">
+              Technical founder. Two shipped products. Zero excuses.
+            </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Section 2: Kiosk Dashboard */}
-      <section className="relative z-10 py-12 px-6 lg:px-12">
+      {/* SECTION 1: RICHARD'S PICTURE AND NOTE */}
+      <section className="relative z-10 py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          {/* Kiosk Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="text-center mb-12"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/30 mb-6">
-              <Target className="w-4 h-4 text-accent" />
-              <span className="text-xs font-mono text-accent tracking-widest uppercase">The Architecture</span>
+          <ScrollReveal>
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Richard's Photo */}
+              <div className="relative">
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                  className="aspect-[4/5] rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 overflow-hidden shadow-2xl"
+                >
+                  <img 
+                    src="/richard-photo-new.jpeg" 
+                    alt="Richard D. Fortune"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#0A1628] via-[#0A1628]/80 to-transparent">
+                    <p className="text-sm font-mono text-gray-400">Operator - Vo rthalis</p>
+                  </div>
+                </motion.div>
+                
+                {/* Decorative elements */}
+                <div className="absolute -top-4 -right-4 w-24 h-24 border border-amber-400/30 rounded-full" />
+                <div className="absolute -bottom-4 -left-4 w-16 h-16 border border-white/20 rounded-full" />
+              </div>
+              
+              {/* Richard's Note */}
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <Brain className="w-6 h-6 text-amber-400" />
+                  <span className="text-sm font-mono text-amber-400 uppercase tracking-widest">The Architect</span>
+                </div>
+                
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Richard D. Fortune</h2>
+                
+                <div className="space-y-6 text-gray-400 leading-relaxed text-lg font-mono">
+                  <p>Built the <strong className="text-amber-400">Healing Cloud</strong> from clinical health science. Ran retreats for professionals. No talk. Only practice.</p>
+                  
+                  <p>Nutrition. Meditation. Physical exercise. Ergonomics. Somatic resolution. Family systems. One organism. Treated as such.</p>
+                  
+                  <p>When GPTs emerged, didn't see a toy. Saw an interface for the protocol already built. Integrated LLMs into morning activation, evening recalibration, mid-day maintenance. System didn't change. It accelerated.</p>
+                  
+                  <div className="border-l-2 border-amber-400/50 pl-6 py-2 my-6">
+                    <p className="text-xl text-white font-mono italic">
+                      "Decode the complex through breath patterns synchronized to visual matrices. EFT tapping sequences that rewire field coherence."
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
-              Decoding the Complex Through Pluralistic Integration
-            </h2>
-            <p className="text-text-secondary max-w-2xl mx-auto leading-relaxed font-mono">
-              The industry wants you to believe that human optimization comes in separate boxes. 
-              What you are looking at here is the operational documentation of a complete human optimization system.
-            </p>
-          </motion.div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* SECTION 2: KIOSK DASHBOARD */}
+      <section className="relative z-10 py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
+                <Target className="w-4 h-4 text-amber-400" />
+                <span className="text-sm font-mono text-amber-400 uppercase tracking-widest">The Architecture</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                System Overview
+              </h2>
+              <p className="text-gray-400 max-w-2xl mx-auto font-mono">
+                Complete human optimization system. Not separate boxes. One integrated architecture.
+              </p>
+            </div>
+          </ScrollReveal>
 
           {/* Kiosk Grid - 7 Nodes */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12"
+          >
             {kioskNodes.map((node, index) => (
               <KioskCard key={node.id} node={node} index={index} />
             ))}
-          </div>
+          </motion.div>
 
           {/* Scroll Indicator */}
-          <div className="flex justify-center pb-8">
+          <div className="flex justify-center">
             <ScrollIndicator />
           </div>
         </div>
       </section>
 
-      {/* Section 3: Detailed Content Sections */}
-      <section className="relative z-10 py-24 px-6 lg:px-12">
-        <div className="max-w-5xl mx-auto space-y-32">
-          {/* Introduction Statement */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="p-8 rounded-xl bg-accent/5 border border-accent/30"
-          >
-            <h3 className="text-xl font-bold text-text-primary mb-4 flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-accent" />
-              The Pluralistic Reality — This Is The Different Way
-            </h3>
-            <p className="text-text-secondary leading-relaxed font-mono text-lg mb-4">
-              What you have just read is not a product feature list. It is the operational architecture of a complete human optimization system. Every node connects to every other node. Nutrition does not exist separately from ergonomics. Somatic resolution does not exist separately from business performance. Family systems do not exist separately from personal power.
-            </p>
-            <p className="text-text-secondary leading-relaxed font-mono text-lg mb-4">
-              The human being is <strong className="text-accent">one graph</strong>, one network, one living system. When you adjust one node, every other node adjusts in response. This is why the Healing Cloud worked. This is why the retreats transformed people. This is why the system now exists in digital form.
-            </p>
-            <div className="mt-6 p-6 bg-primary/20 border border-accent/30 rounded-xl">
-              <p className="text-xl text-accent font-mono italic text-center">
-                "The others, that is their way. This is ours."
+      {/* SECTION 3: DETAILED CONTENT */}
+      <section className="relative z-10 py-24 px-6">
+        <div className="max-w-5xl mx-auto space-y-24">
+          {/* Introduction */}
+          <ScrollReveal>
+            <div className="p-8 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10">
+              <BookOpen className="w-8 h-8 text-amber-400 mb-4" />
+              <h3 className="text-2xl font-bold text-white mb-4">The Pluralistic Reality</h3>
+              <p className="text-gray-400 leading-relaxed font-mono text-lg mb-4">
+                Not a product feature list. Operational architecture of a complete human optimization system. Every node connects to every other node.
               </p>
-            </div>
-          </motion.div>
-
-          {/* Node 1: The Daily Architecture */}
-          <div id="node-01-detail" className="scroll-mt-24">
-            <h3 className="text-2xl font-bold text-text-primary mb-6 flex items-center gap-2">
-              <Timer className="w-6 h-6 text-amber-400" />
-              Node 01: The Daily Architecture
-            </h3>
-            <p className="text-text-secondary leading-relaxed font-mono mb-6">
-              The system does not wait for you to remember to use it. The <strong className="text-accent">Daily Architecture</strong> is a timed sequence of protocols designed to match your biological rhythms. Morning, midday, and evening each have their own calibrated interventions, adjusted for the state of your nervous system at that hour.
-            </p>
-            
-            {/* Morning Protocol */}
-            <div className="p-6 rounded-xl bg-amber-500/5 border border-amber-500/20 mb-4">
-              <div className="flex items-center gap-3 mb-4">
-                <Sun className="w-5 h-5 text-amber-400" />
-                <span className="text-lg font-bold text-amber-400 font-mono">Morning Activation Sequence — 5:00 AM</span>
-              </div>
-              <p className="text-text-secondary font-mono text-sm mb-4">
-                The day begins with field expansion. When you wake, your nervous system is in a liminal state—neither fully asleep nor fully awake. This is the optimal window for repatterning. The sequence activates four distinct systems sequentially.
+              <p className="text-gray-400 leading-relaxed font-mono text-lg mb-4">
+                Human being is <strong className="text-amber-400">one graph</strong>, one network, one living system. Adjust one node, every other node adjusts. This is why the Healing Cloud worked. This is why retreats transformed people.
               </p>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Wind className="w-4 h-4 text-amber-300" />
-                    <span className="font-bold text-amber-200 font-mono text-sm">01 — Energy Field Expansion</span>
-                  </div>
-                  <p className="text-xs text-text-secondary font-mono">5-10 minutes. EFT tapping at collarbone and chest points. Visualize energy drawing from the earth, pooling at your center, then expanding outward in a protective, radiant sphere. This establishes your daily field boundary.</p>
-                </div>
-                <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Eye className="w-4 h-4 text-amber-300" />
-                    <span className="font-bold text-amber-200 font-mono text-sm">02 — Consciousness Elevation</span>
-                  </div>
-                  <p className="text-xs text-text-secondary font-mono">5 minutes. Temple and under-eye tapping. Clear mental fog. Bring sharpness to thoughts. Visualize the mind as a crystal-clear lake, distractions sinking below the surface.</p>
-                </div>
-                <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Cpu className="w-4 h-4 text-amber-300" />
-                    <span className="font-bold text-amber-200 font-mono text-sm">03 — System Optimization</span>
-                  </div>
-                  <p className="text-xs text-text-secondary font-mono">5 minutes. Side of hand and under-collarbone tapping. Activate internal circuits. Calibrate physical, mental, and emotional systems to peak efficiency. The daily boot sequence.</p>
-                </div>
-                <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <TrendingUp className="w-4 h-4 text-amber-300" />
-                    <span className="font-bold text-amber-200 font-mono text-sm">04 — Position Enhancement</span>
-                  </div>
-                  <p className="text-xs text-text-secondary font-mono">5 minutes. Top of head and chest tapping. Claim your command center. Establish authority over your environment. Visualize a sphere of influence reinforcing your presence.</p>
-                </div>
+              <div className="mt-6 p-6 bg-amber-400/10 border border-amber-400/30 rounded-xl">
+                <p className="text-xl text-amber-400 font-mono italic text-center">
+                  "The others, that is their way. This is ours."
+                </p>
               </div>
             </div>
-            
-            {/* Midday Maintenance */}
-            <div className="p-6 rounded-xl bg-emerald-500/5 border border-emerald-500/20 mb-4">
-              <div className="flex items-center gap-3 mb-4">
-                <Activity className="w-5 h-5 text-emerald-400" />
-                <span className="text-lg font-bold text-emerald-400 font-mono">Maintenance Flow — Throughout the Day</span>
-              </div>
-              <p className="text-text-secondary font-mono text-sm mb-4">
-                Between the major sequences, the system runs <strong className="text-emerald-300">maintenance protocols</strong>. These are triggered by real-time assessment of your energetic state. When patterns of drain, confusion, or positional weakness are detected, the appropriate intervention fires.
-              </p>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Shield className="w-4 h-4 text-emerald-300" />
-                    <span className="font-bold text-emerald-200 font-mono text-sm">Energy Preservation Protocol</span>
-                  </div>
-                  <p className="text-xs text-text-secondary font-mono">Wrist and collarbone tapping. Seal energy leaks. Consolidate internal reserves. Visualization of a strong, contained vessel with channels secure and flowing only where needed.</p>
-                </div>
-                <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Eye className="w-4 h-4 text-emerald-300" />
-                    <span className="font-bold text-emerald-200 font-mono text-sm">Pattern Recognition Scanner</span>
-                  </div>
-                  <p className="text-xs text-text-secondary font-mono">Temple and under-eye tapping. Heighten perception. Pick up subtle cues. Radar-style awareness expanding around you to detect opportunities and threats in real-time.</p>
-                </div>
-                <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Lock className="w-4 h-4 text-emerald-300" />
-                    <span className="font-bold text-emerald-200 font-mono text-sm">Value Protection Guardian</span>
-                  </div>
-                  <p className="text-xs text-text-secondary font-mono">Center chest and sides of head tapping. Secure accomplishments. Deflect attempts to diminish contributions. Strong, unbreakable boundary around created value.</p>
-                </div>
-                <div className="p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <RefreshCw className="w-4 h-4 text-emerald-300" />
-                    <span className="font-bold text-emerald-200 font-mono text-sm">Position Optimization Adjuster</span>
-                  </div>
-                  <p className="text-xs text-text-secondary font-mono">Top of head and sides of hands. Adapt fluidly to maintain influence. Stay balanced and in control. Anchored yet flexible in all interactions.</p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Evening Integration */}
-            <div className="p-6 rounded-xl bg-indigo-500/5 border border-indigo-500/20">
-              <div className="flex items-center gap-3 mb-4">
-                <Moon className="w-5 h-5 text-indigo-400" />
-                <span className="text-lg font-bold text-indigo-400 font-mono">Evening Integration Sequence — 7:00 PM</span>
-              </div>
-              <p className="text-text-secondary font-mono text-sm mb-4">
-                The day must be processed properly or it becomes lodged in the system. The <strong className="text-indigo-300">Evening Integration</strong> clears accumulated energy, recalibrates internal systems, and crystallizes the value created during the day.
-              </p>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="p-4 rounded-lg bg-indigo-500/10 border border-indigo-500/30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Wind className="w-4 h-4 text-indigo-300" />
-                    <span className="font-bold text-indigo-200 font-mono text-sm">01 — Energy Field Reset</span>
-                  </div>
-                  <p className="text-xs text-text-secondary font-mono">5 minutes. Crown of head and center chest tapping. Clear accumulated energy. Gentle wave of light washing through the body. Release the day&apos;s stress.</p>
-                </div>
-                <div className="p-4 rounded-lg bg-indigo-500/10 border border-indigo-500/30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Cpu className="w-4 h-4 text-indigo-300" />
-                    <span className="font-bold text-indigo-200 font-mono text-sm">02 — System Recalibration</span>
-                  </div>
-                  <p className="text-xs text-text-secondary font-mono">5 minutes. Side of hand and collarbone tapping. Reset each system to ideal state. Interconnected circuits aligning and preparing for peak performance tomorrow.</p>
-                </div>
-                <div className="p-4 rounded-lg bg-indigo-500/10 border border-indigo-500/30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Database className="w-4 h-4 text-indigo-300" />
-                    <span className="font-bold text-indigo-200 font-mono text-sm">03 — Value Crystallization</span>
-                  </div>
-                  <p className="text-xs text-text-secondary font-mono">5 minutes. Center chest and under-eye tapping. Consolidate achievements. Golden orbs of light integrating into your core. Bank the day&apos;s gains permanently.</p>
-                </div>
-                <div className="p-4 rounded-lg bg-indigo-500/10 border border-indigo-500/30">
-                  <div className="flex items-center gap-2 mb-2">
-                    <TrendingUp className="w-4 h-4 text-indigo-300" />
-                    <span className="font-bold text-indigo-200 font-mono text-sm">04 — Position Strengthening</span>
-                  </div>
-                  <p className="text-xs text-text-secondary font-mono">5 minutes. Crown of head and center chest tapping. Solidify influence. Deeply rooted anchor. Imovable position held by inner resilience.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          </ScrollReveal>
 
-          {/* Node 2: Breath-Matrix Synchronization */}
-          <div id="node-02-detail" className="scroll-mt-24">
-            <h3 className="text-2xl font-bold text-text-primary mb-6 flex items-center gap-2">
-              <Zap2 className="w-6 h-6 text-emerald-400" />
-              Node 02: Breath-Matrix Synchronization
-            </h3>
-            <p className="text-text-secondary leading-relaxed font-mono mb-6">
-              This system does not treat breathing as an afterthought. The <strong className="text-accent">So In Tune</strong> framework establishes breathing patterns as the primary calibration interface between visual matrix stimulation and neural restoration. The breath is the frequency tuner. The visual matrix is the display. Together, they create the conditions for transformation.
+          {/* Node 1: Daily Architecture */}
+          <ScrollReveal id="node-01-detail">
+            <div className="flex items-center gap-3 mb-6">
+              <Timer className="w-8 h-8 text-amber-400" />
+              <span className="text-sm font-mono text-amber-400 uppercase tracking-widest">Node 01</span>
+            </div>
+            <h3 className="text-3xl font-bold text-white mb-6">Daily Architecture</h3>
+            <p className="text-gray-400 leading-relaxed font-mono mb-6">
+              System doesn't wait for you to remember. <strong className="text-amber-400">Timed sequences</strong> match biological rhythms. Morning, midday, evening each have calibrated interventions.
             </p>
             
-            <div className="grid md:grid-cols-4 gap-4 mb-6">
-              <div className="p-6 rounded-xl bg-primary/20 border border-primary/40 text-center">
-                <p className="text-3xl font-bold text-accent font-mono mb-2">3-2-5</p>
-                <p className="text-xs text-amber-400 font-mono uppercase mb-2">Morning Base</p>
-                <p className="text-xs text-text-secondary font-mono">Inhale 3 / Hold 2 / Exhale 5</p>
-                <p className="text-xs text-text-muted font-mono mt-2">0600-1000 window</p>
-              </div>
-              <div className="p-6 rounded-xl bg-primary/20 border border-primary/40 text-center">
-                <p className="text-3xl font-bold text-accent font-mono mb-2">4-4-6</p>
-                <p className="text-xs text-emerald-400 font-mono uppercase mb-2">Midday Base</p>
-                <p className="text-xs text-text-secondary font-mono">Inhale 4 / Hold 4 / Exhale 6</p>
-                <p className="text-xs text-text-muted font-mono mt-2">1100-1400 window</p>
-              </div>
-              <div className="p-6 rounded-xl bg-primary/20 border border-primary/40 text-center">
-                <p className="text-3xl font-bold text-accent font-mono mb-2">5-3-7</p>
-                <p className="text-xs text-indigo-400 font-mono uppercase mb-2">Evening Base</p>
-                <p className="text-xs text-text-secondary font-mono">Inhale 5 / Hold 3 / Exhale 7</p>
-                <p className="text-xs text-text-muted font-mono mt-2">1500-1900 window</p>
-              </div>
-              <div className="p-6 rounded-xl bg-primary/20 border border-primary/40 text-center">
-                <p className="text-3xl font-bold text-accent font-mono mb-2">4-7-8</p>
-                <p className="text-xs text-red-400 font-mono uppercase mb-2">Overload Reset</p>
-                <p className="text-xs text-text-secondary font-mono">Inhale 4 / Hold 7 / Exhale 8</p>
-                <p className="text-xs text-text-muted font-mono mt-2">Symptom modification</p>
-              </div>
+            <div className="grid md:grid-cols-3 gap-4">
+              {[
+                { time: "5:00 AM", title: "Morning Activation", desc: "Field expansion sequence. Four systems activate sequentially." },
+                { time: "Throughout", title: "Maintenance Flow", desc: "Real-time assessment triggers interventions." },
+                { time: "7:00 PM", title: "Evening Integration", desc: "Clear accumulated energy. Recalibrate systems." }
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ y: -5 }}
+                  className="p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-amber-400/50 transition-all"
+                >
+                  <p className="text-sm font-mono text-amber-400 mb-2">{item.time}</p>
+                  <h4 className="text-lg font-bold text-white mb-2">{item.title}</h4>
+                  <p className="text-sm text-gray-400 font-mono">{item.desc}</p>
+                </motion.div>
+              ))}
             </div>
-            
-            <div className="p-4 rounded-lg bg-primary/10 border border-primary/30">
-              <p className="text-sm text-text-secondary font-mono">
-                <strong className="text-accent">Advanced Modifiers:</strong> When symptoms are present during the 3-2-5 window, reduce to 2-2-3. For advanced practitioners, the 3-2-5 becomes 4-4-6. During midday fatigue, switch to 3-5-7. For overload conditions at any time, the 4-7-8 reset protocol takes precedence.
-              </p>
-            </div>
-          </div>
+          </ScrollReveal>
 
-          {/* Node 3: Visual Pattern System */}
-          <div id="node-03-detail" className="scroll-mt-24">
-            <h3 className="text-2xl font-bold text-text-primary mb-6 flex items-center gap-2">
-              <Eye className="w-6 h-6 text-cyan-400" />
-              Node 03: Visual Pattern System
-            </h3>
-            <p className="text-text-secondary leading-relaxed font-mono mb-6">
-              The visual patterns are not decorative. They are <strong className="text-accent">structured information carriers</strong> designed to entrain neural activity through specific geometric configurations. The system uses multiple pattern types, each calibrated for different outcomes.
-            </p>
-            
-            <div className="grid md:grid-cols-3 gap-4 mb-6">
-              <div className="p-6 rounded-xl bg-cyan-500/5 border border-cyan-500/20">
-                <div className="flex items-center gap-2 mb-4">
-                  <Layers className="w-5 h-5 text-cyan-400" />
-                  <span className="font-bold text-cyan-400 font-mono">PATTERN ALPHA</span>
-                </div>
-                <p className="text-xs text-text-muted font-mono mb-3">Spatial-Temporal Base</p>
-                <div className="space-y-2 text-xs text-text-secondary font-mono">
-                  <p>Windows: 5 | Birds: 9 | Planes: 6</p>
-                  <p>Flight Levels: 3 | Leaves: 14 | Updrafts: 4</p>
-                  <p>Intersection Points: 8 | Cardinal Points: 5 | Speeds: 4</p>
-                </div>
-                <div className="mt-4 pt-4 border-t border-cyan-500/20">
-                  <p className="text-xs text-cyan-300 font-mono">Application: Vision Changes, Visual Field Calibration</p>
-                </div>
-              </div>
-              <div className="p-6 rounded-xl bg-purple-500/5 border border-purple-500/20">
-                <div className="flex items-center gap-2 mb-4">
-                  <Radio className="w-5 h-5 text-purple-400" />
-                  <span className="font-bold text-purple-400 font-mono">PATTERN BETA</span>
-                </div>
-                <p className="text-xs text-text-muted font-mono mb-3">Energy-Field Mapping</p>
-                <div className="space-y-2 text-xs text-text-secondary font-mono">
-                  <p>Pulses: 5 | Frequencies: 7 | Dimensions: 3</p>
-                  <p>Harmonics: 9 | Flux Patterns: 6 | Thermal Points: 8</p>
-                  <p>Phase Changes: 12 | Spectrum Bands: 4</p>
-                </div>
-                <div className="mt-4 pt-4 border-t border-purple-500/20">
-                  <p className="text-xs text-purple-300 font-mono">Application: Balance Uncertainty, Energy Field Alignment</p>
-                </div>
-              </div>
-              <div className="p-6 rounded-xl bg-pink-500/5 border border-pink-500/20">
-                <div className="flex items-center gap-2 mb-4">
-                  <Network className="w-5 h-5 text-pink-400" />
-                  <span className="font-bold text-pink-400 font-mono">PATTERN GAMMA</span>
-                </div>
-                <p className="text-xs text-text-muted font-mono mb-3">Neural Synchronization</p>
-                <div className="space-y-2 text-xs text-text-secondary font-mono">
-                  <p>Phases: 8 | Cycles: 12 | Resonance Points: 7</p>
-                  <p>Wave Forms: 5 | Oscillation Rates: 9</p>
-                  <p>Coherence Metrics: 6 | Alignment States: 4</p>
-                </div>
-                <div className="mt-4 pt-4 border-t border-pink-500/20">
-                  <p className="text-xs text-pink-300 font-mono">Application: Cognitive Focus, Memory Integration</p>
-                </div>
-              </div>
+          {/* Node 2: Breath-Matrix */}
+          <ScrollReveal id="node-02-detail">
+            <div className="flex items-center gap-3 mb-6">
+              <Wind className="w-8 h-8 text-amber-400" />
+              <span className="text-sm font-mono text-amber-400 uppercase tracking-widest">Node 02</span>
             </div>
-            
-            <p className="text-text-secondary leading-relaxed font-mono">
-              <strong className="text-accent">Pattern-Breath Synchronization:</strong> Each pattern is designed to synchronize with specific breathing rhythms. When Pattern Alpha (spatial-temporal) is combined with 3-2-5 breathing, the system activates spatial reasoning centers. When Pattern Beta (energy-field) meets 4-4-6 breathing, the system calibrates energetic boundaries. This is not guesswork. It is precision engineering applied to consciousness.
+            <h3 className="text-3xl font-bold text-white mb-6">Breath-Matrix Synchronization</h3>
+            <p className="text-gray-400 leading-relaxed font-mono mb-6">
+              Breathing is the <strong className="text-amber-400">primary calibration interface</strong>. Breath is the frequency tuner. Visual matrix is the display. Together, they create transformation conditions.
             </p>
-          </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { pattern: "3-2-5", label: "Morning Base", time: "0600-1000" },
+                { pattern: "4-4-6", label: "Midday Base", time: "1100-1400" },
+                { pattern: "5-3-7", label: "Evening Base", time: "1500-1900" },
+                { pattern: "4-7-8", label: "Overload Reset", time: "Any time" }
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ scale: 1.05 }}
+                  className="p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 text-center"
+                >
+                  <p className="text-3xl font-bold text-amber-400 font-mono mb-2">{item.pattern}</p>
+                  <p className="text-sm text-white mb-1">{item.label}</p>
+                  <p className="text-xs text-gray-500 font-mono">{item.time}</p>
+                </motion.div>
+              ))}
+            </div>
+          </ScrollReveal>
 
-          {/* Node 4: User Classification Engine */}
-          <div id="node-04-detail" className="scroll-mt-24">
-            <h3 className="text-2xl font-bold text-text-primary mb-6 flex items-center gap-2">
-              <Fingerprint className="w-6 h-6 text-green-400" />
-              Node 04: User Classification Engine
-            </h3>
-            <p className="text-text-secondary leading-relaxed font-mono mb-6">
-              Not everyone processes information the same way. The <strong className="text-accent">User Classification Engine</strong> profiles incoming users based on multiple metrics and routes them to the appropriate intervention pathway. This ensures the system meets people where they actually are, not where it assumes they are.
+          {/* Node 3: Visual Patterns */}
+          <ScrollReveal id="node-03-detail">
+            <div className="flex items-center gap-3 mb-6">
+              <Eye className="w-8 h-8 text-amber-400" />
+              <span className="text-sm font-mono text-amber-400 uppercase tracking-widest">Node 03</span>
+            </div>
+            <h3 className="text-3xl font-bold text-white mb-6">Visual Pattern System</h3>
+            <p className="text-gray-400 leading-relaxed font-mono mb-6">
+              Visual patterns are <strong className="text-amber-400">structured information carriers</strong>. Designed to entrain neural activity through specific geometric configurations.
             </p>
             
-            <div className="grid md:grid-cols-3 gap-4 mb-6">
-              <div className="p-6 rounded-xl bg-green-500/5 border border-green-500/20">
-                <div className="flex items-center gap-2 mb-4">
-                  <CheckCircle className="w-5 h-5 text-green-400" />
-                  <span className="font-bold text-green-400 font-mono">TYPE A — HIGH SENSITIVITY</span>
-                </div>
-                <div className="space-y-3 text-sm text-text-secondary font-mono">
-                  <p className="flex justify-between"><span>Visual Sensitivity:</span> <span className="text-green-300">High (8-10)</span></p>
-                  <p className="flex justify-between"><span>Response Time:</span> <span className="text-green-300">Rapid</span></p>
-                  <p className="flex justify-between"><span>Balance Issues:</span> <span className="text-green-300">Minimal</span></p>
-                </div>
-                <div className="mt-4 pt-4 border-t border-green-500/20">
-                  <p className="text-xs text-text-muted font-mono mb-2">Recommended Protocols:</p>
-                  <p className="text-xs text-green-300 font-mono">Patterns: ALPHA, GAMMA | Base: 3-2-5</p>
-                  <p className="text-xs text-text-secondary mt-1">Complexity scaling: 25% reduction</p>
-                </div>
-              </div>
-              <div className="p-6 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
-                <div className="flex items-center gap-2 mb-4">
-                  <AlertTriangle className="w-5 h-5 text-yellow-400" />
-                  <span className="font-bold text-yellow-400 font-mono">TYPE B — MODERATE BALANCE</span>
-                </div>
-                <div className="space-y-3 text-sm text-text-secondary font-mono">
-                  <p className="flex justify-between"><span>Visual Sensitivity:</span> <span className="text-yellow-300">Moderate (5-7)</span></p>
-                  <p className="flex justify-between"><span>Response Time:</span> <span className="text-yellow-300">Normal</span></p>
-                  <p className="flex justify-between"><span>Balance Issues:</span> <span className="text-yellow-300">Present</span></p>
-                </div>
-                <div className="mt-4 pt-4 border-t border-yellow-500/20">
-                  <p className="text-xs text-text-muted font-mono mb-2">Recommended Protocols:</p>
-                  <p className="text-xs text-yellow-300 font-mono">Patterns: BETA, DELTA | Base: 4-4-6</p>
-                  <p className="text-xs text-text-secondary mt-1">Complexity scaling: Standard</p>
-                </div>
-              </div>
-              <div className="p-6 rounded-xl bg-red-500/5 border border-red-500/20">
-                <div className="flex items-center gap-2 mb-4">
-                  <RefreshCw className="w-5 h-5 text-red-400" />
-                  <span className="font-bold text-red-400 font-mono">TYPE C — RESTORATION FOCUS</span>
-                </div>
-                <div className="space-y-3 text-sm text-text-secondary font-mono">
-                  <p className="flex justify-between"><span>Visual Sensitivity:</span> <span className="text-red-300">Low (1-4)</span></p>
-                  <p className="flex justify-between"><span>Response Time:</span> <span className="text-red-300">Delayed</span></p>
-                  <p className="flex justify-between"><span>Balance Issues:</span> <span className="text-red-300">Significant</span></p>
-                </div>
-                <div className="mt-4 pt-4 border-t border-red-500/20">
-                  <p className="text-xs text-text-muted font-mono mb-2">Recommended Protocols:</p>
-                  <p className="text-xs text-red-300 font-mono">Patterns: EPSILON, THETA | Base: 2-4-4</p>
-                  <p className="text-xs text-text-secondary mt-1">Complexity scaling: 50% reduction</p>
-                </div>
-              </div>
+            <div className="grid md:grid-cols-3 gap-4">
+              {[
+                { name: "PATTERN ALPHA", desc: "Spatial-Temporal Base", app: "Vision calibration" },
+                { name: "PATTERN BETA", desc: "Energy-Field Mapping", app: "Balance alignment" },
+                { name: "PATTERN GAMMA", desc: "Neural Synchronization", app: "Cognitive focus" }
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ y: -5 }}
+                  className="p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10"
+                >
+                  <Layers className="w-8 h-8 text-amber-400 mb-4" />
+                  <h4 className="text-lg font-bold text-white mb-2">{item.name}</h4>
+                  <p className="text-sm text-gray-400 mb-2">{item.desc}</p>
+                  <p className="text-xs text-amber-400 font-mono">{item.app}</p>
+                </motion.div>
+              ))}
             </div>
-          </div>
+          </ScrollReveal>
 
-          {/* Node 5: The KREE Framework - Deep Layer */}
-          <div id="node-05-detail" className="scroll-mt-24">
-            <h3 className="text-2xl font-bold text-text-primary mb-6 flex items-center gap-2">
-              <Shield className="w-6 h-6 text-red-500" />
-              Node 05: The Deep Layer — KREE Framework
-            </h3>
-            <p className="text-text-secondary leading-relaxed font-mono mb-6">
-              This is where the system diverges from everything else on the market. Traditional therapy processes trauma. It helps you cope with memories. It manages symptoms. The <strong className="text-red-400">KREE Framework</strong> takes a fundamentally different approach: it attempts to remove trauma from the subject&apos;s space-time continuum entirely. This is not metaphor. This is the architecture of the work.
+          {/* Node 4: User Classification */}
+          <ScrollReveal id="node-04-detail">
+            <div className="flex items-center gap-3 mb-6">
+              <Fingerprint className="w-8 h-8 text-amber-400" />
+              <span className="text-sm font-mono text-amber-400 uppercase tracking-widest">Node 04</span>
+            </div>
+            <h3 className="text-3xl font-bold text-white mb-6">User Classification Engine</h3>
+            <p className="text-gray-400 leading-relaxed font-mono mb-6">
+              Not everyone processes information the same way. <strong className="text-amber-400">Profile-based routing</strong> to appropriate intervention pathways.
             </p>
             
-            <div className="p-6 rounded-xl bg-red-500/10 border border-red-500/30 mb-6">
-              <h4 className="text-xl font-bold text-red-400 font-mono mb-4">Holographic Lock: Quantum Erasure of Trauma</h4>
-              <p className="text-text-secondary font-mono text-sm mb-4">
-                The theoretical foundation rests on the premise that trauma exists as quantum information stored in cellular and field memory. This creates reality interference patterns that maintain timeline coherence and somatic imprints. Traditional methods process this information but leave it intact. KREE operates at the field level to dissolve the information itself.
-              </p>
+            <div className="grid md:grid-cols-3 gap-4">
+              {[
+                { type: "TYPE A", name: "High Sensitivity", sensitivity: "High (8-10)", protocols: "ALPHA, GAMMA" },
+                { type: "TYPE B", name: "Moderate Balance", sensitivity: "Moderate (5-7)", protocols: "BETA, DELTA" },
+                { type: "TYPE C", name: "Restoration Focus", sensitivity: "Low (1-4)", protocols: "EPSILON, THETA" }
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ y: -5 }}
+                  className="p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-sm font-mono text-amber-400">{item.type}</span>
+                    <Check className="w-5 h-5 text-green-400" />
+                  </div>
+                  <h4 className="text-lg font-bold text-white mb-2">{item.name}</h4>
+                  <p className="text-sm text-gray-400 mb-2">Sensitivity: {item.sensitivity}</p>
+                  <p className="text-xs text-amber-400 font-mono">{item.protocols}</p>
+                </motion.div>
+              ))}
             </div>
-            
-            <div className="space-y-4 mb-6">
-              <div className="flex items-start gap-4 p-5 rounded-lg bg-red-500/10 border border-red-500/20">
-                <div className="w-10 h-10 rounded-full bg-red-500/30 flex items-center justify-center flex-shrink-0">
-                  <span className="text-red-400 font-mono font-bold">01</span>
-                </div>
-                <div>
-                  <h5 className="font-bold text-text-primary mb-2">Processing vs. Erasure — The Fundamental Difference</h5>
-                  <p className="text-sm text-text-secondary font-mono">Talk therapy processes but maintains timeline. Somatic approaches release but don&apos;t erase. EMDR reprocesses neural pathways but keeps quantum information intact. KREE removes trauma information, dissolves timeline anchors, erases field patterns, and reconstructs a new timeline without the traumatic reference point.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4 p-5 rounded-lg bg-red-500/10 border border-red-500/20">
-                <div className="w-10 h-10 rounded-full bg-red-500/30 flex items-center justify-center flex-shrink-0">
-                  <span className="text-red-400 font-mono font-bold">02</span>
-                </div>
-                <div>
-                  <h5 className="font-bold text-text-primary mb-2">No Access Required — The Safety Innovation</h5>
-                  <p className="text-sm text-text-secondary font-mono">Traditional trauma therapy requires the client to access painful memories, potentially causing retraumatization. KREE works through pattern dissolution at the field level. The subject does not need to relive or discuss the trauma. The system identifies quantum signatures, locates field distortions, and dissolves the pattern without conscious access to the memory.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4 p-5 rounded-lg bg-red-500/10 border border-red-500/20">
-                <div className="w-10 h-10 rounded-full bg-red-500/30 flex items-center justify-center flex-shrink-0">
-                  <span className="text-red-400 font-mono font-bold">03</span>
-                </div>
-                <div>
-                  <h5 className="font-bold text-text-primary mb-2">Impossibility of Relapse — The Outcome Guarantee</h5>
-                  <p className="text-sm text-text-secondary font-mono">Because the trauma information is removed from the quantum field state, there is no memory to trigger and no pattern to reactivate. The subject experiences a clean timeline reconstruction. Traditional concepts of relapse become irrelevant because the original disturbance no longer exists in their space-time continuum.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4 p-5 rounded-lg bg-red-500/10 border border-red-500/20">
-                <div className="w-10 h-10 rounded-full bg-red-500/30 flex items-center justify-center flex-shrink-0">
-                  <span className="text-red-400 font-mono font-bold">04</span>
-                </div>
-                <div>
-                  <h5 className="font-bold text-text-primary mb-2">Timeline Reconstruction — The Future Pathway</h5>
-                  <p className="text-sm text-text-secondary font-mono">After erasure, the system rebuilds the subject&apos;s timeline coherence without the trauma anchor. A new quantum state is established. A clean field pattern is created. The subject experiences a continuity of identity that excludes the traumatic event while maintaining personal narrative integrity.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          </ScrollReveal>
 
-          {/* Node 6: Cross-Platform Implementation */}
-          <div id="node-06-detail" className="scroll-mt-24">
-            <h3 className="text-2xl font-bold text-text-primary mb-6 flex items-center gap-2">
-              <Code className="w-6 h-6 text-blue-400" />
-              Node 06: Cross-Platform Implementation
-            </h3>
-            <p className="text-text-secondary leading-relaxed font-mono mb-6">
-              The protocols must follow you. Whether you are on mobile during your morning commute, at a desktop during work, or accessing through a web browser while traveling, the <strong className="text-accent">Cross-Platform Implementation</strong> ensures state preservation and protocol integrity across every access point.
+          {/* Node 5: KREE Framework */}
+          <ScrollReveal id="node-05-detail">
+            <div className="flex items-center gap-3 mb-6">
+              <Shield className="w-8 h-8 text-amber-400" />
+              <span className="text-sm font-mono text-amber-400 uppercase tracking-widest">Node 05</span>
+            </div>
+            <h3 className="text-3xl font-bold text-white mb-6">KREE Framework</h3>
+            <p className="text-gray-400 leading-relaxed font-mono mb-6">
+              Where the system diverges from everything else. <strong className="text-amber-400">Quantum-level trauma dissolution</strong>. Not processing. Complete erasure from space-time continuum.
             </p>
             
-            <div className="grid md:grid-cols-3 gap-4 mb-6">
-              <div className="p-6 rounded-xl bg-blue-500/5 border border-blue-500/20">
-                <div className="flex items-center gap-2 mb-4">
-                  <Server className="w-5 h-5 text-blue-400" />
-                  <span className="font-bold text-blue-400 font-mono">MOBILE PLATFORM</span>
-                </div>
-                <div className="space-y-2 text-xs text-text-secondary font-mono">
-                  <p>iOS 14+ | Android 10+</p>
-                  <p>Memory: 2GB | Storage: 500MB</p>
-                  <p>Native Integration: Verified</p>
-                  <p>Offline Capability: Implemented</p>
-                </div>
-                <div className="mt-4 pt-4 border-t border-blue-500/20">
-                  <p className="text-xs text-blue-300 font-mono">Touch Zones: Enlarged</p>
-                  <p className="text-xs text-blue-300 font-mono">Motion Sensitivity: Dampened</p>
-                  <p className="text-xs text-blue-300 font-mono">Battery Awareness: Enabled</p>
-                </div>
-              </div>
-              <div className="p-6 rounded-xl bg-orange-500/5 border border-orange-500/20">
-                <div className="flex items-center gap-2 mb-4">
-                  <Database className="w-5 h-5 text-orange-400" />
-                  <span className="font-bold text-orange-400 font-mono">DESKTOP PLATFORM</span>
-                </div>
-                <div className="space-y-2 text-xs text-text-secondary font-mono">
-                  <p>Windows 10+ | MacOS 11+ | Linux</p>
-                  <p>Memory: 4GB | Storage: 1GB</p>
-                  <p>System Integration: Verified</p>
-                  <p>Multi-Monitor: Supported</p>
-                </div>
-                <div className="mt-4 pt-4 border-t border-orange-500/20">
-                  <p className="text-xs text-orange-300 font-mono">Multi-Threading: Enabled</p>
-                  <p className="text-xs text-orange-300 font-mono">GPU Acceleration: Preferred</p>
-                  <p className="text-xs text-orange-300 font-mono">Precision Controls: Enhanced</p>
-                </div>
-              </div>
-              <div className="p-6 rounded-xl bg-green-500/5 border border-green-500/20">
-                <div className="flex items-center gap-2 mb-4">
-                  <Globe className="w-5 h-5 text-green-400" />
-                  <span className="font-bold text-green-400 font-mono">WEB PLATFORM</span>
-                </div>
-                <div className="space-y-2 text-xs text-text-secondary font-mono">
-                  <p>Chrome 88+ | Firefox 85+ | Safari 14+</p>
-                  <p>Connection: Broadband 5Mbps</p>
-                  <p>Browser Compatibility: Verified</p>
-                  <p>Responsive Design: Implemented</p>
-                </div>
-                <div className="mt-4 pt-4 border-t border-green-500/20">
-                  <p className="text-xs text-green-300 font-mono">Rendering: Adaptive Engine</p>
-                  <p className="text-xs text-green-300 font-mono">Storage: Indexed DB</p>
-                  <p className="text-xs text-green-300 font-mono">Offline: Service Worker</p>
-                </div>
-              </div>
+            <div className="space-y-4">
+              {[
+                { num: "01", title: "Processing vs Erasure", desc: "Remove information, dissolve anchors, reconstruct timeline." },
+                { num: "02", title: "No Access Required", desc: "Pattern dissolution at field level. No reliving. No discussion." },
+                { num: "03", title: "Impossibility of Relapse", desc: "No memory to trigger. No pattern to reactivate." },
+                { num: "04", title: "Timeline Reconstruction", desc: "New quantum state. Clean field pattern. Identity continuity." }
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="flex items-start gap-4 p-5 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10"
+                >
+                  <div className="w-10 h-10 rounded-full bg-amber-400/20 flex items-center justify-center flex-shrink-0">
+                    <span className="text-amber-400 font-mono font-bold">{item.num}</span>
+                  </div>
+                  <div>
+                    <h5 className="font-bold text-white mb-1">{item.title}</h5>
+                    <p className="text-sm text-gray-400 font-mono">{item.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-            
-            <div className="p-4 rounded-lg bg-primary/10 border border-primary/30">
-              <p className="text-sm text-text-secondary font-mono">
-                <strong className="text-accent">State Preservation:</strong> All platforms sync through encrypted real-time protocols. Pattern state, breathing metrics, and session progress are preserved bidirectionally. When you transition from mobile to desktop, your session continues seamlessly. No data loss. No protocol interruption.
-              </p>
-            </div>
-          </div>
+          </ScrollReveal>
 
-          {/* Node 7: Security & Data Integrity */}
-          <div id="node-07-detail" className="scroll-mt-24">
-            <h3 className="text-2xl font-bold text-text-primary mb-6 flex items-center gap-2">
-              <Lock className="w-6 h-6 text-purple-400" />
-              Node 07: Security & Data Integrity
-            </h3>
-            <p className="text-text-secondary leading-relaxed font-mono mb-6">
-              The data this system collects is sensitive. It includes biometric patterns, session history, and in some cases, deep trauma processing records. The <strong className="text-accent">Security Architecture</strong> implements military-grade encryption and comprehensive access controls.
+          {/* Node 6: Cross-Platform */}
+          <ScrollReveal id="node-06-detail">
+            <div className="flex items-center gap-3 mb-6">
+              <Code className="w-8 h-8 text-amber-400" />
+              <span className="text-sm font-mono text-amber-400 uppercase tracking-widest">Node 06</span>
+            </div>
+            <h3 className="text-3xl font-bold text-white mb-6">Cross-Platform Implementation</h3>
+            <p className="text-gray-400 leading-relaxed font-mono mb-6">
+              Protocols follow you. <strong className="text-amber-400">State preservation</strong> and protocol integrity across every access point.
             </p>
             
-            <div className="grid md:grid-cols-2 gap-4 mb-6">
-              <div className="p-6 rounded-xl bg-primary/20 border border-primary/40">
-                <h4 className="font-bold text-accent font-mono mb-4">Data Encryption</h4>
+            <div className="grid md:grid-cols-3 gap-4">
+              {[
+                { icon: Server, name: "Mobile", desc: "iOS 14+ | Android 10+", features: "Offline capability" },
+                { icon: Database, name: "Desktop", desc: "Windows 10+ | MacOS 11+", features: "Multi-threading" },
+                { icon: Globe, name: "Web", desc: "Chrome 88+ | Firefox 85+", features: "Service Worker" }
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ y: -5 }}
+                  className="p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 text-center"
+                >
+                  <item.icon className="w-10 h-10 text-amber-400 mx-auto mb-4" />
+                  <h4 className="text-lg font-bold text-white mb-2">{item.name}</h4>
+                  <p className="text-sm text-gray-400 mb-2">{item.desc}</p>
+                  <p className="text-xs text-amber-400 font-mono">{item.features}</p>
+                </motion.div>
+              ))}
+            </div>
+          </ScrollReveal>
+
+          {/* Node 7: Security */}
+          <ScrollReveal id="node-07-detail">
+            <div className="flex items-center gap-3 mb-6">
+              <Lock className="w-8 h-8 text-amber-400" />
+              <span className="text-sm font-mono text-amber-400 uppercase tracking-widest">Node 07</span>
+            </div>
+            <h3 className="text-3xl font-bold text-white mb-6">Security & Data Integrity</h3>
+            <p className="text-gray-400 leading-relaxed font-mono mb-6">
+              Sensitive data includes biometric patterns and trauma processing records. <strong className="text-amber-400">Military-grade encryption</strong> and comprehensive access controls.
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10">
+                <h4 className="font-bold text-amber-400 font-mono mb-4">Data Encryption</h4>
                 <div className="space-y-3 text-sm font-mono">
-                  <div className="flex justify-between text-text-secondary">
-                    <span>At Rest:</span>
-                    <span className="text-accent">AES-256-GCM</span>
-                  </div>
-                  <div className="flex justify-between text-text-secondary">
-                    <span>Key Management:</span>
-                    <span className="text-accent">Secure Enclave</span>
-                  </div>
-                  <div className="flex justify-between text-text-secondary">
-                    <span>Rotation Policy:</span>
-                    <span className="text-accent">90 Days</span>
-                  </div>
-                  <div className="flex justify-between text-text-secondary">
-                    <span>In Transit:</span>
-                    <span className="text-accent">TLS 1.3</span>
-                  </div>
-                  <div className="flex justify-between text-text-secondary">
-                    <span>Certificate:</span>
-                    <span className="text-accent">Auto-Pinning</span>
-                  </div>
+                  <div className="flex justify-between text-gray-400"><span>At Rest</span><span className="text-white">AES-256-GCM</span></div>
+                  <div className="flex justify-between text-gray-400"><span>Key Management</span><span className="text-white">Secure Enclave</span></div>
+                  <div className="flex justify-between text-gray-400"><span>Rotation</span><span className="text-white">90 Days</span></div>
+                  <div className="flex justify-between text-gray-400"><span>In Transit</span><span className="text-white">TLS 1.3</span></div>
                 </div>
               </div>
-              <div className="p-6 rounded-xl bg-primary/20 border border-primary/40">
-                <h4 className="font-bold text-accent font-mono mb-4">Access Control</h4>
+              <div className="p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10">
+                <h4 className="font-bold text-amber-400 font-mono mb-4">Access Control</h4>
                 <div className="space-y-3 text-sm font-mono">
-                  <div className="flex justify-between text-text-secondary">
-                    <span>Authentication:</span>
-                    <span className="text-accent">Biometric / PIN / OAuth2</span>
-                  </div>
-                  <div className="flex justify-between text-text-secondary">
-                    <span>Session Timeout:</span>
-                    <span className="text-accent">30 Minutes</span>
-                  </div>
-                  <div className="flex justify-between text-text-secondary">
-                    <span>Concurrent Sessions:</span>
-                    <span className="text-accent">Allowed 2</span>
-                  </div>
-                  <div className="flex justify-between text-text-secondary">
-                    <span>Authorization:</span>
-                    <span className="text-accent">Granular / Role-Based</span>
-                  </div>
-                  <div className="flex justify-between text-text-secondary">
-                    <span>Audit Logging:</span>
-                    <span className="text-accent">Comprehensive</span>
-                  </div>
+                  <div className="flex justify-between text-gray-400"><span>Authentication</span><span className="text-white">Biometric / OAuth2</span></div>
+                  <div className="flex justify-between text-gray-400"><span>Session Timeout</span><span className="text-white">30 Minutes</span></div>
+                  <div className="flex justify-between text-gray-400"><span>Concurrent</span><span className="text-white">2 Sessions</span></div>
+                  <div className="flex justify-between text-gray-400"><span>Audit Logging</span><span className="text-white">Comprehensive</span></div>
                 </div>
               </div>
             </div>
-            
-            <div className="p-4 rounded-lg bg-accent/5 border border-accent/30">
-              <p className="text-sm text-text-secondary font-mono">
-                <strong className="text-accent">Compliance:</strong> GDPR and HIPAA compliance are enforced at the infrastructure level. Personal data retention is configurable. Usage logs are retained for 12 months. System logs for 24 months. Access logs are immutable and retained for 7 years.
-              </p>
-            </div>
-          </div>
+          </ScrollReveal>
 
-          {/* The Ask Section */}
-          <div className="space-y-12">
-            <div className="text-center">
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <MessageCircle className="w-6 h-6 text-accent" />
-                <span className="text-sm font-mono text-accent uppercase tracking-widest">The Ask</span>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-6">What I am Looking For</h2>
-              <p className="text-text-secondary leading-relaxed text-lg max-w-2xl mx-auto font-mono">The Cognitive Architect Repository is open for collaboration. Here is how we might work together.</p>
+          {/* THE ASK SECTION */}
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <MessageCircle className="w-10 h-10 text-amber-400 mx-auto mb-4" />
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">What I am Looking For</h2>
+              <p className="text-gray-400 font-mono">The Cognitive Architect Repository is open for collaboration.</p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {[
-                { title: "Strategic Partners", description: "Organizations ready to implement cognitive intelligence frameworks at scale. If you have the vision and resources, I have the architecture.", category: "Partnership" },
-                { title: "Research Collaborators", description: "Academics and researchers in psychology, somatics, or cognitive science interested in validating and extending these frameworks.", category: "Research" },
-                { title: "Platform Integrators", description: "Developers and engineers who want to help build the next generation of cognitive tools. Equity-for-value arrangements available.", category: "Building" },
-                { title: "Angel Investors", description: "Backers who understand that the next frontier is not just AI - it is AI that understands human potential.", category: "Investment" },
-              ].map((item) => (
-                <div key={item.title} className="group p-8 rounded-2xl bg-primary/10 border border-primary/20 hover:border-accent/50 transition-all duration-300">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="px-3 py-1 rounded-full text-xs font-mono text-accent bg-accent/10">{item.category}</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-text-primary mb-4 group-hover:text-accent transition-colors duration-300">{item.title}</h3>
-                  <p className="text-text-secondary leading-relaxed font-mono">{item.description}</p>
-                  <div className="mt-6 flex items-center gap-2 text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="text-sm font-mono">Let us talk</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
-                </div>
+                { title: "Strategic Partners", desc: "Organizations ready to implement cognitive intelligence frameworks at scale.", category: "Partnership" },
+                { title: "Research Collaborators", desc: "Academics interested in validating and extending these frameworks.", category: "Research" },
+                { title: "Platform Integrators", desc: "Developers building the next generation of cognitive tools.", category: "Building" },
+                { title: "Angel Investors", desc: "Backers who understand the next frontier of human potential.", category: "Investment" }
+              ].map((item, i) => (
+                <motion.a
+                  key={i}
+                  href="#contact"
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group p-8 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 
+                             hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(255,184,0,0.3)]
+                             transition-all duration-300 cursor-pointer block"
+                >
+                  <span className="px-3 py-1 rounded-full text-xs font-mono text-amber-400 bg-amber-400/10 mb-4 inline-block">
+                    {item.category}
+                  </span>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-400 font-mono">{item.desc}</p>
+                </motion.a>
               ))}
             </div>
-          </div>
+          </ScrollReveal>
 
-          {/* What I Offer */}
-          <div className="p-8 md:p-12 rounded-3xl bg-primary/5 border border-primary/20">
-            <div className="flex items-center gap-3 mb-8">
-              <Users className="w-6 h-6 text-accent" />
-              <span className="text-sm font-mono text-accent uppercase tracking-widest">What I Offer</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-8">Value Exchange</h2>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-6">
-                <h3 className="text-xl font-bold text-text-primary">For Partners</h3>
-                <ul className="space-y-4">
-                  {[
-                    "Access to proprietary 7-Collection Cognitive Intelligence Engine",
-                    "Strategic consulting on cognitive architecture implementation",
-                    "Custom framework development for specific organizational needs",
-                    "White-label solutions for qualified partners",
-                  ].map((item, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <div className="w-2 h-2 rounded-full bg-accent" />
-                      </div>
-                      <span className="text-text-secondary font-mono">{item}</span>
-                    </li>
-                  ))}
-                </ul>
+          {/* WHAT I OFFER */}
+          <ScrollReveal>
+            <div className="p-8 md:p-12 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10">
+              <div className="flex items-center gap-3 mb-8">
+                <Zap3 className="w-6 h-6 text-amber-400" />
+                <span className="text-sm font-mono text-amber-400 uppercase tracking-widest">Value Exchange</span>
               </div>
+              <h2 className="text-3xl font-bold text-white mb-8">What I Offer</h2>
               
-              <div className="space-y-6">
-                <h3 className="text-xl font-bold text-text-primary">For Investors</h3>
-                <ul className="space-y-4">
-                  {[
-                    "Two production-ready platforms with demonstrated product-market fit",
-                    "Proprietary technology with significant barriers to replication",
-                    "Clear path to $10M ARR within 36 months",
-                    "Experienced technical founder with multiple successful exits",
-                  ].map((item, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <div className="w-6 h-6 rounded-full bg-primary/30 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <div className="w-2 h-2 rounded-full bg-highlight" />
-                      </div>
-                      <span className="text-text-secondary font-mono">{item}</span>
-                    </li>
-                  ))}
-                </ul>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-4">For Partners</h3>
+                  <ul className="space-y-3">
+                    {[
+                      "Access to proprietary 7-Collection Cognitive Intelligence Engine",
+                      "Strategic consulting on cognitive architecture implementation",
+                      "Custom framework development for specific needs"
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <Check className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+                        <span className="text-gray-400 font-mono">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-4">For Investors</h3>
+                  <ul className="space-y-3">
+                    {[
+                      "Two production-ready platforms with demonstrated product-market fit",
+                      "Proprietary technology with significant barriers to replication",
+                      "Clear path to $10M ARR within 36 months"
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <Check className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+                        <span className="text-gray-400 font-mono">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
-          {/* Contact CTA */}
-          <div className="text-center py-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-6">Let us Build Something That Matters</h2>
-            <p className="text-text-secondary leading-relaxed text-lg max-w-2xl mx-auto mb-12 font-mono">The patterns are clear. The framework is proven. Now it is about finding the right people to scale this work. If that sounds like you, let us talk.</p>
-            
-            <div className="flex flex-wrap justify-center gap-6">
-              <a href="mailto:richard@hypnoticproductions.tech" className="flex items-center gap-3 px-8 py-4 rounded-xl bg-accent text-background font-bold hover:bg-accent/90 transition-colors duration-300">
-                <Mail className="w-5 h-5" />
-                Email Me
-              </a>
-              <a href="https://linkedin.com/in/richardfortune" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-8 py-4 rounded-xl border border-primary/30 text-text-primary hover:bg-primary/10 transition-colors duration-300">
-                <Linkedin className="w-5 h-5" />
-                LinkedIn
-              </a>
-              <a href="https://github.com/hypnoticproductions" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-8 py-4 rounded-xl border border-primary/30 text-text-primary hover:bg-primary/10 transition-colors duration-300">
-                <Github className="w-5 h-5" />
-                GitHub
-              </a>
+          {/* CONTACT CTA */}
+          <ScrollReveal id="contact">
+            <div className="text-center py-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Let's Build Something That Matters</h2>
+              <p className="text-gray-400 font-mono text-lg max-w-2xl mx-auto mb-12">
+                Patterns are clear. Framework is proven. Now finding the right people to scale this work.
+              </p>
+              
+              <div className="flex flex-wrap justify-center gap-4">
+                <a 
+                  href="mailto:richard@hypnoticproductions.tech"
+                  className="flex items-center gap-3 px-8 py-4 rounded-xl bg-amber-400 text-[#0A1628] font-bold 
+                             hover:bg-amber-300 hover:shadow-[0_0_30px_rgba(255,184,0,0.5)]
+                             transition-all duration-300"
+                >
+                  <Mail className="w-5 h-5" />
+                  Email Me
+                </a>
+                <a 
+                  href="https://linkedin.com/in/richardfortune"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 px-8 py-4 rounded-xl border border-white/20 text-white 
+                             hover:bg-white/10 hover:border-amber-400/50
+                             transition-all duration-300"
+                >
+                  <Linkedin className="w-5 h-5" />
+                  LinkedIn
+                </a>
+                <a 
+                  href="https://github.com/hypnoticproductions"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 px-8 py-4 rounded-xl border border-white/20 text-white 
+                             hover:bg-white/10 hover:border-amber-400/50
+                             transition-all duration-300"
+                >
+                  <Github className="w-5 h-5" />
+                  GitHub
+                </a>
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="relative z-10 py-12 px-6 lg:px-12 border-t border-primary/20">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-center md:text-left">
-            <p className="text-sm font-mono text-text-muted">© 2024 The Cognitive Architect Repository</p>
-          </div>
-          <div className="flex items-center gap-6">
-            <a href="/" className="text-sm font-mono text-text-secondary hover:text-accent transition-colors">THE CORE</a>
-            <a href="/feed" className="text-sm font-mono text-text-secondary hover:text-accent transition-colors">BUILDER S FEED</a>
-            <a href="/bigward" className="text-sm font-mono text-text-secondary hover:text-accent transition-colors">THE BIG WARD</a>
-          </div>
+      {/* FOOTER */}
+      <footer className="relative z-10 py-8 px-6 border-t border-white/10">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm font-mono text-gray-500">© 2024 The Cognitive Architect Repository</p>
+          <p className="text-sm font-mono text-amber-400">Built with spite and determination</p>
         </div>
       </footer>
     </div>
