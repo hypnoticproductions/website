@@ -12,10 +12,42 @@ import {
   Zap,
   Target,
   TrendingUp,
-  Globe
+  Globe,
+  Play
 } from 'lucide-react';
 import BlueprintShell from '@/components/layout/BlueprintShell';
 import { liveSystems } from '@/lib/data';
+
+// YouTube Video Embed Component
+const YouTubeVideo: React.FC<{ videoId: string; title?: string }> = ({ videoId, title = "System Informercial" }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2, duration: 0.5 }}
+      className="mb-6"
+    >
+      <div className="relative rounded-xl overflow-hidden border border-primary/30 bg-primary/5 aspect-video group">
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute inset-0 w-full h-full"
+        />
+        {/* Play button overlay for visual feedback */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center">
+            <Play className="w-8 h-8 text-accent ml-1" />
+          </div>
+        </div>
+      </div>
+      <p className="text-xs font-mono text-text-muted mt-2 text-center">
+        {title}
+      </p>
+    </motion.div>
+  );
+};
 
 const SystemCard: React.FC<{ system: typeof liveSystems.systems[0]; index: number }> = ({ system, index }) => {
   const statusColors: Record<string, string> = {
@@ -71,6 +103,11 @@ const SystemCard: React.FC<{ system: typeof liveSystems.systems[0]; index: numbe
           <span className="text-xs font-mono text-accent">{system.collections.join(' + ')}</span>
         </div>
       </div>
+
+      {/* Harvester Video Embed - Only for Harvester (index 0) */}
+      {index === 0 && (
+        <YouTubeVideo videoId="7FYfUO6AEso" />
+      )}
 
       {/* Content Body */}
       <div className="bg-background/80 border-x border-primary/30 p-6 space-y-6">
