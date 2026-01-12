@@ -104,9 +104,12 @@ const SystemCard: React.FC<{ system: typeof liveSystems.systems[0]; index: numbe
         </div>
       </div>
 
-      {/* Harvester Video Embed - Only for Harvester (index 0) */}
+      {/* Video Embed - For both Harvester and Safe Travel */}
       {index === 0 && (
-        <YouTubeVideo videoId="7FYfUO6AEso" />
+        <YouTubeVideo videoId="7FYfUO6AEso" title="Harvester System Informercial" />
+      )}
+      {index === 1 && (
+        <YouTubeVideo videoId="JFZ_43tiguk" title="Safe Travel System Informercial" />
       )}
 
       {/* Content Body */}
