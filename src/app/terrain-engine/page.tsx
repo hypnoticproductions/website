@@ -1,309 +1,432 @@
-import type { Metadata } from 'next'
-import Navigation from '@/components/layout/Navigation'
-import Footer from '@/components/layout/Footer'
+'use client';
 
-export const metadata: Metadata = {
-  title: 'The Terrain Engine | Cognitive Infrastructure',
-  description: 'We map complexity and bore permanent tunnels through obstacles. Harvester, SafeTravel, WUKR Wire, and the Morphic Trade Axis.',
-}
+import { motion } from 'framer-motion';
+import { ArrowRight, Cpu, Globe, Shield, Zap, Map, FileText, TrendingUp, Users, Lock, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import Navigation from '@/components/layout/Navigation';
+import Footer from '@/components/layout/Footer';
 
 const infrastructureData = [
   {
     title: 'WorkrWire',
     tagline: 'The Nervous System',
     description: 'Connects human intention to AI execution. Every decision traceable. Every action connected. Every insight has a home.',
-    icon: '⚡'
+    icon: Zap,
+    color: '#00D4FF'
   },
   {
     title: 'MANUS',
     tagline: 'The Foreman',
     description: 'Breaks goals into terrain. Marks obstacles. Allocates AI labor. Tracks progress. Prevents collapse. Never sleeps.',
-    icon: '👷'
+    icon: Cpu,
+    color: '#FFBF00'
   },
   {
     title: 'Knowledge Base',
     tagline: 'The Memory',
     description: 'Every route ever taken. Every tunnel bored. Permanent infrastructure for cognitive mapping, not task automation.',
-    icon: '🧠'
+    icon: FileText,
+    color: '#10B981'
   }
 ]
 
 const productData = [
   {
     name: 'Harvester',
-    tagline: 'Legal complexity → Case-ready structure',
+    tagline: 'Legal case preparation',
     description: 'Ingests legal documents, maps contradictions and evidence relationships. Outputs case preparation in hours, not days.',
     tunnel: 'Through legal document chaos to clear case strategy',
     status: 'Production Ready',
-    cta: 'Request Demo'
+    icon: FileText,
+    color: '#00D4FF'
   },
   {
     name: 'SafeTravel',
-    tagline: 'Travel chaos → Risk-mapped routes',
+    tagline: 'Travel risk intelligence',
     description: 'Analyzes destinations across 7 intelligence layers. Personalized risk assessments with real-time voice updates.',
     tunnel: 'Through travel uncertainty to informed decisions',
     status: 'Production Ready',
-    cta: 'Start Assessment'
+    icon: Shield,
+    color: '#10B981'
   },
   {
     name: 'WUKR Wire',
-    tagline: 'One insight → 60+ platforms',
-    description: 'Formats intelligence for Twitter, LinkedIn, Dev.to, and more. Syndication with proper attribution and source citation.',
+    tagline: 'Content syndication',
+    description: 'Takes one insight, formats for 60+ platforms. Syndication with proper attribution and source citation.',
     tunnel: 'Through distribution complexity to omnipresent authority',
     status: 'Onboarding Clients',
-    cta: 'Get Started'
+    icon: TrendingUp,
+    color: '#FFBF00'
   },
   {
     name: 'Morphic Trade Axis',
-    tagline: 'Caribbean capital → Ugandan opportunity',
-    description: 'Connects diaspora investors to vetted opportunities. Escrow, due diligence, and transaction security included.',
-    tunnel: 'Through Western intermediaries to direct South-South flow',
+    tagline: 'Cross-border investment',
+    description: 'Caribbean capital → Ugandan opportunity. Bypassing Western intermediaries for direct South-South flow.',
+    tunnel: 'Through financial barriers to direct capital access',
     status: 'In Development',
-    cta: 'Inquire'
+    icon: Globe,
+    color: '#8B5CF6'
   }
 ]
 
 export default function TerrainEnginePage() {
   return (
-    <div className="min-h-screen bg-[#0F172A]">
+    <div className="min-h-screen bg-[#080808]">
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        {/* Background Gradient - Geological Feel */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A] via-[#0F172A] to-[#0a1319]"></div>
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-20">
+        {/* Grid Background */}
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `linear-gradient(rgba(0,212,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.3) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/50 via-transparent to-[#080808]" />
         
-        {/* Animated Tunnel Effect */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 50% 50%, #0D9488 0%, transparent 50%)`,
-            animation: 'pulse 4s ease-in-out infinite'
-          }}></div>
+        {/* Animated Glow */}
+        <div className="absolute inset-0">
+          <div 
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-20"
+            style={{
+              background: 'radial-gradient(circle, rgba(0,212,255,0.3) 0%, transparent 70%)',
+              animation: 'pulse 4s ease-in-out infinite'
+            }}
+          />
         </div>
         
-        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-          <div className="inline-block mb-6 px-4 py-2 border-2 border-[#F59E0B] rounded-sm">
-            <span className="text-[#F59E0B] text-sm font-bold uppercase tracking-widest">Cognitive Infrastructure</span>
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold text-[#F8FAFC] mb-6 leading-tight">
-            We Don't Build Tools.<br />
-            <span className="text-[#0D9488]">We Build Tunnels.</span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-[#94A3B8] max-w-3xl mx-auto mb-10 leading-relaxed">
-            The Terrain Engine maps complexity and bores permanent routes through obstacles. 
-            Stop climbing mountains. Walk through them.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-4 bg-[#F97316] text-white font-bold uppercase tracking-wider rounded-sm hover:bg-[#ea580c] transition-all duration-300 hover:scale-105">
-              Explore the Terrain
-            </button>
-            <button className="px-8 py-4 border-2 border-[#0D9488] text-[#0D9488] font-bold uppercase tracking-wider rounded-sm hover:bg-[#0D9488] hover:text-[#0F172A] transition-all duration-300">
-              See the Products
-            </button>
-          </div>
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="font-mono text-xs text-[#00D4FF] mb-6 inline-block">
+              // COGNITIVE INFRASTRUCTURE LAYER
+            </span>
+            
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-4xl sm:text-5xl md:text-6xl font-mono font-bold text-white mb-6 leading-tight"
+            >
+              WE DON'T BUILD TOOLS.<br />
+              <span className="text-gradient-cyan">WE BUILD TUNNELS.</span>
+            </motion.h1>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-lg sm:text-xl text-[#64748B] max-w-3xl mx-auto mb-10 font-sans"
+            >
+              The Terrain Engine maps complexity and bores permanent routes through obstacles. 
+              Stop climbing mountains. Walk through them.
+            </motion.p>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <Link href="#products" className="btn-accent text-sm py-3 px-8 font-mono">
+                EXPLORE PRODUCTS
+              </Link>
+              <Link href="#infrastructure" className="btn-cyber text-sm py-3 px-8 font-mono">
+                VIEW INFRASTRUCTURE
+              </Link>
+            </motion.div>
+          </motion.div>
         </div>
         
         {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-[#0D9488] rounded-full flex justify-center pt-2">
-            <div className="w-1 h-3 bg-[#F59E0B] rounded-full"></div>
-          </div>
-        </div>
-      </section>
-
-      {/* Concept Section */}
-      <section className="py-24 bg-[#0a1319]">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="text-[#F59E0B] text-sm font-bold uppercase tracking-widest">The Paradigm Shift</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#F8FAFC] mt-4">A New Way Forward</h2>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Traditional Approach */}
-            <div className="p-6 bg-[#0F172A] border border-[#334155] rounded-sm">
-              <div className="text-4xl mb-4">🔦</div>
-              <h3 className="text-xl font-bold text-[#94A3B8] mb-3">Traditional Software</h3>
-              <p className="text-[#64748B]">Gives you a flashlight. Illuminates what's immediately in front. Leaves you in the dark about what lies ahead.</p>
-            </div>
-            
-            {/* AI Assistants */}
-            <div className="p-6 bg-[#0F172A] border border-[#334155] rounded-sm">
-              <div className="text-4xl mb-4">🧭</div>
-              <h3 className="text-xl font-bold text-[#94A3B8] mb-3">AI Assistants</h3>
-              <p className="text-[#64748B]">Give you a guide who guesses. Helpful, but unreliable. Each conversation starts from scratch.</p>
-            </div>
-            
-            {/* The Terrain Engine */}
-            <div className="p-6 bg-[#0D9488] bg-opacity-10 border-2 border-[#0D9488] rounded-sm relative">
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#0D9488] px-3 py-1">
-                <span className="text-[#0F172A] text-xs font-bold uppercase tracking-wider">The Tunnel</span>
-              </div>
-              <div className="text-4xl mb-4">🗺️</div>
-              <h3 className="text-xl font-bold text-[#F59E0B] mb-3">The Terrain Engine</h3>
-              <p className="text-[#E2E8F0]">Gives you a satellite map, geological scans, and tunnels already bored through the hardest rock. Permanent routes.</p>
-            </div>
-          </div>
-          
-          <div className="mt-16 p-8 border-l-4 border-[#F59E0B] bg-[#0D9488] bg-opacity-5">
-            <p className="text-2xl font-bold text-[#F8FAFC] italic">
-              "We don't climb mountains. We blast tunnels through them. When the tunnel is complete, the route is permanent."
-            </p>
-          </div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+        >
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="flex flex-col items-center text-[#64748B]"
+          >
+            <span className="text-xs font-mono mb-2">INITIALIZE_OS</span>
+            <div className="w-px h-8 bg-gradient-to-b from-[#00D4FF] to-transparent" />
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Products Section */}
-      <section className="py-24 bg-[#0F172A]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="text-[#0D9488] text-sm font-bold uppercase tracking-widest">Tunnel Entrances</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#F8FAFC] mt-4">The Products</h2>
-          </div>
+      <section id="products" className="py-24 lg:py-32 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="font-mono text-xs text-[#00D4FF] mb-4 inline-block">
+              // SYSTEM MODULES
+            </span>
+            <h2 className="text-3xl md:text-5xl font-mono font-bold text-white mb-4">
+              THE PRODUCTS
+            </h2>
+            <p className="text-[#64748B] max-w-2xl mx-auto">
+              Four tunnels through complexity. Each designed to transform chaos into navigable structure.
+            </p>
+          </motion.div>
           
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-6">
             {productData.map((product, index) => (
-              <div 
-                key={index}
-                className="group p-8 bg-[#0a1319] border border-[#334155] border-t-4 border-t-[#0D9488] rounded-sm hover:border-[#F59E0B] hover:border-t-[#F59E0B] transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#0D9488]/20"
+              <motion.div
+                key={product.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="blueprint-card group"
               >
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-2xl font-bold text-[#F8FAFC] group-hover:text-[#F59E0B] transition-colors">
-                    {product.name}
-                  </h3>
-                  <span className={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-sm ${
-                    product.status === 'Production Ready' 
-                      ? 'bg-[#0D9488] text-[#0F172A]' 
-                      : 'bg-[#F59E0B] text-[#0F172A]'
-                  }`}>
-                    {product.status}
-                  </span>
+                <div className="flex items-start gap-4">
+                  <div 
+                    className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center"
+                    style={{ 
+                      background: `${product.color}20`,
+                      border: `1px solid ${product.color}40`
+                    }}
+                  >
+                    <product.icon size={24} style={{ color: product.color }} />
+                  </div>
+                  
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <h3 className="text-xl font-mono font-bold text-white group-hover:text-[#00D4FF] transition-colors">
+                        {product.name}
+                      </h3>
+                      <span 
+                        className="text-xs font-mono px-2 py-1 rounded"
+                        style={{ 
+                          background: `${product.color}20`,
+                          color: product.color,
+                          border: `1px solid ${product.color}40`
+                        }}
+                      >
+                        {product.status}
+                      </span>
+                    </div>
+                    
+                    <p className="text-[#00D4FF] text-sm font-medium mb-3">
+                      {product.tagline}
+                    </p>
+                    
+                    <p className="text-[#94A3B8] text-sm mb-4 leading-relaxed">
+                      {product.description}
+                    </p>
+                    
+                    <div className="pt-4 border-t border-[rgba(26,58,95,0.3)]">
+                      <p className="text-xs text-[#64748B]">
+                        <span className="text-[#FFBF00]">THE TUNNEL:</span> {product.tunnel}
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 
-                <p className="text-[#0D9488] font-semibold mb-4">{product.tagline}</p>
-                <p className="text-[#94A3B8] mb-4 leading-relaxed">{product.description}</p>
-                
-                <div className="pt-4 border-t border-[#334155]">
-                  <p className="text-sm text-[#64748B]">
-                    <span className="text-[#F59E0B] font-bold">The tunnel:</span> {product.tunnel}
-                  </p>
+                <div className="mt-4 flex justify-end">
+                  <button className="flex items-center gap-2 text-xs font-mono text-[#00D4FF] hover:text-[#00D4FF]/80 transition-colors">
+                    ACCESS SYSTEM <ChevronRight size={12} />
+                  </button>
                 </div>
-                
-                <button className="mt-6 w-full py-3 border-2 border-[#0D9488] text-[#0D9488] font-bold uppercase tracking-wider rounded-sm hover:bg-[#0D9488] hover:text-[#0F172A] transition-all duration-300">
-                  {product.cta}
-                </button>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Infrastructure Section */}
-      <section className="py-24 bg-[#0a1319]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="text-[#F59E0B] text-sm font-bold uppercase tracking-widest">What Powers the Tunnels</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#F8FAFC] mt-4">Infrastructure</h2>
-          </div>
+      <section id="infrastructure" className="py-24 lg:py-32 bg-[#0A0F1C]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="font-mono text-xs text-[#FFBF00] mb-4 inline-block">
+              // SUPPORT LAYERS
+            </span>
+            <h2 className="text-3xl md:text-5xl font-mono font-bold text-white mb-4">
+              INFRASTRUCTURE
+            </h2>
+            <p className="text-[#64748B] max-w-2xl mx-auto">
+              What powers the tunnels. The foreman, the nervous system, and the memory of every route.
+            </p>
+          </motion.div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6">
             {infrastructureData.map((item, index) => (
-              <div 
-                key={index}
-                className="text-center p-8 bg-[#0F172A] border border-[#334155] rounded-sm hover:border-[#F59E0B] transition-all duration-300"
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="blueprint-card text-center group"
               >
-                <div className="text-5xl mb-6">{item.icon}</div>
-                <h3 className="text-2xl font-bold text-[#F8FAFC] mb-2">{item.title}</h3>
-                <p className="text-[#F59E0B] font-semibold text-sm uppercase tracking-wider mb-4">{item.tagline}</p>
-                <p className="text-[#94A3B8] leading-relaxed">{item.description}</p>
-              </div>
+                <div 
+                  className="w-16 h-16 mx-auto mb-6 rounded-xl flex items-center justify-center"
+                  style={{ 
+                    background: `${item.color}20`,
+                    border: `1px solid ${item.color}40`
+                  }}
+                >
+                  <item.icon size={32} style={{ color: item.color }} />
+                </div>
+                
+                <h3 className="text-xl font-mono font-bold text-white mb-2 group-hover:text-[#00D4FF] transition-colors">
+                  {item.title}
+                </h3>
+                
+                <p className="text-xs font-mono mb-4 uppercase tracking-wider"
+                   style={{ color: item.color }}>
+                  {item.tagline}
+                </p>
+                
+                <p className="text-[#94A3B8] text-sm leading-relaxed">
+                  {item.description}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Current Development - Morphic Trade Axis */}
-      <section className="py-24 bg-[#0D9488] bg-opacity-5">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="text-[#F59E0B] text-sm font-bold uppercase tracking-widest">Currently Boring</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#F8FAFC] mt-4">The Morphic Trade Axis</h2>
-          </div>
+      <section className="py-24 lg:py-32">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="font-mono text-xs text-[#FFBF00] mb-4 inline-block">
+              // CURRENT DEVELOPMENT
+            </span>
+            <h2 className="text-3xl md:text-5xl font-mono font-bold text-white mb-4">
+              THE MORPHIC TRADE AXIS
+            </h2>
+          </motion.div>
           
-          <div className="bg-[#0F172A] border border-[#334155] rounded-sm p-8 mb-12">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-3 h-3 bg-[#F59E0B] rounded-full animate-pulse"></div>
-              <span className="text-[#F59E0B] font-bold uppercase tracking-wider">In Active Development</span>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="blueprint-card border-[#8B5CF6]/30 bg-gradient-to-br from-[#8B5CF6]/5 to-[#080808]"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-3 h-3 bg-[#8B5CF6] rounded-full animate-pulse"></div>
+              <span className="text-[#8B5CF6] font-mono text-xs font-bold uppercase tracking-wider">
+                IN ACTIVE DEVELOPMENT
+              </span>
             </div>
             
-            <h3 className="text-2xl font-bold text-[#F8FAFC] mb-4">
-              Caribbean capital → Ugandan opportunity<br />
-              <span className="text-[#0D9488]">Bypassing Western intermediaries</span>
+            <h3 className="text-2xl font-mono font-bold text-white mb-4">
+              CARIBBEAN CAPITAL → UGANDAN OPPORTUNITY
             </h3>
             
             <p className="text-[#94A3B8] mb-8 leading-relaxed">
-              Connecting Caribbean and Ghanaian diaspora investors to vetted Ugandan opportunities. 
-              Escrow, due diligence, and transaction security included. The first permanent tunnel 
-              for South-South capital flow.
+              Bypassing Western intermediaries for direct South-South capital flow. 
+              The first permanent tunnel for diaspora investment in East African markets.
+              Escrow, due diligence, and transaction security included.
             </p>
             
-            <h4 className="text-[#F59E0B] font-bold uppercase tracking-wider mb-4">Investment Packages</h4>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="p-4 bg-[#0a1319] border border-[#334155] rounded-sm">
-                <h5 className="font-bold text-[#F8FAFC]">Scout</h5>
-                <p className="text-2xl font-bold text-[#0D9488]">$5,000</p>
-                <p className="text-sm text-[#64748B]">Single market access</p>
+            <h4 className="text-[#FFBF00] font-mono font-bold text-sm uppercase tracking-wider mb-4">
+              Investment Packages
+            </h4>
+            
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+              <div className="p-4 bg-[#080808] border border-[rgba(26,58,95,0.3)] rounded-lg">
+                <h5 className="font-mono font-bold text-white">SCOUT</h5>
+                <p className="text-2xl font-bold text-[#8B5CF6]">$5,000</p>
+                <p className="text-xs text-[#64748B]">Single market access</p>
               </div>
-              <div className="p-4 bg-[#0a1319] border border-[#334155] rounded-sm">
-                <h5 className="font-bold text-[#F8FAFC]">Bridge</h5>
-                <p className="text-2xl font-bold text-[#0D9488]">$15,000</p>
-                <p className="text-sm text-[#64748B]">Dual market access</p>
+              <div className="p-4 bg-[#080808] border border-[rgba(26,58,95,0.3)] rounded-lg">
+                <h5 className="font-mono font-bold text-white">BRIDGE</h5>
+                <p className="text-2xl font-bold text-[#8B5CF6]">$15,000</p>
+                <p className="text-xs text-[#64748B]">Dual market access</p>
               </div>
-              <div className="p-4 bg-[#0a1319] border border-[#334155] rounded-sm">
-                <h5 className="font-bold text-[#F8FAFC]">Axis</h5>
-                <p className="text-2xl font-bold text-[#0D9488]">$50,000</p>
-                <p className="text-sm text-[#64748B]">Full corridor access</p>
+              <div className="p-4 bg-[#080808] border border-[rgba(26,58,95,0.3)] rounded-lg">
+                <h5 className="font-mono font-bold text-white">AXIS</h5>
+                <p className="text-2xl font-bold text-[#8B5CF6]">$50,000</p>
+                <p className="text-xs text-[#64748B]">Full corridor access</p>
               </div>
-              <div className="p-4 bg-[#0a1319] border border-[#334155] rounded-sm">
-                <h5 className="font-bold text-[#F8FAFC]">Architect</h5>
-                <p className="text-2xl font-bold text-[#0D9488]">$150,000+</p>
-                <p className="text-sm text-[#64748B]">Strategic partnership</p>
+              <div className="p-4 bg-[#080808] border border-[rgba(26,58,95,0.3)] rounded-lg">
+                <h5 className="font-mono font-bold text-white">ARCHITECT</h5>
+                <p className="text-2xl font-bold text-[#8B5CF6]">$150K+</p>
+                <p className="text-xs text-[#64748B]">Strategic partnership</p>
               </div>
             </div>
-            <p className="mt-4 text-sm text-[#64748B]">Each package includes $1,600 operator consultation fee.</p>
-          </div>
+            
+            <p className="text-xs text-[#64748B]">
+              Each package includes $1,600 operator consultation fee.
+            </p>
+          </motion.div>
           
-          <div className="text-center">
-            <button className="px-8 py-4 bg-[#F97316] text-white font-bold uppercase tracking-wider rounded-sm hover:bg-[#ea580c] transition-all duration-300">
-              Request Investment Information
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mt-8"
+          >
+            <button className="inline-flex items-center gap-3 px-8 py-4 bg-[#8B5CF6] text-white font-mono font-bold rounded-lg hover:bg-[#8B5CF6]/90 transition-colors">
+              <Lock size={20} />
+              REQUEST INFORMATION
             </button>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Founder Section */}
-      <section className="py-24 bg-[#0F172A]">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="text-[#0D9488] text-sm font-bold uppercase tracking-widest">The Architect</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#F8FAFC] mt-4">Richard D. Fortune</h2>
-            <p className="text-[#F59E0B] mt-2 font-semibold">Vor'thalis — Principal Architect</p>
-          </div>
+      <section className="py-24 lg:py-32 bg-[#0A0F1C]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="font-mono text-xs text-[#FFBF00] mb-4 inline-block">
+              // PRINCIPAL ARCHITECT
+            </span>
+            <h2 className="text-3xl md:text-5xl font-mono font-bold text-white mb-2">
+              RICHARD D. FORTUNE
+            </h2>
+            <p className="text-[#FFBF00] font-mono text-sm uppercase tracking-wider">
+              Vor'thalis
+            </p>
+          </motion.div>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="order-2 md:order-1">
-              <div className="p-6 border-l-4 border-[#0D9488] bg-[#0a1319]">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="order-2 md:order-1"
+            >
+              <div className="blueprint-card border-[#FFBF00]/30 bg-gradient-to-br from-[#FFBF00]/5 to-[#080808]">
                 <p className="text-[#94A3B8] mb-6 leading-relaxed">
                   Richard D. Fortune (Vor'thalis) is the principal architect behind The Terrain Engine. 
                   Based in Castries, St. Lucia, he has spent years developing systems that map human 
                   complexity rather than simply responding to queries.
                 </p>
                 <p className="text-[#94A3B8] mb-6 leading-relaxed">
-                  As founder of <span className="text-[#F8FAFC] font-bold">Dopa-Tech</span> and <span className="text-[#F8FAFC] font-bold">Fortune Tech Ventures</span>, 
-                  Richard's philosophy is clear: "Most AI answers questions. We bore tunnels. The difference is permanence."
+                  As founder of <span className="text-white font-bold">Dopa-Tech</span> and <span className="text-white font-bold">Fortune Tech Ventures</span>, 
+                  Richard's philosophy is clear: <span className="text-[#00D4FF] italic">"Most AI answers questions. We bore tunnels. The difference is permanence."</span>
                 </p>
                 <p className="text-[#94A3B8] leading-relaxed">
                   His current focus includes scaling Harvester and SafeTravel for revenue generation, 
@@ -312,69 +435,96 @@ export default function TerrainEnginePage() {
                 </p>
               </div>
               
-              <div className="mt-8 grid grid-cols-3 gap-4">
-                <div className="text-center p-4 bg-[#0a1319] border border-[#334155]">
-                  <p className="text-2xl font-bold text-[#0D9488]">Dopa-Tech</p>
+              <div className="mt-6 grid grid-cols-3 gap-4">
+                <div className="text-center p-4 bg-[#080808] border border-[rgba(26,58,95,0.3)] rounded-lg">
+                  <p className="text-lg font-mono font-bold text-[#00D4FF]">DOPA-TECH</p>
                   <p className="text-xs text-[#64748B]">Parent Company</p>
                 </div>
-                <div className="text-center p-4 bg-[#0a1319] border border-[#334155]">
-                  <p className="text-2xl font-bold text-[#F59E0B]">St. Lucia</p>
+                <div className="text-center p-4 bg-[#080808] border border-[rgba(26,58,95,0.3)] rounded-lg">
+                  <p className="text-lg font-mono font-bold text-[#FFBF00]">ST. LUCIA</p>
                   <p className="text-xs text-[#64748B]">Base of Operations</p>
                 </div>
-                <div className="text-center p-4 bg-[#0a1319] border border-[#334155]">
-                  <p className="text-2xl font-bold text-[#F8FAFC]">Vor'thalis</p>
+                <div className="text-center p-4 bg-[#080808] border border-[rgba(26,58,95,0.3)] rounded-lg">
+                  <p className="text-lg font-mono font-bold text-white">VOR'THALIS</p>
                   <p className="text-xs text-[#64748B]">Identity</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
             
-            <div className="order-1 md:order-2 flex justify-center">
-              <div className="w-full max-w-md aspect-square bg-[#0a1319] border-4 border-[#0D9488] rounded-sm flex items-center justify-center relative">
-                <div className="absolute inset-0 bg-[#0D9488] opacity-10"></div>
-                <div className="text-center p-8">
-                  <div className="w-32 h-32 mx-auto mb-6 bg-[#0D9488] rounded-full flex items-center justify-center">
-                    <span className="text-4xl">⚒️</span>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="order-1 md:order-2 flex justify-center"
+            >
+              <div className="w-full max-w-md aspect-square relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#FFBF00]/20 to-[#00D4FF]/20 rounded-2xl blur-xl"></div>
+                <div className="relative w-full h-full bg-[#0A0F1C] border-2 border-[#FFBF00]/50 rounded-2xl flex items-center justify-center p-8">
+                  <div className="text-center">
+                    <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-[#080808] border-2 border-[#00D4FF]/50 flex items-center justify-center">
+                      <span className="text-4xl">⚒️</span>
+                    </div>
+                    <p className="text-[#F8FAFC] font-mono font-bold text-xl">THE ARCHITECT</p>
+                    <p className="text-[#FFBF00] text-sm uppercase tracking-wider mt-2">Of the Axis</p>
                   </div>
-                  <p className="text-[#F8FAFC] font-bold text-xl">The Architect</p>
-                  <p className="text-[#F59E0B] text-sm uppercase tracking-wider mt-2">Of the Axis</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section className="py-24 bg-[#0a1319]">
-        <div className="max-w-3xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <span className="text-[#0D9488] text-sm font-bold uppercase tracking-widest">Enter the Terrain</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#F8FAFC] mt-4">Get In Touch</h2>
-          </div>
+      <section className="py-24 lg:py-32">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="font-mono text-xs text-[#00D4FF] mb-4 inline-block">
+              // ESTABLISH LINK
+            </span>
+            <h2 className="text-3xl md:text-5xl font-mono font-bold text-white mb-4">
+              ENTER THE TERRAIN
+            </h2>
+          </motion.div>
           
-          <form className="space-y-6">
+          <motion.form
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="space-y-6"
+          >
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-[#94A3B8] text-sm font-bold uppercase tracking-wider mb-2">Name</label>
+                <label className="block text-[#64748B] text-xs font-mono uppercase tracking-wider mb-2">
+                  Name
+                </label>
                 <input 
                   type="text" 
-                  className="w-full p-4 bg-[#0F172A] border border-[#334155] rounded-sm text-[#F8FAFC] placeholder-[#475569] focus:border-[#F97316] focus:outline-none transition-colors"
-                  placeholder="Your name"
+                  className="w-full p-4 bg-[#080808] border border-[rgba(26,58,95,0.4)] rounded-lg text-white placeholder-[#475569] focus:border-[#00D4FF] focus:outline-none transition-colors font-mono"
+                  placeholder="Your identifier"
                 />
               </div>
               <div>
-                <label className="block text-[#94A3B8] text-sm font-bold uppercase tracking-wider mb-2">Email</label>
+                <label className="block text-[#64748B] text-xs font-mono uppercase tracking-wider mb-2">
+                  Email
+                </label>
                 <input 
                   type="email" 
-                  className="w-full p-4 bg-[#0F172A] border border-[#334155] rounded-sm text-[#F8FAFC] placeholder-[#475569] focus:border-[#F97316] focus:outline-none transition-colors"
-                  placeholder="your@email.com"
+                  className="w-full p-4 bg-[#080808] border border-[rgba(26,58,95,0.4)] rounded-lg text-white placeholder-[#475569] focus:border-[#00D4FF] focus:outline-none transition-colors font-mono"
+                  placeholder="your@transmission.com"
                 />
               </div>
             </div>
             
             <div>
-              <label className="block text-[#94A3B8] text-sm font-bold uppercase tracking-wider mb-2">Inquiry Type</label>
-              <select className="w-full p-4 bg-[#0F172A] border border-[#334155] rounded-sm text-[#F8FAFC] focus:border-[#F97316] focus:outline-none transition-colors">
+              <label className="block text-[#64748B] text-xs font-mono uppercase tracking-wider mb-2">
+                Inquiry Type
+              </label>
+              <select className="w-full p-4 bg-[#080808] border border-[rgba(26,58,95,0.4)] rounded-lg text-white focus:border-[#00D4FF] focus:outline-none transition-colors font-mono">
                 <option>Product Inquiry</option>
                 <option>Investment Discussion</option>
                 <option>Partnership Opportunity</option>
@@ -384,25 +534,53 @@ export default function TerrainEnginePage() {
             </div>
             
             <div>
-              <label className="block text-[#94A3B8] text-sm font-bold uppercase tracking-wider mb-2">Message</label>
+              <label className="block text-[#64748B] text-xs font-mono uppercase tracking-wider mb-2">
+                Message
+              </label>
               <textarea 
                 rows={5}
-                className="w-full p-4 bg-[#0F172A] border border-[#334155] rounded-sm text-[#F8FAFC] placeholder-[#475569] focus:border-[#F97316] focus:outline-none transition-colors resize-none"
-                placeholder="Tell us about your needs..."
+                className="w-full p-4 bg-[#080808] border border-[rgba(26,58,95,0.4)] rounded-lg text-white placeholder-[#475569] focus:border-[#00D4FF] focus:outline-none transition-colors font-mono resize-none"
+                placeholder="Transmit your query..."
               ></textarea>
             </div>
             
             <button 
               type="submit"
-              className="w-full py-4 bg-[#F97316] text-white font-bold uppercase tracking-wider rounded-sm hover:bg-[#ea580c] transition-all duration-300 hover:scale-[1.02]"
+              className="w-full py-4 bg-[#00D4FF] text-[#080808] font-mono font-bold rounded-lg hover:bg-[#00D4FF]/90 transition-colors flex items-center justify-center gap-3"
             >
-              Send Message
+              <ArrowRight size={20} />
+              TRANSMIT
             </button>
-          </form>
+          </motion.form>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Footer Navigation */}
+      <section className="py-12 border-t border-[rgba(26,58,95,0.3)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link href="/bridge" className="nav-item">
+              THE BRIDGE →
+            </Link>
+            <Link href="/feed" className="nav-item">
+              Builder's Feed
+            </Link>
+            <Link href="/bigward" className="nav-item">
+              Big Ward Case
+            </Link>
+            <Link href="/palenque" className="nav-item">
+              Palenque Case
+            </Link>
+            <Link href="/terrain-engine" className="nav-item nav-item-primary">
+              TERRAIN ENGINE →
+            </Link>
+            <Link href="/repository" className="nav-item">
+              Repository
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   )
