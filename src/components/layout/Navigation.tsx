@@ -13,6 +13,7 @@ const navLinks = [
   { href: '/#blueprints', label: 'Blueprints' },
   { href: '/#architecture', label: 'Architecture' },
   { href: '/#stack', label: 'Stack' },
+  { href: '/terrain-engine', label: 'Terrain Engine' },
   { href: '/#contact', label: 'Contact' },
 ];
 
