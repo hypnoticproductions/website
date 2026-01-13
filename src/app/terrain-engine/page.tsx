@@ -97,6 +97,15 @@ export default function TerrainEnginePage() {
           />
         </div>
         
+        {/* Richard Fortune Watermark Image */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <img 
+            src="/Gemini_Generated_Image_tfvqg5tfvqg5tfvq.jpeg" 
+            alt=""
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[800px] opacity-[0.03] object-cover grayscale"
+          />
+        </div>
+        
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -457,16 +466,23 @@ export default function TerrainEnginePage() {
               viewport={{ once: true }}
               className="order-1 md:order-2 flex justify-center"
             >
-              <div className="w-full max-w-md aspect-square relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#FFBF00]/20 to-[#00D4FF]/20 rounded-2xl blur-xl"></div>
-                <div className="relative w-full h-full bg-[#0A0F1C] border-2 border-[#FFBF00]/50 rounded-2xl flex items-center justify-center p-8">
-                  <div className="text-center">
-                    <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-[#080808] border-2 border-[#00D4FF]/50 flex items-center justify-center">
-                      <span className="text-4xl">⚒️</span>
-                    </div>
-                    <p className="text-[#F8FAFC] font-mono font-bold text-xl">THE ARCHITECT</p>
-                    <p className="text-[#FFBF00] text-sm uppercase tracking-wider mt-2">Of the Axis</p>
-                  </div>
+              <div className="relative w-64 h-64 md:w-80 md:h-80">
+                {/* Gold Glow Effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#FFBF00]/30 to-[#FFBF00]/10 rounded-full blur-2xl"></div>
+                
+                {/* Image Container */}
+                <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-[#FFBF00]/60 shadow-[0_0_30px_rgba(255,191,0,0.4)]">
+                  <img 
+                    src="/image.png" 
+                    alt="Richard D. Fortune - The Architect"
+                    className="w-full h-full object-cover object-center"
+                  />
+                </div>
+                
+                {/* Caption */}
+                <div className="absolute -bottom-12 left-0 right-0 text-center">
+                  <p className="text-[#F8FAFC] font-mono font-bold text-lg tracking-wider">THE ARCHITECT</p>
+                  <p className="text-[#FFBF00] text-xs uppercase tracking-[0.3em] mt-1">Of the Axis</p>
                 </div>
               </div>
             </motion.div>
