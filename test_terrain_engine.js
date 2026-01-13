@@ -1,7 +1,7 @@
 const { chromium } = require('/tmp/.npm-global/lib/node_modules/playwright');
 
-async function testTerrainEnginePage() {
-  console.log('Starting Terrain Engine page test...');
+async function testTerrainEngineIntegration() {
+  console.log('Starting Terrain Engine homepage integration test...');
   
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext();
@@ -20,35 +20,35 @@ async function testTerrainEnginePage() {
     errors.push(`Page Error: ${err.message}`);
   });
 
-  console.log('Testing Terrain Engine page...');
+  console.log('Testing homepage for Terrain Engine integration...');
   
   try {
-    const response = await page.goto('http://localhost:3000/terrain-engine', {
+    const response = await page.goto('http://localhost:3000/', {
       waitUntil: 'networkidle',
       timeout: 30000,
     });
 
     if (response && response.status() >= 400) {
-      console.log(`❌ Terrain Engine: HTTP ${response.status()}`);
+      console.log(`❌ Homepage: HTTP ${response.status()}`);
     } else {
-      console.log('✅ Terrain Engine: Page loaded successfully');
+      console.log('✅ Homepage: Page loaded successfully');
     }
 
     // Wait for content to render
     await page.waitForTimeout(2000);
 
     // Check for key elements
-    console.log('Verifying page elements...');
+    console.log('Verifying homepage elements...');
     
     // Check hero section
-    const heroExists = await page.locator('text=We Don\'t Build Tools').count() > 0;
+    const heroExists = await page.locator('text=I BUILD THE ENGINES').count() > 0;
     console.log(heroExists ? '✅ Hero section found' : '❌ Hero section missing');
     
-    // Check products section
-    const productsExist = await page.locator('text=The Products').count() > 0;
-    console.log(productsExist ? '✅ Products section found' : '❌ Products section missing');
+    // Check for Terrain Engine section
+    const terrainSection = await page.locator('text=THE TERRAIN ENGINE').count() > 0;
+    console.log(terrainSection ? '✅ Terrain Engine section found on homepage' : '❌ Terrain Engine section missing');
     
-    // Check for product cards
+    // Check for product cards in the section
     const harvesterCard = await page.locator('text=Harvester').count() > 0;
     const safetravelCard = await page.locator('text=SafeTravel').count() > 0;
     const wukrWireCard = await page.locator('text=WUKR Wire').count() > 0;
@@ -59,23 +59,22 @@ async function testTerrainEnginePage() {
     console.log(`✅ WUKR Wire card: ${wukrWireCard}`);
     console.log(`✅ Morphic Trade Axis card: ${morphicCard}`);
     
-    // Check infrastructure section
-    const infraExists = await page.locator('text=Infrastructure').count() > 0;
-    console.log(infraExists ? '✅ Infrastructure section found' : '❌ Infrastructure section missing');
-    
-    // Check founder section
-    const founderExists = await page.locator('text=Richard D. Fortune').count() > 0;
-    console.log(founderExists ? '✅ Founder section found' : '❌ Founder section missing');
-    
-    // Check contact section
-    const contactExists = await page.locator('text=Get In Touch').count() > 0;
-    console.log(contactExists ? '✅ Contact section found' : '❌ Contact section missing');
-    
-    // Test navigation link
-    console.log('Testing navigation...');
+    // Check footer navigation for Terrain Engine link
+    console.log('Testing footer navigation...');
     await page.goto('http://localhost:3000/', { waitUntil: 'networkidle' });
-    const terrainLink = await page.locator('text=Terrain Engine').count() > 0;
-    console.log(terrainLink ? '✅ Navigation link found' : '❌ Navigation link missing');
+    
+    // Scroll to bottom to find footer navigation
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(1000);
+    
+    const terrainNavLink = await page.locator('text=TERRAIN ENGINE').count() > 0;
+    console.log(terrainNavLink ? '✅ Terrain Engine navigation link found' : '❌ Terrain Engine navigation link missing');
+    
+    // Test navigation to Terrain Engine page
+    console.log('Testing navigation to /terrain-engine...');
+    await page.goto('http://localhost:3000/terrain-engine', { waitUntil: 'networkidle' });
+    const terrainPageLoads = await page.locator('text=We Don\'t Build Tools').count() > 0;
+    console.log(terrainPageLoads ? '✅ Terrain Engine page loads correctly' : '❌ Terrain Engine page failed to load');
 
   } catch (error) {
     console.log(`❌ Test failed: ${error}`);
@@ -91,7 +90,7 @@ async function testTerrainEnginePage() {
   }
   
   if (errors.length === 0) {
-    console.log('✅ All Terrain Engine tests passed!');
+    console.log('✅ All Terrain Engine integration tests passed!');
     process.exit(0);
   } else {
     console.log('❌ Some tests failed');
@@ -99,7 +98,7 @@ async function testTerrainEnginePage() {
   }
 }
 
-testTerrainEnginePage().catch((error) => {
+testTerrainEngineIntegration().catch((error) => {
   console.error('Test failed:', error);
   process.exit(1);
 });

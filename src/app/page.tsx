@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronRight, Activity, Music, Zap, Globe, Cpu, Link as LinkIcon, ArrowRight } from 'lucide-react';
+import { ChevronRight, Activity, Music, Zap, Globe, Cpu, Link as LinkIcon, ArrowRight, Mountain, Map, Shovel } from 'lucide-react';
 import Link from 'next/link';
 import { siteConfig } from '@/lib/data';
 
@@ -304,6 +304,75 @@ export default function CorePage() {
         </div>
       </section>
 
+      {/* Terrain Engine Section */}
+      <section className="py-24 bg-[#0F172A]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="font-mono text-xs mb-4 inline-block text-[#F59E0B]">
+              // NEW SYSTEM
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+              THE TERRAIN <span className="text-[#0D9488]">ENGINE</span>
+            </h2>
+            <p className="text-[#94A3B8] max-w-2xl mx-auto">
+              Cognitive infrastructure that maps complexity and bores permanent tunnels through obstacles.
+            </p>
+          </motion.div>
+
+          {/* Product Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {/* Harvester */}
+            <Link href="/terrain-engine#harvester" className="group p-6 bg-[#0a1319] border border-[#334155] border-t-4 border-t-[#0D9488] rounded-sm hover:border-[#F59E0B] hover:border-t-[#F59E0B] transition-all duration-300">
+              <h3 className="text-xl font-bold text-white group-hover:text-[#F59E0B] transition-colors mb-2">Harvester</h3>
+              <p className="text-sm text-[#64748B]">Legal case preparation AI</p>
+              <span className="text-xs text-[#0D9488] mt-4 block">Production Ready →</span>
+            </Link>
+
+            {/* SafeTravel */}
+            <Link href="/terrain-engine#safetravel" className="group p-6 bg-[#0a1319] border border-[#334155] border-t-4 border-t-[#0D9488] rounded-sm hover:border-[#F59E0B] hover:border-t-[#F59E0B] transition-all duration-300">
+              <h3 className="text-xl font-bold text-white group-hover:text-[#F59E0B] transition-colors mb-2">SafeTravel</h3>
+              <p className="text-sm text-[#64748B]">Travel risk intelligence</p>
+              <span className="text-xs text-[#0D9488] mt-4 block">Production Ready →</span>
+            </Link>
+
+            {/* WUKR Wire */}
+            <Link href="/terrain-engine#wukrwire" className="group p-6 bg-[#0a1319] border border-[#334155] border-t-4 border-t-[#0D9488] rounded-sm hover:border-[#F59E0B] hover:border-t-[#F59E0B] transition-all duration-300">
+              <h3 className="text-xl font-bold text-white group-hover:text-[#F59E0B] transition-colors mb-2">WUKR Wire</h3>
+              <p className="text-sm text-[#64748B]">Content syndication engine</p>
+              <span className="text-xs text-[#0D9488] mt-4 block">Onboarding Clients →</span>
+            </Link>
+
+            {/* Morphic Trade Axis */}
+            <Link href="/terrain-engine#morphic" className="group p-6 bg-[#0a1319] border border-[#334155] border-t-4 border-t-[#F59E0B] rounded-sm hover:border-[#0D9488] hover:border-t-[#0D9488] transition-all duration-300">
+              <h3 className="text-xl font-bold text-white group-hover:text-[#0D9488] transition-colors mb-2">Morphic Trade Axis</h3>
+              <p className="text-sm text-[#64748B]">Cross-border investment</p>
+              <span className="text-xs text-[#F59E0B] mt-4 block">In Development →</span>
+            </Link>
+          </div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <Link 
+              href="/terrain-engine"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-[#0D9488] text-white font-bold uppercase tracking-wider rounded-sm hover:bg-[#0f766e] transition-all duration-300"
+            >
+              <Globe size={20} />
+              ENTER THE TERRAIN
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Footer Navigation */}
       <section className="py-12 border-t border-[rgba(26,58,95,0.3)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -319,6 +388,9 @@ export default function CorePage() {
             </Link>
             <Link href="/palenque" className="nav-item">
               Palenque Case
+            </Link>
+            <Link href="/terrain-engine" className="nav-item nav-item-highlight">
+              TERRAIN ENGINE →
             </Link>
             <Link href="/repository" className="nav-item">
               Repository
