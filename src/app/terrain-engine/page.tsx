@@ -473,7 +473,7 @@ export default function TerrainEnginePage() {
                 {/* Image Container */}
                 <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-[#FFBF00]/60 shadow-[0_0_30px_rgba(255,191,0,0.4)]">
                   <img 
-                    src="/image.png" 
+                    src="/Gemini_Generated_Image_tfvqg5tfvqg5tfvq.jpeg" 
                     alt="Richard D. Fortune - The Architect"
                     className="w-full h-full object-cover object-center"
                   />
