@@ -14,6 +14,7 @@ const navLinks = [
   { href: '/#architecture', label: 'Architecture' },
   { href: '/#stack', label: 'Stack' },
   { href: '/terrain-engine', label: 'Terrain Engine' },
+  { href: '/live-systems', label: 'Live Systems' },
   { href: '/wukr-wire', label: 'WUKR Wire' },
   { href: '/#contact', label: 'Contact' },
 ];
@@ -84,34 +85,48 @@ export default function Navigation() {
                   className={cn(
                     'px-4 py-2 rounded-lg text-sm font-mono transition-all duration-200 relative group',
                     link.href === '/wukr-wire'
-                      ? 'wukr-wire-glow rounded-lg'
+                      ? 'wukr-wire-glow'
                       : pathname === link.href
                         ? 'text-[#0066FF] bg-[#0066FF]/10 border border-[rgba(0,102,255,0.3)]'
                         : 'text-[#64748B] hover:text-white hover:bg-[rgba(0,102,255,0.1)]'
                   )}
                   style={link.href === '/wukr-wire' ? { 
-                    background: 'linear-gradient(135deg, rgba(0,212,255,0.2) 0%, rgba(0,212,255,0.05) 50%, rgba(0,212,255,0.15) 100%)',
-                    border: '1px solid rgba(0,212,255,0.4)'
+                    background: 'linear-gradient(135deg, rgba(0,212,255,0.25) 0%, rgba(0,212,255,0.08) 50%, rgba(0,212,255,0.2) 100%)',
+                    border: '1px solid rgba(0,212,255,0.6)',
+                    boxShadow: '0 0 20px rgba(0,212,255,0.3), inset 0 0 20px rgba(0,212,255,0.05)'
                   } : {}}
                 >
                   {link.href === '/wukr-wire' && (
                     <>
-                      {/* Broadcasting Signal Dot */}
-                      <span className="absolute -top-1 -right-1 w-3 h-3 flex items-center justify-center">
-                        <span className="absolute inline-flex h-full w-full rounded-full bg-[#00D4FF] opacity-75 animate-ping"></span>
-                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00D4FF] wukr-wire-broadcast"></span>
+                      {/* Broadcasting Signal Dot - Super Prominent */}
+                      <span className="absolute -top-1.5 -right-1.5 w-4 h-4 flex items-center justify-center z-20">
+                        <span className="absolute inline-flex h-full w-full rounded-full bg-[#00D4FF] opacity-60 animate-ping" style={{ animationDuration: '1s' }}></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00D4FF]" style={{ boxShadow: '0 0 10px #00D4FF, 0 0 20px #00D4FF' }}></span>
                       </span>
-                      {/* Wave Effect */}
+                      
+                      {/* Intense Wave Effects */}
                       <span className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none">
-                        <span className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00D4FF] to-transparent opacity-50" style={{ animation: 'wave 2s ease-in-out infinite' }}></span>
-                        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00D4FF] to-transparent opacity-50" style={{ animation: 'wave 2s ease-in-out infinite 0.5s' }}></span>
+                        {/* Top wave */}
+                        <span className="absolute top-0 left-0 w-[200%] h-[2px] bg-gradient-to-r from-transparent via-[#00D4FF] to-transparent opacity-80" style={{ animation: 'wave 1.5s ease-in-out infinite' }}></span>
+                        {/* Bottom wave */}
+                        <span className="absolute bottom-0 left-0 w-[200%] h-[2px] bg-gradient-to-r from-transparent via-[#00D4FF] to-transparent opacity-80" style={{ animation: 'wave 1.5s ease-in-out infinite 0.75s' }}></span>
+                        {/* Left wave */}
+                        <span className="absolute top-0 left-0 w-[2px] h-[200%] bg-gradient-to-b from-transparent via-[#00D4FF] to-transparent opacity-80" style={{ animation: 'wave 1.5s ease-in-out infinite 0.25s' }}></span>
+                        {/* Right wave */}
+                        <span className="absolute top-0 right-0 w-[2px] h-[200%] bg-gradient-to-b from-transparent via-[#00D4FF] to-transparent opacity-80" style={{ animation: 'wave 1.5s ease-in-out infinite 1s' }}></span>
                       </span>
+                      
+                      {/* Outer pulsing glow ring */}
+                      <span className="absolute -inset-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ boxShadow: '0 0 30px rgba(0,212,255,0.4), 0 0 60px rgba(0,212,255,0.2)' }}></span>
+                      
+                      {/* Internal glow fill */}
+                      <span className="absolute inset-0 rounded-lg bg-gradient-to-br from-[#00D4FF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                     </>
                   )}
                   <span className={cn(
-                    'relative z-10 flex items-center gap-1',
+                    'relative z-10 flex items-center gap-1.5',
                     link.href === '/wukr-wire' 
-                      ? 'text-[#00D4FF] font-bold' 
+                      ? 'text-[#00D4FF] font-bold tracking-wide' 
                       : pathname === link.href
                         ? 'text-[#0066FF]'
                         : ''
@@ -119,7 +134,7 @@ export default function Navigation() {
                     {link.label}
                   </span>
                   {link.href === '/wukr-wire' && (
-                    <span className="relative z-10 ml-1.5 text-[9px] font-bold bg-[#00D4FF]/20 px-1.5 py-0.5 rounded text-[#00D4FF] uppercase tracking-wider animate-pulse">
+                    <span className="relative z-10 ml-1.5 text-[8px] font-bold bg-[#00D4FF] px-2 py-0.5 rounded text-[#080808] uppercase tracking-wider animate-pulse" style={{ boxShadow: '0 0 10px rgba(0,212,255,0.5)' }}>
                       LIVE
                     </span>
                   )}
@@ -194,30 +209,45 @@ export default function Navigation() {
                         className={cn(
                           'flex items-center justify-between px-4 py-4 rounded-xl text-lg font-mono transition-all duration-200 relative overflow-hidden',
                           link.href === '/wukr-wire'
-                            ? 'text-[#00D4FF] bg-[#00D4FF]/10 border border-[#00D4FF]/30'
+                            ? 'text-[#00D4FF] bg-[#00D4FF]/10 border border-[#00D4FF]/40'
                             : pathname === link.href
                               ? 'text-[#0066FF] bg-[#0066FF]/10 border border-[rgba(0,102,255,0.3)]'
                               : 'text-[#64748B] hover:text-white hover:bg-[rgba(0,102,255,0.1)]'
                         )}
-                        style={link.href === '/wukr-wire' ? { background: 'linear-gradient(90deg, rgba(0,212,255,0.2) 0%, rgba(0,212,255,0.05) 100%)' } : {}}
+                        style={link.href === '/wukr-wire' ? { 
+                          background: 'linear-gradient(135deg, rgba(0,212,255,0.25) 0%, rgba(0,212,255,0.05) 100%)',
+                          border: '1px solid rgba(0,212,255,0.5)',
+                          boxShadow: '0 0 15px rgba(0,212,255,0.2)'
+                        } : {}}
                       >
                         {link.href === '/wukr-wire' && (
                           <>
-                            {/* Live Indicator */}
-                            <span className="absolute top-2 right-2 flex h-2 w-2">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00D4FF] opacity-75"></span>
-                              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00D4FF]"></span>
+                            {/* Live Indicator - Enhanced */}
+                            <span className="absolute top-3 right-3 flex h-3 w-3">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00D4FF] opacity-70" style={{ animationDuration: '1s' }}></span>
+                              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00D4FF]" style={{ boxShadow: '0 0 8px #00D4FF' }}></span>
+                            </span>
+                            
+                            {/* Wave effect */}
+                            <span className="absolute inset-0 overflow-hidden rounded-xl">
+                              <span className="absolute top-0 left-0 w-[150%] h-[2px] bg-gradient-to-r from-transparent via-[#00D4FF] to-transparent opacity-60" style={{ animation: 'wave 1.5s ease-in-out infinite' }}></span>
+                              <span className="absolute bottom-0 left-0 w-[150%] h-[2px] bg-gradient-to-r from-transparent via-[#00D4FF] to-transparent opacity-60" style={{ animation: 'wave 1.5s ease-in-out infinite 0.75s' }}></span>
                             </span>
                           </>
                         )}
-                        <span className="relative z-10">
+                        <span className={cn(
+                          'relative z-10 flex items-center gap-1.5',
+                          link.href === '/wukr-wire' 
+                            ? 'text-[#00D4FF] font-bold tracking-wide' 
+                            : ''
+                        )}>
                           {link.label}
                         </span>
                         {pathname === link.href && (
                           <ChevronDown className="w-5 h-5 rotate-[-90deg] relative z-10" />
                         )}
                         {link.href === '/wukr-wire' && (
-                          <span className="relative z-10 ml-2 text-[10px] uppercase tracking-wider text-[#00D4FF]">
+                          <span className="relative z-10 ml-2 text-[9px] font-bold bg-[#00D4FF] px-2 py-0.5 rounded text-[#080808] uppercase tracking-wider animate-pulse" style={{ boxShadow: '0 0 8px rgba(0,212,255,0.5)' }}>
                             LIVE
                           </span>
                         )}
