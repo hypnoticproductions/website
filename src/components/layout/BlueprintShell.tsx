@@ -13,7 +13,9 @@ import {
   ChevronUp,
   Menu,
   X,
-  Server
+  Server,
+  Zap,
+  Wifi
 } from 'lucide-react';
 
 interface BlueprintShellProps {
@@ -25,6 +27,7 @@ interface NavItem {
   href: string;
   icon: React.ReactNode;
   description: string;
+  isSpecial?: boolean;
 }
 
 const navItems: NavItem[] = [
@@ -65,6 +68,13 @@ const navItems: NavItem[] = [
     description: 'Products & The Ask',
   },
   {
+    label: 'WUKR WIRE',
+    href: '/wukr-wire',
+    icon: <Wifi className="w-5 h-5" />,
+    description: 'Syndication Engine',
+    isSpecial: true,
+  },
+  {
     label: 'THE REPOSITORY',
     href: '/repository',
     icon: <FileText className="w-5 h-5" />,
@@ -78,6 +88,8 @@ const NavLink: React.FC<{
   isMobile?: boolean;
   onClick?: () => void;
 }> = ({ item, isActive, isMobile = false, onClick }) => {
+  const isSpecial = item.isSpecial;
+  
   return (
     <Link
       href={item.href}
@@ -91,12 +103,36 @@ const NavLink: React.FC<{
         }
         ${isActive 
           ? 'bg-primary/20 border-accent text-accent' 
-          : 'border-transparent hover:bg-primary/10 hover:text-highlight'
+          : isSpecial
+            ? 'border-[#FFBF00]/50 bg-gradient-to-r from-[#FFBF00]/10 to-transparent hover:from-[#FFBF00]/20'
+            : 'border-transparent hover:bg-primary/10 hover:text-highlight'
         }
       `}
+      style={isSpecial ? {
+        boxShadow: '0 0 20px rgba(255,191,0,0.1), inset 0 0 20px rgba(255,191,0,0.05)'
+      } : {}}
     >
+      {isSpecial && !isMobile && (
+        <>
+          {/* Broadcasting Signal Animation */}
+          <span className="absolute -top-1 -right-1 w-3 h-3 flex items-center justify-center z-20">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-[#FFBF00] opacity-60 animate-ping" style={{ animationDuration: '1s' }}></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FFBF00]" style={{ boxShadow: '0 0 10px #FFBF00, 0 0 20px #FFBF00' }}></span>
+          </span>
+          
+          {/* Wave effect borders */}
+          <span className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none">
+            <span className="absolute top-0 left-0 w-[200%] h-[1px] bg-gradient-to-r from-transparent via-[#FFBF00] to-transparent opacity-60" style={{ animation: 'wave 2s ease-in-out infinite' }}></span>
+            <span className="absolute bottom-0 left-0 w-[200%] h-[1px] bg-gradient-to-r from-transparent via-[#FFBF00] to-transparent opacity-60" style={{ animation: 'wave 2s ease-in-out infinite 1s' }}></span>
+          </span>
+          
+          {/* Pulsing glow */}
+          <span className="absolute -inset-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ boxShadow: '0 0 30px rgba(255,191,0,0.3), 0 0 60px rgba(255,191,0,0.1)' }}></span>
+        </>
+      )}
+      
       <span className={`
-        ${isActive ? 'text-accent' : 'text-text-secondary group-hover:text-highlight'}
+        ${isActive ? 'text-accent' : isSpecial ? 'text-[#FFBF00]' : 'text-text-secondary group-hover:text-highlight'}
         transition-colors duration-300
       `}>
         {item.icon}
@@ -106,7 +142,7 @@ const NavLink: React.FC<{
       `}>
         <span className={`
           font-mono font-medium block
-          ${isActive ? 'text-accent' : 'text-text-primary'}
+          ${isActive ? 'text-accent' : isSpecial ? 'text-[#FFBF00] font-bold' : 'text-text-primary'}
           group-hover:text-highlight transition-colors duration-300
         `}>
           {item.label}
@@ -126,6 +162,14 @@ const NavLink: React.FC<{
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+        />
+      )}
+      
+      {/* Special indicator for WUKR Wire */}
+      {!isMobile && isSpecial && (
+        <motion.div
+          className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#FFBF00] rounded-full"
+          style={{ boxShadow: '0 0 10px #FFBF00' }}
         />
       )}
       
