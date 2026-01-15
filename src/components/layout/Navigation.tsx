@@ -82,13 +82,47 @@ export default function Navigation() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    'px-4 py-2 rounded-lg text-sm font-mono transition-all duration-200',
-                    pathname === link.href
-                      ? 'text-[#0066FF] bg-[#0066FF]/10 border border-[rgba(0,102,255,0.3)]'
-                      : 'text-[#64748B] hover:text-white hover:bg-[rgba(0,102,255,0.1)]'
+                    'px-4 py-2 rounded-lg text-sm font-mono transition-all duration-200 relative group',
+                    link.href === '/wukr-wire'
+                      ? 'wukr-wire-glow rounded-lg'
+                      : pathname === link.href
+                        ? 'text-[#0066FF] bg-[#0066FF]/10 border border-[rgba(0,102,255,0.3)]'
+                        : 'text-[#64748B] hover:text-white hover:bg-[rgba(0,102,255,0.1)]'
                   )}
+                  style={link.href === '/wukr-wire' ? { 
+                    background: 'linear-gradient(135deg, rgba(0,212,255,0.2) 0%, rgba(0,212,255,0.05) 50%, rgba(0,212,255,0.15) 100%)',
+                    border: '1px solid rgba(0,212,255,0.4)'
+                  } : {}}
                 >
-                  {link.label}
+                  {link.href === '/wukr-wire' && (
+                    <>
+                      {/* Broadcasting Signal Dot */}
+                      <span className="absolute -top-1 -right-1 w-3 h-3 flex items-center justify-center">
+                        <span className="absolute inline-flex h-full w-full rounded-full bg-[#00D4FF] opacity-75 animate-ping"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00D4FF] wukr-wire-broadcast"></span>
+                      </span>
+                      {/* Wave Effect */}
+                      <span className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none">
+                        <span className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00D4FF] to-transparent opacity-50" style={{ animation: 'wave 2s ease-in-out infinite' }}></span>
+                        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00D4FF] to-transparent opacity-50" style={{ animation: 'wave 2s ease-in-out infinite 0.5s' }}></span>
+                      </span>
+                    </>
+                  )}
+                  <span className={cn(
+                    'relative z-10 flex items-center gap-1',
+                    link.href === '/wukr-wire' 
+                      ? 'text-[#00D4FF] font-bold' 
+                      : pathname === link.href
+                        ? 'text-[#0066FF]'
+                        : ''
+                  )}>
+                    {link.label}
+                  </span>
+                  {link.href === '/wukr-wire' && (
+                    <span className="relative z-10 ml-1.5 text-[9px] font-bold bg-[#00D4FF]/20 px-1.5 py-0.5 rounded text-[#00D4FF] uppercase tracking-wider animate-pulse">
+                      LIVE
+                    </span>
+                  )}
                 </Link>
               ))}
             </div>
@@ -158,15 +192,34 @@ export default function Navigation() {
                       <Link
                         href={link.href}
                         className={cn(
-                          'flex items-center justify-between px-4 py-4 rounded-xl text-lg font-mono transition-all duration-200',
-                          pathname === link.href
-                            ? 'text-[#0066FF] bg-[#0066FF]/10 border border-[rgba(0,102,255,0.3)]'
-                            : 'text-[#64748B] hover:text-white hover:bg-[rgba(0,102,255,0.1)]'
+                          'flex items-center justify-between px-4 py-4 rounded-xl text-lg font-mono transition-all duration-200 relative overflow-hidden',
+                          link.href === '/wukr-wire'
+                            ? 'text-[#00D4FF] bg-[#00D4FF]/10 border border-[#00D4FF]/30'
+                            : pathname === link.href
+                              ? 'text-[#0066FF] bg-[#0066FF]/10 border border-[rgba(0,102,255,0.3)]'
+                              : 'text-[#64748B] hover:text-white hover:bg-[rgba(0,102,255,0.1)]'
                         )}
+                        style={link.href === '/wukr-wire' ? { background: 'linear-gradient(90deg, rgba(0,212,255,0.2) 0%, rgba(0,212,255,0.05) 100%)' } : {}}
                       >
-                        {link.label}
+                        {link.href === '/wukr-wire' && (
+                          <>
+                            {/* Live Indicator */}
+                            <span className="absolute top-2 right-2 flex h-2 w-2">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00D4FF] opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00D4FF]"></span>
+                            </span>
+                          </>
+                        )}
+                        <span className="relative z-10">
+                          {link.label}
+                        </span>
                         {pathname === link.href && (
-                          <ChevronDown className="w-5 h-5 rotate-[-90deg]" />
+                          <ChevronDown className="w-5 h-5 rotate-[-90deg] relative z-10" />
+                        )}
+                        {link.href === '/wukr-wire' && (
+                          <span className="relative z-10 ml-2 text-[10px] uppercase tracking-wider text-[#00D4FF]">
+                            LIVE
+                          </span>
                         )}
                       </Link>
                     </motion.div>
