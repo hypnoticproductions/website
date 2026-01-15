@@ -14,6 +14,7 @@ const navLinks = [
   { href: '/#architecture', label: 'Architecture' },
   { href: '/#stack', label: 'Stack' },
   { href: '/terrain-engine', label: 'Terrain Engine' },
+  { href: '/wukr-wire', label: 'WUKR Wire' },
   { href: '/#contact', label: 'Contact' },
 ];
 

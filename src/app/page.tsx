@@ -410,7 +410,10 @@ export default function CorePage() {
               Palenque Case
             </Link>
             <Link href="/terrain-engine" className="nav-item" style={{ background: 'rgba(0,212,255,0.1)', border: '1px solid rgba(0,212,255,0.3)' }}>
-              TERRAIN ENGINE →
+              TERRAIN ENGINE
+            </Link>
+            <Link href="/wukr-wire" className="nav-item" style={{ background: 'rgba(255,191,0,0.1)', border: '1px solid rgba(255,191,0,0.3)' }}>
+              WUKR WIRE →
             </Link>
             <Link href="/repository" className="nav-item">
               Repository
