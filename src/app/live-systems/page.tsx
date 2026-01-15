@@ -16,7 +16,7 @@ import {
   Play
 } from 'lucide-react';
 import BlueprintShell from '@/components/layout/BlueprintShell';
-import { liveSystems } from '../lib/data';
+import { liveSystems } from '@/lib/data';
 
 // YouTube Video Embed Component
 const YouTubeVideo: React.FC<{ videoId: string; title?: string }> = ({ videoId, title = "System Informercial" }) => {
