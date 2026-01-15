@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Clock, MapPin, Calendar, Tag, ChevronLeft, ChevronRight, Volume2, VolumeX } from 'lucide-react';
 import Link from 'next/link';
-import { builderFeed } from '@/lib/data';
+import { builderFeed } from '../lib/data';
 
 type VideoId = string;
 

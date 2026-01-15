@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, MessageSquare, TrendingUp, Target, Eye, DollarSign, Heart, Award, ExternalLink, ArrowRight, Globe, Zap, Hash } from 'lucide-react';
 import Link from 'next/link';
-import { bigWardCase } from '@/lib/data';
+import { bigWardCase } from '../lib/data';
 
 export default function BigWardPage() {
   const [showAllComments, setShowAllComments] = useState(false);

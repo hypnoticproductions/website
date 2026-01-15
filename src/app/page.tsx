@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight, Activity, Music, Zap, Globe, Cpu, Link as LinkIcon, ArrowRight, Mountain, Map, Shovel, FileText, Shield, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
-import { siteConfig } from '@/lib/data';
+import { siteConfig } from '../lib/data';
 
 const timelineEvents = [
   {
