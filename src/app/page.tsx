@@ -76,7 +76,7 @@ export default function CorePage() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
         {/* Grid Background */}
-        <div 
+        <div
           className="absolute inset-0 opacity-10"
           style={{
             backgroundImage: `linear-gradient(rgba(0,212,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.3) 1px, transparent 1px)`,
@@ -84,6 +84,15 @@ export default function CorePage() {
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/50 via-transparent to-[#080808]" />
+
+        {/* Watermark Background Image */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <img
+            src="https://res.cloudinary.com/dd6z9fx5m/image/upload/v1768762383/Gemini_Generated_Image_6uhvm06uhvm06uhv_bpggld.jpg"
+            alt=""
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[800px] opacity-[0.03] object-cover grayscale"
+          />
+        </div>
 
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">

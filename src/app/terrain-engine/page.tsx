@@ -99,8 +99,8 @@ export default function TerrainEnginePage() {
         
         {/* Richard Fortune Watermark Image */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <img 
-            src="/Gemini_Generated_Image_tfvqg5tfvqg5tfvq.jpeg" 
+          <img
+            src="https://res.cloudinary.com/dd6z9fx5m/image/upload/v1768762383/Gemini_Generated_Image_tfvqg5tfvqg5tfvq_tzvidc.jpg"
             alt=""
             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[800px] opacity-[0.03] object-cover grayscale"
           />
@@ -472,8 +472,8 @@ export default function TerrainEnginePage() {
                 
                 {/* Image Container */}
                 <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-[#FFBF00]/60 shadow-[0_0_30px_rgba(255,191,0,0.4)]">
-                  <img 
-                    src="/Gemini_Generated_Image_tfvqg5tfvqg5tfvq.jpeg" 
+                  <img
+                    src="https://res.cloudinary.com/dd6z9fx5m/image/upload/v1768762383/Gemini_Generated_Image_tfvqg5tfvqg5tfvq_tzvidc.jpg"
                     alt="Richard D. Fortune - The Architect"
                     className="w-full h-full object-cover object-center"
                   />
