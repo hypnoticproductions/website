@@ -492,8 +492,8 @@ export default function RepositoryPage() {
                   transition={{ duration: 0.3 }}
                   className="aspect-[4/5] rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 overflow-hidden shadow-2xl"
                 >
-                  <img 
-                    src="/richard-photo-new.jpeg" 
+                  <img
+                    src="https://res.cloudinary.com/dd6z9fx5m/image/upload/v1768762383/Gemini_Generated_Image_6uhvm06uhvm06uhv_bpggld.jpg"
                     alt="Richard D. Fortune"
                     className="w-full h-full object-cover"
                   />
